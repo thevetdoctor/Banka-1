@@ -1,0 +1,130 @@
+   
+   body {
+   	font-family: Barlow, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #373a3c;
+    background-color: #EFF2F7;
+    margin: 0;
+    }
+ 
+
+.header {
+    position: fixed;
+    height: 60px;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #EEE;
+    padding: 1em 4em;
+    z-index: 30;
+    background-color: #FFF;
+    webkit-backface-visibility: hidden;
+}
+
+.container-fluid {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.header__hamburger {
+    display: none;
+}
+
+.header__logo {
+    height: 55px;
+    width: 145px;
+    left: 50px;
+    display: inline-block;
+    background-size: cover;
+    background-image: url(../img/Ceragon-small.png);
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    float: left;
+}
+
+@media only screen and (min-width: 767px) {
+.header__account {
+    float: right;
+    position: relative;
+    margin-right: 100px;
+}
+}
+
+.header__account__buttons {
+    z-index: 20;
+}
+
+.relative {
+    position: relative;
+}
+.no-margin {
+    margin: 0;
+}
+.col-xs-6 {
+    float: left;
+    width: 70%;
+}
+.account__profile {
+    display: inline-block;
+    cursor: pointer;
+    width: 85px;
+    max-width: 85px;
+}
+.navbar__icon {
+    display: block;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+.navbar__text {
+    margin-top: -5px;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 14px;
+    width: 100%;
+    max-width: 85px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.account .submenu {
+    width: 100px;
+    background: #fff;
+    margin-top: 25px;
+    box-shadow: 0 8px 13px rgba(0, 0, 0, 0.36), 0 0 0 1px rgba(0, 0, 0, 0.06);
+    position: absolute;
+    border-radius: 3px;
+   
+}
+.submenu-ul {
+    list-style: none;
+    padding: 1em 10px;
+    margin: 0;
+    cursor: pointer;
+}
+.show {
+	 display: none;
+}
+.submenu-ul li{
+	margin-top: 10px;
+}
+.submenu-ul a {
+	color: #000;
+	text-decoration: none;
+}
+@media only screen and (max-width: 767px) {
+.header__hamburger {
+    display: inline-block;
+    float: left;
+   	margin-top: 20px;
+}
+.header__account {
+	display: none;
+	}
+	
+}
