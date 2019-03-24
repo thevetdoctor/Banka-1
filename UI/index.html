@@ -21,13 +21,13 @@
 			</section>
 			<section class="header__account" id="topBarHeaderAccount">
 				<section class="account" id="account">
-
-					<section class="account_modal show" id="accountModal">
+					<!-- Register Form -->
+					<section class="register__account_modal account_modal show" id="accountModal">
 						<div class="rodal rodal-fade-enter">
 							<div class="rodal-dialog rodal-zoom-enter">
 								<section class="account__alert"></section>
 								<div class="account__close--wrapper">
-									<a class="account__close fa fa-close fa-3x">
+									<a class="register__modal account__close fa fa-close fa-3x">
 									</a>
 								</div>
 								<section class="account__lg--width">
@@ -100,6 +100,57 @@
 							</div>
 						</div>
 					</section>
+					<!--End Register Form -->
+					<!-- Login Form -->
+					<section class="login__account_modal account_modal show" id="accountModal">
+						<div class="rodal rodal-fade-enter">
+							<div class="rodal-dialog rodal-zoom-enter">
+								<section class="account__alert"></section>
+								<div class="account__close--wrapper">
+									<a class="login__modal account__close fa fa-close fa-3x">
+									</a>
+								</div>
+								<section class="account__lg--width">
+									<h1 class="account__heading">Login</h1>
+									<form class="" id="accountRegisterForm">
+										<section class="clearfix">
+											<section class="col-md-6 col-sm-6 col-xs-12">
+												<div class="float__input form-group ">
+													<label class="float__label  ">Email</label>
+													<div class="relative">
+														<input type="email" name="email" id="accountRegisterFormFirstname" class="form-control float__input" placeholder="Email">
+													</div>
+												</div>
+											</section>
+										</section>
+										<section class="clearfix">
+											<section class="col-md-6 col-sm-6 col-xs-12">
+												<div class="float__input form-group ">
+													<label class="float__label  ">Password</label>
+													<div class="relative">
+														<input type="password" name="password" id="accountRegisterFormFirstname" class="form-control float__input" placeholder="Password">
+													</div>
+												</div>
+											</section>
+										</section>
+									<section class="clearfix">
+										<section class="col-md-12 col-sm-12 col-xs-12">
+											<section class="form-group">
+												<input type="submit" id="accountRegisterFormButton" class="btn btn-account" name="login" value="Login">
+											</section>
+										</section>
+									</section>
+											<section class="account__links">
+												<section class="account__links--item">
+													Don't have an account? <a href="#">Register</a>
+												</section>
+											</section>
+										</form>
+								</section>
+							</div>
+						</div>
+					</section>
+					<!-- End Login Form -->
 
 					<section id="headerAccount" class="header__account__buttons relative">
 						<section class="row no-margin">

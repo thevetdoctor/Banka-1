@@ -25,6 +25,7 @@
     padding: 1em 4em;
     background-color: #FFF;
     webkit-backface-visibility: hidden;
+    z-index: 10;
 }
 
 .container-fluid {
@@ -354,7 +355,6 @@
     background-image: url(../img/Ceragon-small.png);
     cursor: pointer;
     position: relative;
-    z-index: 0;
 }
 
 .btn__login {
