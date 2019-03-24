@@ -9,11 +9,12 @@
 	<link type="text/css" href="css/style.css" rel="stylesheet">
 </head>
 <body>
+	<!-- Navigation Menu-->
 	<section>
 		<header class="header container-fluid  clearfix">
-			<span class="header__hamburger" id="topBarHeaderResponsiveBar">
+			<div class="header__hamburger" id="topBarHeaderResponsiveBar">
             <i class="fa fa-bars fa-2x"></i>
-			</span>
+			</div>
 			<section class="header__logo">
 				<a id="qtLogo" href="/"></a>
 			</section>
@@ -38,6 +39,66 @@
 				</section>
 			</section>
 		</header>
+	</section>
+
+	<!-- Side Navigation Menu First Level -->
+	<section class="false sidebar sidebar__fixed--vertical">
+		<nav class="sidebar__nav">
+			<div class="mobile__profile mobile-sidebar show">
+			<div class="mobile-profile">
+				<div class="mobile-setting">
+				<div class="mobile-profile-image">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png">
+				</div>
+				<div class="mobile-logout">
+					<button>Log Out</button>
+				</div>
+				</div>
+				<div class="mobile-profile-details">
+				<h3>Ugbanu James</h3>
+				<p>singlecliq@gmail.com</p>
+				</div>
+			</div>
+			 <div class="border-box">
+	 			<ul>
+	 				<li class="active"><a href="#"><span class="fa fa-dashboard fa-3x"></span>Dashboard</a></li>
+	 				<li><a href="#"><span class="fa fa-user fa-3x"></span>Account</a></li>
+	 			</ul>
+			</div>
+			</div>
+
+			<ul>
+				<li class="sidebar__list">
+					<a class="sidebar__nav__link" id="sidebar__nav__link__mobile" href="/dashboard">
+						<i class="fa fa-dashboard fa-3x"></i>
+						<span class="sidebar__label">Dashboard</span>
+					</a>
+				</li>
+				<li class="sidebar__list">
+					<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
+						<i class="fa fa-dashboard fa-3x"></i>
+						<span class="sidebar__label">Account</span>
+					</a>
+				</li>
+				<!-- <li class="sidebar__list">
+					<a class="sidebar__nav__link" id="sidebar__nav__link__dashboard" href="/dashboard">
+						<i class="fa fa-book fa-3x"></i>
+						<span class="sidebar__label"></span>
+					</a>
+				</li> -->
+			</ul>
+		</nav>
+	</section>
+	<!-- Second Level Menu -->
+	<section class="account__side__wrapper">
+			<section class="account__categories__list">
+				<a href="#" class="ps-container">
+					<span>Create an Account</span>
+				</a>
+				<a href="#" class="ps-container">
+					<span>Account Transaction History</span>
+				</a>
+			</section>
 	</section>
 	<script type="text/javascript" src="js/script.js"></script>
 </body>
