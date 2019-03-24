@@ -32,6 +32,7 @@
     margin-right: auto;
     padding-left: 15px;
     padding-right: 15px;
+
 }
 
 .header__hamburger {
@@ -56,7 +57,8 @@
 .header__account {
     float: right;
     position: relative;
-    margin-right: 100px;
+    margin-right: 20px;
+    width: 30%;
 	}
 
 }
@@ -225,6 +227,7 @@
     width: 250px;
     padding-top: 71px;
     left: 0;
+    z-index: 10;
 }
 .sidebar__nav {
     padding: 1rem 0;
@@ -323,3 +326,55 @@
 
 
 
+/** Footer **/
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background-color: white;
+    z-index: 1;
+    font-size: 1.3em;
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
+    color: #818a91;
+    padding: 0 2em;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/** Banner **/
+.home__slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-image: url(../img/Ceragon-small.png);
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+}
+
+.btn__login {
+    color: #912d35;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #912d35;
+}
+.btn__register {
+    color: #fff;
+    background-color: #912d35;
+    border: none;
+}
+
+.btn {
+    position: relative;
+    bottom: 20px;
+    padding: 0 1em;
+    line-height: 35px;
+    border-radius: 4px;
+    font-size: 0.89em;
+    font-weight: 600;
+    margin: 0 10px;
+}
