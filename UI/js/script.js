@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 	function toggleAccountOnWideScreen() {
-		const profileDiv = document.querySelector('#headerAccount')
+		const profileDiv = document.querySelector('#ProfileDropDown')
 		const registerButton = document.querySelector('#RegisterOverlay')
 		const loginButton = document.querySelector('#LoginOverlay')
 		const showMenu = document.querySelector('.header__hamburger')
