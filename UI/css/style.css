@@ -47,7 +47,7 @@
     left: 50px;
     display: inline-block;
     background-size: cover;
-    background-image: url(../img/Ceragon-small.png);
+    background-image: url(../img/broad-bank.png);
     cursor: pointer;
     position: relative;
     z-index: 0;
@@ -282,9 +282,10 @@
 /*Side Navigation Second Level*/
 .account__side__wrapper {
     background: #912d35;
-    position: absolute;
+    position: fixed;
     left: 7%;
     top: 80px;
+    height: 100%;
 }
 .account__side__wrapper a {
 	display: block;
@@ -300,7 +301,6 @@
 .account__categories__list {
   /*  padding-bottom: 130px;*/
     position: relative;
-    height: 88vh;
 }
 .ps-container {
 	padding: 20px 0;
@@ -350,12 +350,17 @@
 /** Banner **/
 .home__slider {
     position: relative;
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-image: url(../img/Ceragon-small.png);
-    cursor: pointer;
-    position: relative;
+    top: 85px;
+    height: 450px;
+  /*  background-size: cover;*/
+    background-repeat: no-repeat;
+    background-image: url(../img/broad-bank-banner.png);
+    overflow: hidden;
+}
+@media only screen and (max-width: 1500px) and (min-width: 1200px) {
+ .home__slider {
+    margin-left: 100px;
+}
 }
 
 .btn__login {
@@ -505,7 +510,7 @@
 .main {
     width: 100%;
 }
- .container__box {
+ .prof__container {
     position: absolute;
     top: 85px;
     width: 100%;
@@ -513,7 +518,7 @@
     background: #f9fafc;
 }
 @media only screen and (max-width: 1500px) and (min-width: 1200px) {
- .container__box {
+ .prof__container {
     position: absolute;
     bottom: 35px;
     left: 105px;
@@ -522,7 +527,7 @@
 }
 }
 @media only screen and (max-width: 700px) {
- .container__box {
+ .prof__container {
     height: 100%;
 
 }
@@ -645,3 +650,12 @@
     text-align: right;
     font-size: 14px;
   }
+
+  /** New Account Page **/
+   .new-account__container {
+    position: absolute;
+    top: 85px;
+    width: 100%;
+    overflow: auto;
+    background: #f9fafc;
+}
