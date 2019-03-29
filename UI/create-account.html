@@ -207,13 +207,13 @@
 			<!-- End Mobile Navigation -->
 			<ul>
 				<li class="sidebar__list">
-					<a href="dashboard.html" class="sidebar__nav__link active" id="sidebar__nav__link__mobile">
+					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
 						<i class="fa fa-dashboard fa-3x"></i>
 						<span class="sidebar__label">Dashboard</span>
 					</a>
 				</li>
 				<li class="sidebar__list">
-					<a href="account.html" class="sidebar__nav__link" id="sidebar__nav__link__account">
+					<a href="account.html" class="sidebar__nav__link active" id="sidebar__nav__link__account">
 						<i class="fa fa-user fa-3x"></i>
 						<span class="sidebar__label">Account</span>
 					</a>
@@ -222,125 +222,176 @@
 		</nav>
 	</div>
 	
-		<div class="prof__container">
+		<div class="bb__container">
 				
-				<div class="Prof_con">
-					<div class="col_six">
+				<div class="bb__con">
+					<div class="col_ten">
 						<div class="Card">
 							<div class="prof_head ">
-								<h3>Basic Info</h3>
+								<h3>Fill the form</h3>
 							</div>
-							<div class="prof_body ">
-								<div class="prof_l2c">
-									<ul class="prof_title">
-										<li>
-											<span>First Name</span>
-										</li>
-										<li>
-											<span>Last Name</span>
-										</li>
-										<li>
-											<span>Email ID</span>
-										</li>
-										<li>
-											<span>Other Names</span>
-										</li>
-									</ul>
+
+
+				
+								<div class="form__width">
+									<form class="">
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
+												<div class="form-group ">
+													<div class="relative">
+														<input type="text" name="fname" class="form-control" placeholder="First Name">
+													</div>
+												</div>
+												<div class="form-group ">
+													<div class="relative">
+														<input type="text" name="mname" class="form-control" placeholder="Other Name">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group ">
+													<div class="relative">
+														<input type="text" name="lname" class="form-control" placeholder="Last Name">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group ">
+													<div class="relative">
+														<input type="email" name="email" class="form-control" placeholder="Email">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group ">
+													<div class="relative">
+														<input type="phone" name="phone" class="form-control" placeholder="Mobile No">
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
+												<div class="form-group ">
+													<label>Marital Status:</label>
+													<div class="relative">
+														<select class="form-control">
+														<option disabled selected>Choose</option>
+														  <option>Male</option>
+														  <option>Female</option>
+														  <option>Bi-Sexual</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group ">
+													<label>Account Type:</label>
+													<div class="relative">
+														<select class="form-control">
+														<option disabled selected>Choose</option>
+														  <option>Savings</option>
+														  <option>Current</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12 quad__field">
+												<div>
+													<label>Date of Birth:</label>
+												</div>
+												<div class="form-group ">
+													<div class="relative">
+														<select class="form-control">
+														  <option disabled selected>Choose Day</option>
+														  <option>1</option>
+														  <option>2</option>
+														  <option>3</option>
+														  <option>4</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group ">
+													<div class="relative">
+														<select class="form-control">
+														  <option disabled selected>Choose Month</option>
+														  <option>January</option>
+														  <option>Feb</option>
+														  <option>March</option>
+														  <option>April</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group ">
+													<div class="relative">
+														<select class="form-control">
+														<option disabled selected>Choose Year</option>
+														  <option>2000</option>
+														  <option>2001</option>
+														  <option>2002</option>
+														  <option>2003</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12 triple__field">
+													<div>
+													<label>Home Address:</label>
+												</div>
+												<div class="form-group ">
+													<div class="relative">
+														<select class="form-control">
+														  <option disabled selected>Choose State</option>
+														  <option>Abia</option>
+														  <option>Abuja</option>
+														  <option>Lagos</option>
+														  <option>PortHarcourt</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group ">
+													<div class="relative">
+														<select class="form-control">
+														  <option disabled selected>Choose Area</option>
+														  <option>Ikotun Egbe</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="clearfix">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="form-group">
+												<textarea placeholder="Street Address" class="form-control" rows="4" cols="87"></textarea>
+											</div>
+										</div>
+										</div>
+									<div class="clearfix">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="form-group">
+												<input type="submit" class="btn btn-account" name="Submit" value="Submit">
+											</div>
+										</div>
+									</div>				
+										</form>
 								</div>
-								<div class="prof_l2c">
-									<ul>
-										<li>
-											<span>James</span>
-										</li>
-										<li>
-											<span>Ugbanu</span>
-										</li>
-										<li>
-											<span>jamesugbanu@gmail.com</span>
-										</li>
-										<li>
-											<span>Osinachi</span>
-										</li>
-									</ul>
-								</div>
-							</div>
+
 					</div>
-					<div class="Card">
-							<div class="prof_head ">
-								<h3>Personal</h3>
-							</div>
-							<div class="prof_body ">
-								<div class="prof_body ">
-								<div class="prof_l2c">
-									<ul class="prof_title">
-										<li>
-											<span>Mobile Phone</span>
-										</li>
-										<li>
-											<span>Birth Date</span>
-										</li>
-										<li>
-											<span>Home Address</span>
-										</li>
-										<li>
-											<span>Marital status</span>
-										</li>
-										<li>
-											<span>Age</span>
-										</li>
-									</ul>
-								</div>
-								<div class="prof_l2c">
-									<ul>
-										<li>
-											<span>08066428001</span>
-										</li>
-										<li>
-											<span>29-May</span>
-										</li>
-										<li>
-											<span>20 Oyedele Street, Off liasu road, Ikotun Egbe</span>
-										</li>
-										<li>
-											<span>Single</span>
-										</li>
-										<li>
-											<span>2</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-							</div>
+					
 					</div>
-					</div>
-					<div class="col_six">
-						<div class="Card">
-							<div class="prof_head ">
-								<h3>Account</h3>
-							</div>
-							<div class="prof_body ">
-								<div class="prof_l2c">
-									<ul class="prof_title">
-										<li>
-											<span>Account Name</span>
-										</li>
-										<li>
-											<span>Account Type</span>
-										</li>
-									</ul>
-								</div>
-								<div class="prof_l2c">
-									<ul>
-										<li>
-											<span>09278278902</span>
-										</li>
-										<li>
-											<span>Savings</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-					</div>
+					
 				</div>
 				
 		</div>

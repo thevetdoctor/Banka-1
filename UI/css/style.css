@@ -14,6 +14,15 @@
     padding-right: 15px;
     padding-left: 15px;
 }
+input {
+    width: 100%;
+}
+textarea {
+    width: 95%;
+}
+select {
+    width: 100%;
+}
 /** Navigation Menu **/
 
 .header {
@@ -479,7 +488,6 @@
 }
 .form-control {
     display: block;
-    width: 100%;
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
     line-height: 1.25;
@@ -510,7 +518,7 @@
 .main {
     width: 100%;
 }
- .prof__container {
+ .bb__container {
     position: absolute;
     top: 85px;
     width: 100%;
@@ -518,7 +526,7 @@
     background: #f9fafc;
 }
 @media only screen and (max-width: 1500px) and (min-width: 1200px) {
- .prof__container {
+ .bb__container {
     position: absolute;
     bottom: 35px;
     left: 105px;
@@ -527,7 +535,7 @@
 }
 }
 @media only screen and (max-width: 700px) {
- .prof__container {
+ .bb__container {
     height: 100%;
 
 }
@@ -577,7 +585,7 @@
     top: 20px;
     right: 20px;
 }
-.Prof_con {
+.bb__con {
     position: relative;
     display: inline-block;
     width: 100%;
@@ -597,7 +605,7 @@
     width: 100%;
     }
 }
-.Prof_con .Card {
+.bb__con .Card {
     margin-top: 20px;
 }
 .Card {
@@ -658,4 +666,46 @@
     width: 100%;
     overflow: auto;
     background: #f9fafc;
+}
+
+.col_ten {
+    float: left;
+    width: 85%;
+    padding: 0px 5px;
+    -webkit-transition: width .4s ease;
+    -moz-transition: width .4s ease;
+    -o-transition: width .4s ease;
+    transition: width .4s ease;
+}
+@media only screen and (max-width: 700px) {
+.col_ten {
+    width: 100%;
+    }
+}
+
+.form__width {
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 1em;
+}
+.double__field {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-column-gap: 10%;
+}
+.triple__field {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-column-gap: 2%;
+}
+.triple__field {
+    font-size: 22px;
+}
+.quad__field {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-column-gap: 1%;
+}
+.quad__field label {
+    font-size: 22px;
 }
