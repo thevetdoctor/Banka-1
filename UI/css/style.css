@@ -338,8 +338,10 @@ select {
 	padding: 20px 0;
 	text-align: center;
 }
-
-@media only screen and (max-width: 1500px) and (min-width: 1200px) {
+.sidebar__nav {
+        background-image: linear-gradient(to bottom, #BF2532 0%, #BF2532 100%);
+    }
+@media only screen and (max-width: 1500px) and (min-width: 1000px) {
 .account__side__wrapper {
     width: 260px;
 }
@@ -353,9 +355,7 @@ select {
     header {
     z-index: 99;
     }
-    .sidebar__nav {
-        background-image: linear-gradient(to bottom, #BF2532 0%, #BF2532 100%);
-    }
+    
 }
 
 
@@ -389,7 +389,7 @@ select {
     background-image: url(../img/broad-bank-banner.png);
     overflow: hidden;
 }
-@media only screen and (max-width: 1500px) and (min-width: 1200px) {
+@media only screen and (max-width: 1500px) and (min-width: 1000px) {
  .home__slider {
     margin-left: 100px;
 }
@@ -548,7 +548,7 @@ select {
     overflow: auto;
     background: #f9fafc;
 }
-@media only screen and (max-width: 1500px) and (min-width: 1200px) {
+@media only screen and (max-width: 1500px) and (min-width: 1000px) {
  .bb__container {
     position: absolute;
     bottom: 35px;
