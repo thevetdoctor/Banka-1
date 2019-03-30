@@ -647,7 +647,6 @@ select {
 }
 .prof_head {
     border: none;
-    width: 100%;
     padding: 15px 20px;
     position: relative;
     overflow: hidden;
@@ -753,6 +752,7 @@ select {
 .table td, .table th {
   border: 1px solid #ddd;
   padding: 8px;
+  word-spacing: 
 }
 
 .table tr:nth-child(even){background: #f2f2f2;}
@@ -772,12 +772,19 @@ select {
 .action__button a {
     border: none;
     padding: 8px 20px;
-    margin: 2px 0;
+    margin: 2px 5px;
     border-radius: 5px;
     cursor: pointer;
     color: #fff;
     text-decoration: none;
+    text-align: center;
 }
 .action__button a:first-child {
     background: green;
+}
+.action__button a:nth-child(2) {
+    background: red;
+}
+.action__button a:nth-child(3) {
+    background: #85B24E;
 }
