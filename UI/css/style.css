@@ -166,7 +166,7 @@ select {
     float: left;
    	margin-top: 20px;
 }
-.header__account {
+.header__account__buttons {
 	display: none;
 	}
 
@@ -175,7 +175,7 @@ select {
     top: 0;
     left: 0;
     height: 100%;
-    width: 85%;
+    width: 300px;
     background: #BF2532;
     box-sizing: border-box;
     box-shadow: 1px 1px 5px #7d6d6d;
@@ -458,10 +458,10 @@ select {
 .rodal-dialog {
     position: absolute;
     top: 10%;
-    left: 37%;
+    right: 15%;
     z-index: 101;
     padding: 15px;
-    width: 25vw;
+    width: 70%;
 }
 .account__alert {
     position: fixed;
@@ -721,18 +721,18 @@ select {
     grid-template-columns: 33% 33% 33%;
     grid-column-gap: 2%;
 }
-.triple__field {
+/*.triple__field {
     font-size: 22px;
-}
+}*/
 .quad__field {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     grid-column-gap: 1%;
 }
-.quad__field label {
+/*.quad__field label {
     font-size: 22px;
 }
-
+*/
 /** Account History **/
 
 .table__width {
@@ -752,14 +752,30 @@ select {
   padding: 8px;
 }
 
-.table tr:nth-child(even){background-color: #f2f2f2;}
+.table tr:nth-child(even){background: #f2f2f2;}
 
-.table tr:hover {background-color: #ddd;}
+.table tr:hover {background: #ddd;}
 
 .table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #85B24E;
+  background: #85B24E;
   color: white;
+}
+
+
+/** Action Buttons **/
+.action__button {
+    display: grid;
+    grid-template-columns: 27% 27% 27%;
+    grid-column-gap: 10%;
+}
+.action__button button {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.action__button button:first-child {
+    background: green;
 }

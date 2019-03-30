@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+	<title>Dashboard</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
@@ -33,6 +33,7 @@
 								<div class="account__lg--width">
 									<h1 class="account__heading">Register</h1>
 									<form class="" id="accountRegisterForm">
+										
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
@@ -155,10 +156,13 @@
 			</div>
 		</header>
 	</div>
-	<div>
+
+	<div class="main">
+
 	<!-- Side Navigation Menu First Level -->
 	<div class="false sidebar sidebar__fixed--vertical">
 		<nav class="sidebar__nav">
+			<!-- Mobile Navigation -->
 			<div class="mobile__profile mobile-sidebar show">
 			<div class="mobile-profile">
 				<div class="mobile-setting">
@@ -166,7 +170,7 @@
 				<img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png">
 				</div>
 				<div class="mobile-logout">
-					<button id="LoginOverlay">Log In</button>
+					<button>Log Out</button>
 				</div>
 				</div>
 				<div class="mobile-profile-details">
@@ -181,7 +185,7 @@
 	 			</ul>
 			</div>
 			</div>
-
+			<!-- End Mobile Navigation -->
 			<ul>
 				<li class="sidebar__list">
 					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
@@ -190,7 +194,7 @@
 					</a>
 				</li>
 				<li class="sidebar__list">
-					<a href="account.html" class="sidebar__nav__link" id="sidebar__nav__link__account">
+					<a href="account.html" class="sidebar__nav__link active" id="sidebar__nav__link__account">
 						<i class="fa fa-user fa-3x"></i>
 						<span class="sidebar__label">Account</span>
 					</a>
@@ -198,8 +202,57 @@
 			</ul>
 		</nav>
 	</div>
-	<div class="home__slider">
-	</div>
+	
+		<div class="bb__container">
+				
+				<div class="bb__con">
+							<div class="prof_head ">
+								<h3>All Users Account</h3>
+							</div>
+				
+							<div class="table__width">
+								<table class="table">
+									  <tr>
+									    <th>ID</th>
+									    <th>First Name</th>
+									    <th>Last Name</th>
+									    <th>Account Number</th>
+									    <th>Account Type</th>
+									    <th>Balance</th>
+									    <th>Action</th>
+									  </tr>
+									  <tr>
+									    <td>1</td>
+									    <td>James</td>
+									    <td>Ugbanu</td>
+									    <td>1206782388</td>
+									    <td>Current</td>
+									    <td>#16,000</td>
+									    <td class="action__button">
+									    	<button>X</button>
+									    	<button>X</button>
+									    	<button>X</button>
+									    </td>
+									  </tr>
+									  <tr>
+									    <td>2</td>
+									    <td>Tunde</td>
+									    <td>Chukwudi</td>
+									     <td>1206749308</td>
+									    <td>Savings</td>
+									    <td>#25,000</td>
+									    <td class="action__button">
+									    	<button>X</button>
+									    	<button>X</button>
+									    	<button>X</button>
+									    </td>
+									  </tr>
+									</table>
+
+							</div>
+						</div>
+		</div>
+
 	<!-- Footer -->
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
