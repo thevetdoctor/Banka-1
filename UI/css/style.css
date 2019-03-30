@@ -24,6 +24,8 @@ select {
     width: 100%;
 }
 
+@media only screen and (max-width: 700px) {
+
 ::-webkit-scrollbar {
     -webkit-appearance: none;
 }
@@ -45,6 +47,7 @@ select {
 ::-webkit-scrollbar-track {
     border-radius: 10px;  
     background-color: #ffffff; 
+}
 }
 /** Navigation Menu **/
 
@@ -552,7 +555,7 @@ select {
  .bb__container {
     position: absolute;
     bottom: 35px;
-    left: 105px;
+    /*left: 105px;*/
     right: 0;
     width: 92%;
 }
@@ -766,16 +769,15 @@ select {
 
 
 /** Action Buttons **/
-.action__button {
-    display: grid;
-    grid-template-columns: 27% 27% 27%;
-    grid-column-gap: 10%;
-}
-.action__button button {
+.action__button a {
     border: none;
+    padding: 8px 20px;
+    margin: 2px 0;
     border-radius: 5px;
     cursor: pointer;
+    color: #fff;
+    text-decoration: none;
 }
-.action__button button:first-child {
+.action__button a:first-child {
     background: green;
 }
