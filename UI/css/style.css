@@ -752,14 +752,30 @@ select {
   padding: 8px;
 }
 
-.table tr:nth-child(even){background-color: #f2f2f2;}
+.table tr:nth-child(even){background: #f2f2f2;}
 
-.table tr:hover {background-color: #ddd;}
+.table tr:hover {background: #ddd;}
 
 .table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #85B24E;
+  background: #85B24E;
   color: white;
+}
+
+
+/** Action Buttons **/
+.action__button {
+    display: grid;
+    grid-template-columns: 27% 27% 27%;
+    grid-column-gap: 10%;
+}
+.action__button button {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.action__button button:first-child {
+    background: green;
 }
