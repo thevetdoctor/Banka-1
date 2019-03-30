@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+	<title>Dashboard</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
@@ -156,10 +156,13 @@
 			</div>
 		</header>
 	</div>
-	<div>
+
+	<div class="main">
+
 	<!-- Side Navigation Menu First Level -->
 	<div class="false sidebar sidebar__fixed--vertical">
 		<nav class="sidebar__nav">
+			<!-- Mobile Navigation -->
 			<div class="mobile__profile mobile-sidebar show">
 			<div class="mobile-profile">
 				<div class="mobile-setting">
@@ -182,7 +185,7 @@
 	 			</ul>
 			</div>
 			</div>
-
+			<!-- End Mobile Navigation -->
 			<ul>
 				<li class="sidebar__list">
 					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
@@ -199,25 +202,62 @@
 			</ul>
 		</nav>
 	</div>
-	<!-- Second Level Menu -->
-	<div class="account__side__wrapper">
-			<div class="account__categories__list">
-				<a href="create-account.html" class="ps-container">
-					<span>Create an Account</span>
-				</a>
-				<a href="account-history.html" class="ps-container">
-					<span>Account Transaction History</span>
-				</a>
-				<a href="users-account.html" class="ps-container">
-					<span>View All Accounts</span>
-				</a>
-				<a href="debit.html" class="ps-container">
-					<span>Debit User</span>
-				</a>
-			</div>
-	</div>
-	<div class="new-account__container">
-	</div>
+	
+		<div class="bb__container">	
+				<div class="bb__con">
+					<div class="col_ten">
+						<div class="Card">
+							<div class="prof_head ">
+								<h3>Debit Account</h3>
+							</div>
+								<div class="form__width">
+									<form class="">
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group ">
+													<div class="relative">
+														<input type="number" name="anumber" class="form-control" placeholder="Account Number">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
+												<div class="form-group ">
+													<label>Type</label>
+													<div class="relative">
+														<select class="form-control">
+														  <option disabled selected>Debit</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group ">
+													<label>Enter Amount</label>
+													<div class="relative">
+														<input type="number" name="amount" class="form-control" placeholder="Amount">
+													</div>
+												</div>
+											</div>
+										</div>
+				
+									<div class="clearfix">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="form-group">
+												<input type="submit" class="btn btn-account" name="Submit" value="Debit">
+											</div>
+										</div>
+									</div>				
+										</form>
+								</div>
+
+					</div>
+					
+					</div>
+					
+				</div>
+				
+		</div>
+
 	<!-- Footer -->
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
