@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		})
 		loginButton.addEventListener('click', () => {
-		
+			console.log('hi')
 			if(loginOverlay.classList.contains("show")) {
 				loginOverlay.classList.remove("show")
 
