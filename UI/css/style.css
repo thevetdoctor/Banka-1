@@ -781,3 +781,6 @@ select {
 .action__button a:first-child {
     background: green;
 }
+.action__button a:nth-child(2) {
+    background: red;
+}
