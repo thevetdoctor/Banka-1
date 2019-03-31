@@ -14,7 +14,7 @@
     padding-right: 15px;
     padding-left: 15px;
 }
-input[type=text], input[type=email], input[type=number] {
+input[type=text], input[type=email], input[type=number], input[type=password] {
     width: 100%;
 }
 textarea {
