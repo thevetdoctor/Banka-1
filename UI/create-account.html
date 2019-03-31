@@ -291,21 +291,16 @@
 												<div class="form-group ">
 													<label>State</label>
 													<div class="relative">
-														<select class="form-control">
-														  <option disabled selected>Choose State</option>
-														  <option>Abia</option>
-														  <option>Abuja</option>
-														  <option>Lagos</option>
-														  <option>PortHarcourt</option>
+														<select id="stateSel" class="form-control">
+														  <option disabled selected>--Select State --</option>
 														</select>
 													</div>
 												</div>
-												<div class="form-group ">
+												<div class="form-group BB__lga">
 													<label>LGA</label>
 													<div class="relative">
-														<select class="form-control">
-														  <option disabled selected>Choose Area</option>
-														  <option>Ikotun Egbe</option>
+														<select id="lgaSel" class="form-control">
+														  <option disabled selected>-- Select LGA --</option>
 														</select>
 													</div>
 												</div>
@@ -344,6 +339,7 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/state.js"></script>
 	<script>
 		  $( function() {
 		    $( "#datepicker" ).datepicker();
