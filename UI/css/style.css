@@ -723,9 +723,6 @@ select {
     grid-template-columns: 33% 33% 33%;
     grid-column-gap: 2%;
 }
-/*.triple__field {
-    font-size: 22px;
-}*/
 .quad__field {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
