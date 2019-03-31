@@ -21,7 +21,7 @@ textarea {
     width: 95%;
 }
 select {
-    width: 100%;
+    width: 114%;
 }
 
 @media only screen and (max-width: 700px) {
@@ -540,6 +540,12 @@ select {
     margin-top: 1.2rem;
     margin-left: 0;
 }
+@media only screen and (max-width: 700px) {
+ .btn-account {
+    width: 114% !important;
+
+}
+}
 /** Account Profile **/
 .main {
     width: 100%;
@@ -713,6 +719,8 @@ select {
     margin: 0 auto;
     padding: 1em;
 }
+
+@media only screen and (min-width: 700px) {
 .double__field {
     display: grid;
     grid-template-columns: 45% 45%;
@@ -728,10 +736,8 @@ select {
     grid-template-columns: 25% 25% 25% 25%;
     grid-column-gap: 1%;
 }
-/*.quad__field label {
-    font-size: 22px;
 }
-*/
+
 /** Account History **/
 
 .table__width {
