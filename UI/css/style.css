@@ -14,7 +14,7 @@
     padding-right: 15px;
     padding-left: 15px;
 }
-input {
+input[type=text], input[type=email] {
     width: 100%;
 }
 textarea {
@@ -101,6 +101,7 @@ select {
 
 .header__account__buttons {
     z-index: 20;
+    min-width: 500px;
 }
 
 .relative {
