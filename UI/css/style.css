@@ -14,14 +14,14 @@
     padding-right: 15px;
     padding-left: 15px;
 }
-input {
+input[type=text], input[type=email], input[type=number], input[type=password] {
     width: 100%;
 }
 textarea {
     width: 95%;
 }
 select {
-    width: 100%;
+    width: 114%;
 }
 
 @media only screen and (max-width: 700px) {
@@ -101,6 +101,7 @@ select {
 
 .header__account__buttons {
     z-index: 20;
+    min-width: 500px;
 }
 
 .relative {
@@ -163,13 +164,13 @@ select {
 	color: #000;
 	text-decoration: none;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 700px) {
 .header__hamburger {
     display: inline-block;
     float: left;
    	margin-top: 20px;
 }
-.header__account__buttons {
+.header__tt__buttons {
 	display: none;
 	}
 
@@ -334,7 +335,7 @@ select {
 }
 
 .account__categories__list {
-  /*  padding-bottom: 130px;*/
+    padding-bottom: 130px;
     position: relative;
 }
 .ps-container {
@@ -346,7 +347,9 @@ select {
     }
 @media only screen and (max-width: 1500px) and (min-width: 1000px) {
 .account__side__wrapper {
-    width: 260px;
+    min-width: 260px;
+    z-index: 1;
+    overflow: scroll;
 }
 .col-md-12 {
     float: left;
@@ -371,7 +374,7 @@ select {
     height: 30px;
     line-height: 30px;
     background-color: white;
-    z-index: 1;
+    z-index: 2;
     font-size: 1.3em;
     box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
     color: #818a91;
@@ -539,6 +542,12 @@ select {
     width: 100%;
     margin-top: 1.2rem;
     margin-left: 0;
+}
+@media only screen and (max-width: 700px) {
+ .btn-account {
+    width: 114% !important;
+
+}
 }
 /** Account Profile **/
 .main {
@@ -713,6 +722,8 @@ select {
     margin: 0 auto;
     padding: 1em;
 }
+
+@media only screen and (min-width: 700px) {
 .double__field {
     display: grid;
     grid-template-columns: 45% 45%;
@@ -723,18 +734,13 @@ select {
     grid-template-columns: 33% 33% 33%;
     grid-column-gap: 2%;
 }
-/*.triple__field {
-    font-size: 22px;
-}*/
 .quad__field {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     grid-column-gap: 1%;
 }
-/*.quad__field label {
-    font-size: 22px;
 }
-*/
+
 /** Account History **/
 
 .table__width {

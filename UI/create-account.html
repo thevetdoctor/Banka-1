@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link type="text/css" href="css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -193,14 +194,38 @@
 						<span class="sidebar__label">Dashboard</span>
 					</a>
 				</li>
-				<li class="sidebar__list">
-					<a href="account.html" class="sidebar__nav__link active" id="sidebar__nav__link__account">
+				<li class="sidebar__list" id="account__btn">
+					<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
 						<i class="fa fa-user fa-3x"></i>
 						<span class="sidebar__label">Account</span>
 					</a>
 				</li>
 			</ul>
 		</nav>
+	</div>
+
+	<!-- Second Level Menu -->
+	<div class="account__side__wrapper show">
+			<div class="account__categories__list">
+				<a href="create-account.html" class="ps-container">
+					<span>Create an Account</span>
+				</a>
+				<a href="account-history.html" class="ps-container">
+					<span>Account Transaction History</span>
+				</a>
+				<a href="users-account.html" class="ps-container">
+					<span>View All Accounts</span>
+				</a>
+				<a href="debit.html" class="ps-container">
+					<span>Debit User</span>
+				</a>
+				<a href="credit.html" class="ps-container">
+					<span>Credit User</span>
+				</a>
+				<a href="add-user.html" class="ps-container">
+					<span>Add User</span>
+				</a>
+			</div>
 	</div>
 	
 		<div class="bb__container">	
@@ -245,10 +270,15 @@
 											</div>
 										</div>
 										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
 												<div class="form-group ">
 													<div class="relative">
 														<input type="phone" name="phone" class="form-control" placeholder="Mobile No">
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="relative">
+														<input class="form-control" id="datepicker" type="text" placeholder="choose your D.O.B">
 													</div>
 												</div>
 											</div>
@@ -277,70 +307,24 @@
 														</select>
 													</div>
 												</div>
+												
 											</div>
-										</div>
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12 triple__field">
-												<div class="form-group ">
-													<label>Date</label>
-													<div class="relative">
-														<select class="form-control">
-														  <option disabled selected>Choose Day</option>
-														  <option>1</option>
-														  <option>2</option>
-														  <option>3</option>
-														  <option>4</option>
-														</select>
-													</div>
-												</div>
-												<div class="form-group ">
-													<label>Month</label>
-													<div class="relative">
-														<select class="form-control">
-														  <option disabled selected>Choose Month</option>
-														  <option>January</option>
-														  <option>Feb</option>
-														  <option>March</option>
-														  <option>April</option>
-														</select>
-													</div>
-												</div>
-												<div class="form-group ">
-													<label>Year</label>
-													<div class="relative">
-														<select class="form-control">
-														<option disabled selected>Choose Year</option>
-														  <option>2000</option>
-														  <option>2001</option>
-														  <option>2002</option>
-														  <option>2003</option>
-														</select>
-													</div>
-												</div>
 											</div>
-										</div>
-
-
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
 												<div class="form-group ">
 													<label>State</label>
 													<div class="relative">
-														<select class="form-control">
-														  <option disabled selected>Choose State</option>
-														  <option>Abia</option>
-														  <option>Abuja</option>
-														  <option>Lagos</option>
-														  <option>PortHarcourt</option>
+														<select id="stateSel" class="form-control">
+														  <option disabled selected>--Select State --</option>
 														</select>
 													</div>
 												</div>
-												<div class="form-group ">
+												<div class="form-group BB__lga">
 													<label>LGA</label>
 													<div class="relative">
-														<select class="form-control">
-														  <option disabled selected>Choose Area</option>
-														  <option>Ikotun Egbe</option>
+														<select id="lgaSel" class="form-control">
+														  <option disabled selected>-- Select LGA --</option>
 														</select>
 													</div>
 												</div>
@@ -376,6 +360,14 @@
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
 </div>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/state.js"></script>
+	<script>
+		  $( function() {
+		    $( "#datepicker" ).datepicker();
+		  } );
+  </script>
 </body>
 </html>

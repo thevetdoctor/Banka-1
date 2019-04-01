@@ -1,6 +1,23 @@
+const accountInfo = [
+		{
+			"id": 1,
+			"account_name": "James Joseph",
+			"account_number": "1234567890"
+		},
+		{
+			"id": 2,
+			"account_name": "Tunde Chukwuma",
+			"account_number": "1234567891"
+		},
+		{
+			"id": 3,
+			"account_name": "Chioma Musa",
+			"account_number": "1234567892"
+		}
+		]
+
 document.addEventListener('DOMContentLoaded', () => {
-	function toggleAccountOnWideScreen() {
-		const profileDiv = document.querySelector('#ProfileDropDown')
+	const profileDiv = document.querySelector('#ProfileDropDown')
 		const registerButton = document.querySelector('#RegisterOverlay')
 		const loginButton = document.querySelector('#LoginOverlay')
 		const showMenu = document.querySelector('.header__hamburger')
@@ -11,8 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		const sidebar2 = document.querySelector('.sidebar__fixed--vertical')
 		const registerOverlay = document.querySelector('.register__account_modal')
 		const loginOverlay = document.querySelector('.login__account_modal')
+		const accountButton = document.querySelector('#account__btn')
+		const secondNav = document.querySelector('.account__side__wrapper')
 
-
+	function toggleAccountOnWideScreen() {
 		profileDiv.addEventListener('click', () => {
 			if(toggle.classList.contains("show")) {
 				toggle.classList.remove("show")
@@ -23,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
 
 		showMenu.addEventListener('click', () => {
-		
 			if(sidebar.classList.contains("show")) {
 				sidebar2.classList.remove("false")
 				sidebar.classList.remove("show")	
@@ -54,9 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			if(!registerOverlay.classList.contains("show")) {
 				registerOverlay.classList.add("show")
 			}
-
-
+		})
+		accountButton.addEventListener('click', () => {
+			if(secondNav.classList.contains("show")) {
+				secondNav.classList.remove("show")
+			} else {
+				secondNav.classList.add("show")
+			}
 		})
 	}
+
+	 
 	toggleAccountOnWideScreen()
 })
