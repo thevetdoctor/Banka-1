@@ -325,7 +325,7 @@ select {
 .account__side__wrapper {
     background: #912d35;
     position: fixed;
-    left: 7%;
+    left: 105px;
     top: 80px;
     height: 100%;
 }
@@ -351,7 +351,7 @@ select {
 .sidebar__nav {
         background-image: linear-gradient(to bottom, #BF2532 0%, #BF2532 100%);
     }
-@media only screen and (max-width: 1500px) and (min-width: 1000px) {
+@media only screen and (min-width: 1000px) {
 .account__side__wrapper {
     min-width: 260px;
     z-index: 1;
