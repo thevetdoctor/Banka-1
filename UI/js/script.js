@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		const sidebar2 = document.querySelector('.sidebar__fixed--vertical')
 		const registerOverlay = document.querySelector('.register__account_modal')
 		const loginOverlay = document.querySelector('.login__account_modal')
+		const accountButton = document.querySelector('#account__btn')
+		const secondNav = document.querySelector('.account__side__wrapper')
 
 	function toggleAccountOnWideScreen() {
 		profileDiv.addEventListener('click', () => {
@@ -40,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
 
 		showMenu.addEventListener('click', () => {
-		
 			if(sidebar.classList.contains("show")) {
 				sidebar2.classList.remove("false")
 				sidebar.classList.remove("show")	
@@ -71,8 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			if(!registerOverlay.classList.contains("show")) {
 				registerOverlay.classList.add("show")
 			}
-
-
+		})
+		accountButton.addEventListener('click', () => {
+			if(secondNav.classList.contains("show")) {
+				secondNav.classList.remove("show")
+			} else {
+				secondNav.classList.add("show")
+			}
 		})
 	}
 
