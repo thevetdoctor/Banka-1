@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Dashboard</title>
+	<title>Home</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link type="text/css" href="css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -68,7 +67,7 @@
 									<div class="clearfix">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
-												<input type="submit" class="btn btn-account" name="Register" value="Register">
+												<input type="submit" id="accountRegisterFormButton" class="btn btn-account" name="Register" value="Register">
 											</div>
 										</div>
 									</div>
@@ -118,7 +117,7 @@
 									<div class="clearfix">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
-												<input type="submit" class="btn btn-account" name="login" value="Login">
+												<input type="submit" id="accountRegisterFormButton" class="btn btn-account" name="login" value="Login">
 											</div>
 										</div>
 									</div>
@@ -157,13 +156,10 @@
 			</div>
 		</header>
 	</div>
-
-	<div class="main">
-
+	<div>
 	<!-- Side Navigation Menu First Level -->
 	<div class="false sidebar sidebar__fixed--vertical">
 		<nav class="sidebar__nav">
-			<!-- Mobile Navigation -->
 			<div class="mobile__profile mobile-sidebar show">
 			<div class="mobile-profile">
 				<div class="mobile-setting">
@@ -186,7 +182,7 @@
 	 			</ul>
 			</div>
 			</div>
-			<!-- End Mobile Navigation -->
+
 			<ul>
 				<li class="sidebar__list">
 					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
@@ -194,7 +190,7 @@
 						<span class="sidebar__label">Dashboard</span>
 					</a>
 				</li>
-				<li class="sidebar__list" id="account__btn">
+				<li class="sidebar__list">
 					<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
 						<i class="fa fa-user fa-3x"></i>
 						<span class="sidebar__label">Account</span>
@@ -203,7 +199,6 @@
 			</ul>
 		</nav>
 	</div>
-
 	<!-- Second Level Menu -->
 	<div class="account__side__wrapper show">
 			<div class="account__categories__list">
@@ -227,194 +222,12 @@
 				</a>
 			</div>
 	</div>
-	
-		<div class="bb__container">	
-				<div class="bb__con">
-					<div class="col_ten">
-						<div class="Card">
-							<div class="prof_head ">
-								<h3>Fill the form</h3>
-							</div>
-								<div class="form__width">
-									<form class="create-account" action="#">
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
-												<div class="form-group ">
-													<div class="relative">
-														<input type="text" name="fname" class="form-control" placeholder="First Name" data-validate-field="fname" >
-													</div>
-												</div>
-												<div class="form-group ">
-													<div class="relative">
-														<input type="text" name="mname" class="form-control" placeholder="Other Name">
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="form-group ">
-													<div class="relative">
-														<input type="text" name="lname" class="form-control" placeholder="Last Name" data-validate-field="lname" >
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="form-group ">
-													<div class="relative">
-														<input type="email" name="email" class="form-control" placeholder="Email" data-validate-field="email" >
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
-												<div class="form-group ">
-													<label>Phone Number</label>
-													<div class="relative">
-														<input type="phone" name="phone" class="form-control" placeholder="Ex: 8066428001" data-validate-field="phone" >
-													</div>
-												</div>
-												<div class="form-group">
-													<label>Choose Date of Birth</label>
-													<div class="relative">
-														<input class="form-control" id="datepicker" type="text" placeholder="Ex: 29/01/1995" data-validate-field="dob" >
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
-												<div class="form-group ">
-													<label>Marital Status:</label>
-													<div class="relative">
-														<select data-validate-field="maritalstatus" class="form-control" required>
-														<option disabled selected></option>
-														  <option value="m">Male</option>
-														  <option value="f">Female</option>
-														  <option value="bi">Bi-Sexual</option>
-														</select>
-													</div>
-												</div>
-												<div class="form-group ">
-													<label>Account Type:</label>
-													<div class="relative">
-														<select data-validate-field="accounttype" class="form-control">
-														<option disabled selected></option>
-														  <option>Savings</option>
-														  <option>Current</option>
-														</select>
-													</div>
-												</div>
-												
-											</div>
-											</div>
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
-												<div class="form-group ">
-													<label>Select State</label>
-													<div class="relative">
-														<select data-validate-field="state" id="stateSel" class="form-control">
-														  <option disabled selected></option>
-														</select>
-													</div>
-												</div>
-												<div class="form-group BB__lga">
-													<label>Select LGA</label>
-													<div class="relative">
-														<select data-validate-field="lga" id="lgaSel" class="form-control">
-														  <option disabled selected></option>
-														</select>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="clearfix">
-										<div class="col-md-12 col-sm-12 col-xs-12">
-											<div class="form-group">
-												<textarea data-validate-field="address"  placeholder="Street Address" class="form-control" rows="4" cols="87"></textarea>
-											</div>
-										</div>
-										</div>
-									<div class="clearfix">
-										<div class="col-md-12 col-sm-12 col-xs-12">
-											<div class="form-group">
-												<input type="submit" class="btn btn-account" name="Submit" value="Submit">
-											</div>
-										</div>
-									</div>				
-										</form>
-								</div>
-
-					</div>
-					
-					</div>
-					
-				</div>
-				
-		</div>
-
+	<div class="new-account__container">
+	</div>
 	<!-- Footer -->
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
 </div>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
-	<script src="js/just-validate.min.js"></script>
-	<script type="text/javascript" src="js/state.js"></script>
-	<script>
-	new window.JustValidate('.create-account', {
-						    rules: {
-						      fname: {
-						          required: true,
-						          minLength: 3,
-          						  maxLength: 15
-						      },
-						      lname: {
-						          required: true,
-						          minLength: 3,
-          						  maxLength: 15
-						      },
-						      email: {
-						      	required: true,
-						      	  email: true
-						      },
-						      phone: {
-						      	required: true,
-						      	phone: true
-						      },
-						      dob: {
-						      	required: true
-						      },
-						      address: {
-						      	required: true
-						      },
-						      maritalstatus: {
-						      	required: true
-						      },
-						      accounttype: {
-						      	required: true
-						      },
-						      state: {
-						      	required: true
-						      },
-						      lga: {
-						      	required: true
-						      }
-						  },
-						  messages: {
-						  	minLength: 'The field must contain a minimum of :value characters',
-						  	maxLength: 'The field must contain a maximum of :value characters'
-						  }
-						});
-		  $( function() {
-		    $( "#datepicker" ).datepicker();
-		  } );
-  </script>
 </body>
 </html>

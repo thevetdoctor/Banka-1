@@ -233,12 +233,13 @@
 								<h3>Credit Account</h3>
 							</div>
 								<div class="form__width">
-									<form class="">
+									<form class="js-form form" action="#">
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="number" name="anumber" class="form-control" placeholder="Account Number">
+														<input type="text" name="accnumber" class="form-control" list="account_list" data-validate-field="accnumber" placeholder="Account Number">
+														 <datalist id="account_list"></datalist>
 													</div>
 												</div>
 											</div>
@@ -256,7 +257,7 @@
 												<div class="form-group ">
 													<label>Enter Amount</label>
 													<div class="relative">
-														<input type="number" name="amount" class="form-control" placeholder="Amount">
+														<input type="number" name="amount" class="form-control" placeholder="Amount" data-validate-field="amount" >
 													</div>
 												</div>
 											</div>
@@ -284,6 +285,59 @@
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
 </div>
+	<script src="js/just-validate.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+	<script>
+			new window.JustValidate('.js-form', {
+						    rules: {
+						      accnumber: {
+						          required: true
+						      },
+						      amount: {
+						          required: true
+						      }
+						  }
+						});
+
+	document.addEventListener('DOMContentLoaded', () => {
+
+			const account_input = document.querySelector('#account_input')
+
+    // Autocomplete for form
+	function filterSearch(event) {
+
+    // retireve the input element
+    let input = event.target;
+
+    // retrieve the datalist element
+    let account_list = document.querySelector('#account_list');
+
+    // minimum number of characters before we start to generate suggestions
+    const min_characters = 8;
+
+    if (input.value.length < min_characters ) { 
+        return;
+    } else { 
+
+    	 // clear any previously loaded options in the datalist
+                account_list.innerHTML = ""
+
+    	accountInfo.forEach(account => {
+    					if(account.account_number.includes(input.value)) {
+    						 // Create a new <option> element.
+			                    const option = document.createElement('option')
+			                    option.value = account.account_number + " - "+account.account_name
+								// attach the option to the datalist element
+			                    account_list.appendChild(option);
+    					}			
+					 
+				})
+       
+    }
+}
+
+	account_input.addEventListener("keyup", function(event){filterSearch(event)})
+		})
+	</script>
 </body>
 </html>

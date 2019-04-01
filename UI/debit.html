@@ -233,12 +233,12 @@
 								<h3>Debit Account</h3>
 							</div>
 								<div class="form__width">
-									<form class="">
+									<form class="js-form form" action="#">
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="text" name="anumber" id="account_input" class="form-control" list="account_list" placeholder="Account Number">
+														<input type="text" data-validate-field="accnumber" name="accnumber" id="account_input" class="form-control" list="account_list" placeholder="Account Number">
 														 <datalist id="account_list"></datalist>
 													</div>
 												</div>
@@ -257,7 +257,7 @@
 												<div class="form-group ">
 													<label>Enter Amount</label>
 													<div class="relative">
-														<input type="number" name="amount" class="form-control" placeholder="Amount">
+														<input type="number" data-validate-field="amount" name="amount" class="form-control" placeholder="Amount">
 													</div>
 												</div>
 											</div>
@@ -266,7 +266,7 @@
 									<div class="clearfix">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
-												<input type="submit" class="btn btn-account" name="Submit" value="Debit">
+												<input type="submit" class="btn btn-account" name="debit" value="Debit">
 											</div>
 										</div>
 									</div>				
@@ -285,8 +285,20 @@
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
 </div>
+	<script src="js/just-validate.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script>
+			new window.JustValidate('.js-form', {
+						    rules: {
+						      accnumber: {
+						          required: true
+						      },
+						      amount: {
+						          required: true
+						      }
+						  }
+						});
+
 	document.addEventListener('DOMContentLoaded', () => {
 
 			const account_input = document.querySelector('#account_input')

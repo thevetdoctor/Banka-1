@@ -233,12 +233,12 @@
 								<h3>Fill the form</h3>
 							</div>
 								<div class="form__width">
-									<form class="">
+									<form class="add-user" action="#">
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="text" name="fname" class="form-control" placeholder="First Name">
+														<input type="text" data-validate-field="fname" name="fname" class="form-control" placeholder="First Name">
 													</div>
 												</div>
 												<div class="form-group ">
@@ -252,7 +252,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="text" name="lname" class="form-control" placeholder="Last Name">
+														<input type="text" data-validate-field="lname" name="lname" class="form-control" placeholder="Last Name">
 													</div>
 												</div>
 											</div>
@@ -261,7 +261,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="email" name="email" class="form-control" placeholder="Email">
+														<input type="email" data-validate-field="email" name="email" class="form-control" placeholder="Email">
 													</div>
 												</div>
 											</div>
@@ -297,6 +297,30 @@
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
 </div>
+	<script src="js/just-validate.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+	<script>
+			new window.JustValidate('.add-user', {
+						    rules: {
+						      fname: {
+						          required: true,
+						          minLength: 3,
+          						  maxLength: 15
+						      },
+						      lname: {
+						          required: true,
+						          minLength: 3,
+          						  maxLength: 15
+						      },
+						      email: {
+						      	  required: true
+						      }
+						  },
+						  messages: {
+						  	minLength: 'The field must contain a minimum of :value characters',
+						  	maxLength: 'The field must contain a maximum of :value characters'
+						  }
+						});
+	</script>
 </body>
 </html>
