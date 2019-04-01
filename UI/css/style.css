@@ -396,7 +396,7 @@ select {
     position: relative;
     top: 85px;
     height: 450px;
-  /*  background-size: cover;*/
+    background-size: contain;
     background-repeat: no-repeat;
     background-image: url(../img/broad-bank-banner.png);
     overflow: hidden;
