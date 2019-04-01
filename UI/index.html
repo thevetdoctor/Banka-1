@@ -32,13 +32,13 @@
 								</div>
 								<div class="account__lg--width">
 									<h1 class="account__heading">Register</h1>
-									<form class="" id="accountRegisterForm">
+									<form class="reg-form form" id="accountRegisterForm">
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
 													<label class="float__label  ">Email</label>
 													<div class="relative">
-														<input type="email" name="email" id="accountRegisterFormFirstname" class="form-control float__input" placeholder="Email">
+														<input type="email" name="email" id="accountRegisterFormFirstname" class="form-control float__input" data-validate-field="email" placeholder="Email">
 													</div>
 												</div>
 											</div>
@@ -48,7 +48,7 @@
 												<div class="float__input form-group ">
 													<label class="float__label  ">Password</label>
 													<div class="relative">
-														<input type="password" name="password" id="accountRegisterFormFirstname" class="form-control float__input" placeholder="Password">
+														<input type="password" name="password" id="accountRegisterFormFirstname" class="form-control float__input" data-validate-field="password" placeholder="Password">
 													</div>
 												</div>
 											</div>
@@ -58,7 +58,7 @@
 												<div class="float__input form-group ">
 													<label class="float__label  ">Retype Password</label>
 													<div class="relative">
-														<input type="password" name="confirmPassword" id="accountRegisterFormFirstname" class="form-control float__input" placeholder="Confirm Password">
+														<input type="password" name="confirmPassword" id="accountRegisterFormFirstname" data-validate-field="repassword" class="form-control float__input" placeholder="Confirm Password">
 													</div>
 												</div>
 											</div>
@@ -92,13 +92,13 @@
 								</div>
 								<div class="account__lg--width">
 									<h1 class="account__heading">Login</h1>
-									<form class="" id="accountRegisterForm">
+									<form class="login-form form" id="accountLoginForm" action="#">
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
 													<label class="float__label  ">Email</label>
 													<div class="relative">
-														<input type="email" name="email" id="accountRegisterFormFirstname" class="form-control float__input" placeholder="Email">
+														<input type="email" name="email" data-validate-field="email" class="form-control float__input" placeholder="Email">
 													</div>
 												</div>
 											</div>
@@ -108,7 +108,7 @@
 												<div class="float__input form-group ">
 													<label class="float__label  ">Password</label>
 													<div class="relative">
-														<input type="password" name="password" id="accountRegisterFormFirstname" class="form-control float__input" placeholder="Password">
+														<input type="password" name="password" class="form-control float__input" data-validate-field="password" placeholder="Password">
 													</div>
 												</div>
 											</div>
@@ -227,6 +227,42 @@
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
 </div>
+	<script src="js/just-validate.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+	<script>
+			new window.JustValidate('.login-form', {
+						    rules: {
+						      email: {
+						          required: true
+						      },
+						      password: {
+						          required: true
+						      },
+						      repassword: {
+						      	required: true
+						      }
+						  },
+						  colorWrong: "#fff"
+						});
+				new window.JustValidate('.reg-form', {
+						    rules: {
+						      email: {
+						      	  required: true,
+						      	  email: true
+						      },
+						      password: {
+						      	  required: true,
+          						  minLength: 5,
+          						  strength: {
+				                    custom: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]'
+				                }
+						      }
+						  },
+						  messages: {
+						  	minLength: 'The field must contain a minimum of :value characters'
+						  },
+						  colorWrong: "#fff"
+						});
+	</script>
 </body>
 </html>

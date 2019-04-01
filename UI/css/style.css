@@ -16,6 +16,7 @@
 }
 input[type=text], input[type=email], input[type=number], input[type=password] {
     width: 100%;
+    color: #000 !important;
 }
 textarea {
     width: 95%;
@@ -97,6 +98,11 @@ select {
     width: 30%;
 	}
 
+}
+@media only screen and (max-width: 800px) {
+.header__account {
+    display: none;   
+}
 }
 
 .header__account__buttons {
