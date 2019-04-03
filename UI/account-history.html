@@ -10,11 +10,19 @@
 </head>
 <body>
 	<!-- Navigation Menu-->
-<div>
+<div class="body">
 	<div>
 		<header class="header container-fluid  clearfix">
-			<div class="header__hamburger" id="topBarHeaderResponsiveBar">
-            <i class="fa fa-bars fa-2x"></i>
+			<div class="header__hamburger">
+			<div>
+            <button id="topBarHeaderResponsiveBar" class="fa fa-bars fa-2x"></button>
+			</div>
+			<div>
+				<a href="index.html" class="header__logo"></a>
+			</div>
+			<div>
+				<button class="btn btn__login" id="RegisterOverlayOnMobile">Register/Login</button>
+			</div>
 			</div>
 			<div>
 				<a href="index.html" class="header__logo"></a>
@@ -162,30 +170,6 @@
 	<!-- Side Navigation Menu First Level -->
 	<div class="false sidebar sidebar__fixed--vertical">
 		<nav class="sidebar__nav">
-			<!-- Mobile Navigation -->
-			<div class="mobile__profile mobile-sidebar show">
-			<div class="mobile-profile">
-				<div class="mobile-setting">
-				<div class="mobile-profile-image">
-				<img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png">
-				</div>
-				<div class="mobile-logout">
-					<button>Log Out</button>
-				</div>
-				</div>
-				<div class="mobile-profile-details">
-				<h3>Ugbanu James</h3>
-				<p>singlecliq@gmail.com</p>
-				</div>
-			</div>
-			 <div class="border-box">
-	 			<ul>
-	 				<li class="active"><a href="#"><span class="fa fa-dashboard fa-3x"></span>Dashboard</a></li>
-	 				<li><a href="#"><span class="fa fa-user fa-3x"></span>Account</a></li>
-	 			</ul>
-			</div>
-			</div>
-			<!-- End Mobile Navigation -->
 			<ul>
 				<li class="sidebar__list">
 					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
@@ -202,6 +186,29 @@
 			</ul>
 		</nav>
 	</div>
+	<!-- Side Navigation on mobile -->
+			<div id="st-container" class="st-container">
+				<nav class="st-menu st-effect-1" id="menu-1">
+				<div class="profile__image__mobile">
+			    	<div class="mobile-profile-image">
+			    		<img src="#"></img>
+			    	</div>
+					<div class="mobile-logout">
+							<button>Log Out</button>
+					</div>
+				</div>
+			    <ul>
+			      <li><a class="fa fa-dashboard" href="dashboard.html"> Dashboard</a></li>
+			      <li><a class="fa fa-user" href="create-account.html"> Create Account</a></li>
+			      <li><a class="fa fa-user" href="add-user.html"> Add User</a></li>
+			      <li><a class="fa fa-book" href="credit.html"> Credit</a></li>
+			      <li><a class="fa fa-book" href="debit.html"> Debit</a></li>
+			      <li><a class="fa fa-book" href="account-history.html"> Account History</a></li>
+			      <li><a class="fa fa-user" href="user.html"> User</a></li>
+			      <li><a class="fa fa-book" href="users-account.html"> All Account</a></li>
+			    </ul>
+			  </nav>
+			</div>
 	<!-- Second Level Menu -->
 	<div class="account__side__wrapper show">
 			<div class="account__categories__list">
