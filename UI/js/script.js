@@ -17,8 +17,9 @@ const accountInfo = [
 		]
 
 document.addEventListener('DOMContentLoaded', () => {
-	const profileDiv = document.querySelector('#ProfileDropDown')
+	// const profileDiv = document.querySelector('#ProfileDropDown')
 		const registerButton = document.querySelector('#RegisterOverlay')
+		const registerButtonOnMobile = document.querySelector('#RegisterOverlayOnMobile')
 		const loginButton = document.querySelector('#LoginOverlay')
 		const showMenu = document.querySelector('.header__hamburger')
 		const registerModalClose = document.querySelector('.register__modal')
@@ -32,23 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		const secondNav = document.querySelector('.account__side__wrapper')
 
 	function toggleAccountOnWideScreen() {
-		profileDiv.addEventListener('click', () => {
-			if(toggle.classList.contains("show")) {
-				toggle.classList.remove("show")
-			} else {
-				toggle.classList.add("show")
-			}
-
-		})
-
-		showMenu.addEventListener('click', () => {
-			if(sidebar.classList.contains("show")) {
-				sidebar2.classList.remove("false")
-				sidebar.classList.remove("show")	
-			}
-		})
+	
 		registerButton.addEventListener('click', () => {
 		
+			if(registerOverlay.classList.contains("show")) {
+				registerOverlay.classList.remove("show")
+			} 
+
+		})
+		registerButtonOnMobile.addEventListener('click', () => {
+			console.log(registerOverlay)
 			if(registerOverlay.classList.contains("show")) {
 				registerOverlay.classList.remove("show")
 			} 
@@ -81,6 +75,28 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		})
 	}
+		const btn = document.querySelector('#topBarHeaderResponsiveBar');
+		const menu = document.querySelector('#st-container');
+		const pusher = document.querySelector('.body');
+
+		btn.addEventListener('click', addClass)
+		pusher.addEventListener('click', closeMenu);
+
+		function addClass(e) {
+		  // adding the effects
+		  menu.classList.toggle('st-effect-1');
+		  menu.classList.toggle('st-menu-open');  
+		}
+
+		function closeMenu(el) {
+		  // if the click target has this class then we close the menu by removing all the classes
+		  if (!el.target.classList.contains('fa-bars'))
+		  	{
+		    menu.classList.toggle('st-effect-1');
+		    menu.classList.toggle('st-menu-open');
+		  } 
+		}
+
 
 	 
 	toggleAccountOnWideScreen()
