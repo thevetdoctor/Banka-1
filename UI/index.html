@@ -46,7 +46,7 @@
 												<div class="float__input form-group ">
 													<label class="float__label  ">Email</label>
 													<div class="relative">
-														<input type="email" name="email" class="form-control float__input" data-validate-field="email" placeholder="Email">
+														<input type="email" name="email" class="form-control float__input" placeholder="Email" required>
 													</div>
 												</div>
 											</div>
@@ -54,9 +54,11 @@
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
-													<label class="float__label  ">Password</label>
+													<label class="float__label ">Password</label>
 													<div class="relative">
-														<input type="password" name="password" class="form-control float__input" data-validate-field="password" placeholder="Password">
+														<input type="password" pattern="^\S{6,}$" name="password" class="form-control float__input"
+														onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;"
+														placeholder="Password" required>
 													</div>
 												</div>
 											</div>
@@ -66,7 +68,9 @@
 												<div class="float__input form-group ">
 													<label class="float__label  ">Retype Password</label>
 													<div class="relative">
-														<input type="password" name="confirmPassword" data-validate-field="repassword" class="form-control float__input" placeholder="Confirm Password">
+														<input type="password" pattern="^\S{6,}$" name="confirmPassword" class="form-control float__input" id="password_two" 
+														onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" 
+														placeholder="Confirm Password" required>
 													</div>
 												</div>
 											</div>
@@ -74,7 +78,7 @@
 									<div class="clearfix">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
-												<input type="submit" class="btn btn-account" name="Register" value="Register">
+												<input type="submit" id="regBtn" class="btn btn-account" name="Register" value="Register">
 											</div>
 										</div>
 									</div>
@@ -241,9 +245,10 @@
 	</div>
 </div>
 </div>
-	<script src="js/just-validate.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+		<script src="js/just-validate.js"></script>
 	<script>
+
 			new window.JustValidate('.login-form', {
 						    rules: {
 						      email: {
@@ -251,29 +256,7 @@
 						      },
 						      password: {
 						          required: true
-						      },
-						      repassword: {
-						      	required: true
 						      }
-						  },
-						  colorWrong: "#fff"
-						});
-				new window.JustValidate('.reg-form', {
-						    rules: {
-						      email: {
-						      	  required: true,
-						      	  email: true
-						      },
-						      password: {
-						      	  required: true,
-          						  minLength: 5,
-          						  strength: {
-				                    custom: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]'
-				                }
-						      }
-						  },
-						  messages: {
-						  	minLength: 'The field must contain a minimum of :value characters'
 						  },
 						  colorWrong: "#fff"
 						});
