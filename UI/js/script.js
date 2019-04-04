@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		})
 		loginButton.addEventListener('click', () => {
-			console.log('hi')
 			if(loginOverlay.classList.contains("show")) {
 				loginOverlay.classList.remove("show")
 
@@ -84,16 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		function addClass(e) {
 		  // adding the effects
-		  menu.classList.toggle('st-effect-1');
-		  menu.classList.toggle('st-menu-open');  
+		  menu.classList.add('st-effect-1');
+		  menu.classList.add('st-menu-open');  
 		}
 
 		function closeMenu(el) {
 		  // if the click target has this class then we close the menu by removing all the classes
 		  if (!el.target.classList.contains('fa-bars'))
 		  	{
-		    menu.classList.toggle('st-effect-1');
-		    menu.classList.toggle('st-menu-open');
+		    menu.classList.remove('st-effect-1');
+		    menu.classList.remove('st-menu-open');
 		  } 
 		}
 
