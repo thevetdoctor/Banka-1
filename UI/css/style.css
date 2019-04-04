@@ -112,7 +112,8 @@ z-index: 99;
 
 .header__account__buttons {
     z-index: 20;
-    min-width: 500px;
+    min-width: 400px;
+    float: right;
 }
 
 .relative {
