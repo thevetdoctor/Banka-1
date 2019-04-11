@@ -20,7 +20,6 @@ class Database {
 	}
 	create(data, table) {
 		let newTable;
-		if(this.database.hasOwnProperty(table)) {
 			if(table == "user") {
 				 newTable = {
 					id: this.database[table].length + 1,
@@ -57,17 +56,10 @@ class Database {
 			
 			this.database[table].push(newTable);
 			const success = {
-				"status": 200,
+				"status": 201,
 				"data": newTable
 			};
 			return success;
-		} else {
-			const error = {
-				"status": 404,
-				"error": "Table Not Found"
-			};
-			return error;		
-		}
 	}
 
 	findAll(table) {

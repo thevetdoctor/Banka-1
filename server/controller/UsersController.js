@@ -23,11 +23,9 @@ class UsersController {
 
 		password = passwordHelper.hashPassword(password.trim());
 		const newData = database.create(request.body, "user");
-		if(newData.status == 200) {
+
     	UsersController.signupQuery(request, response, newData.data);
-		} else {
-    	return response.status(400).send(newData);
-		}
+		
 	}
 
 	/**
