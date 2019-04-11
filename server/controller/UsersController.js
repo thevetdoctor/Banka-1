@@ -12,9 +12,9 @@ class UsersController {
    */
   static signup(request, response) {
     const {
+      email,
       firstName,
       lastName,
-      email,
       type,
       isAdmin
     } = request.body;
@@ -23,14 +23,37 @@ class UsersController {
       password
     } = request.body;
 
-    password = passwordHelper.passwordHash(password.trim());
-    const data = database.create("user", request.body)
-    if(data.status == 200) {
-    	return response.send(data)
+    password = passwordHelper.hashPassword(password.trim());
+    const newData = database.create(request.body, "user")
+    if(newData.status == 200) {
+    	UsersController.signupQuery(request, response, newData.data)
     } else {
-    	return response.send(data)
+    	return response.status(400).send(newData)
     }
   }
+
+  /**
+   *  Run user signup query
+   *  @param {Object} request
+   *  @param {Object} response
+   * @param {String} query
+   *  @return {Object} json
+   *
+   */
+   static signupQuery(request, response, newData) {
+    const currentToken = generateToken(newData)
+    return response.status(201).json({
+          status: 201,
+          data: {
+              token: currentToken,
+              id: newData.id,
+              firstName: newData.firstName,
+              lastName: newData.lastName,
+              email: newData.email
+          }
+        });
+    
+   }
 
 }
 
