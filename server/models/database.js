@@ -20,46 +20,46 @@ class Database {
 	}
 	create(data, table) {
 		let newTable;
-			if(table == "user") {
+		if(table == "user") {
 				 newTable = {
-					id: this.database[table].length + 1,
-					email: data.email.toLowerCase() || "",
-					firstName: data.firstName || "",
-					lastName: data.lastName || "",
-					password: data.password || "",
-					type: data.type || "staff",
-					isAdmin: data.isAdmin || 0
-				};
-
-			} else if(table == "account") {
-				 newTable = {
-					id: this.database[table].length + 1,
-					accountNumber: data.accountNumber || "",
-					createOn: Date.now(),
-					owner: data.owner || "",
-					type: data.type || "",
-					status: data.status || "",
-					balance: data.balance || ""
-				};
-			} else {
-				 newTable = {
-					id: this.database[table].length + 1,
-					createOn: Date.now(),
-					type: data.type || "",
-					accountNumber: data.accountNumber || "",
-					cashier: data.cashier || "",
-					amount: data.amount || "",
-					oldBalance: data.oldBalance || "",
-					balance: data.balance || ""
-				};	
-			}
-			
-			this.database[table].push(newTable);
-			const success = {
-				"status": 201,
-				"data": newTable
+				id: this.database[table].length + 1,
+				email: data.email.toLowerCase() || "",
+				firstName: data.firstName || "",
+				lastName: data.lastName || "",
+				password: data.password || "",
+				type: data.type || "staff",
+				isAdmin: data.isAdmin || 0
 			};
-			return success;
+
+		} else if(table == "account") {
+				 newTable = {
+				id: this.database[table].length + 1,
+				accountNumber: data.accountNumber || "",
+				createOn: Date.now(),
+				owner: data.owner || "",
+				type: data.type || "",
+				status: data.status || "",
+				balance: data.balance || ""
+			};
+		} else {
+				 newTable = {
+				id: this.database[table].length + 1,
+				createOn: Date.now(),
+				type: data.type || "",
+				accountNumber: data.accountNumber || "",
+				cashier: data.cashier || "",
+				amount: data.amount || "",
+				oldBalance: data.oldBalance || "",
+				balance: data.balance || ""
+			};	
+		}
+			
+		this.database[table].push(newTable);
+		const success = {
+			"status": 201,
+			"data": newTable
+		};
+		return success;
 	}
 
 	findAll(table) {

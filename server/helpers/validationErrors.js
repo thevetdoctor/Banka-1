@@ -6,7 +6,7 @@ const validationErrors = {
 	validFName: "Please enter a valid first name. Names can only contain letters.",
 	validLName: "Please enter a valid last name. Names can only contain letters.",
 	validPassword: "Sorry, your password cannot contain spaces.",
-  validEmail: "Please enter a valid email address.",
+	validEmail: "Please enter a valid email address.",
 	lnameLength: "Sorry your last name cannot be less than 2 characters.",
 	emailRequired: "Sorry, the Email field is required",
 	passwordLength: "Sorry, your password must not be less than 5 characters",
