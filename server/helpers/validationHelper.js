@@ -34,6 +34,16 @@ class ValidateHelper {
 		return errors;
 	}
 
+	static validateAccount(owner, type) {
+		const errors = {};
+		if (!owner || !rules.empty.test(owner)) errors.ownerRequired = validationErrors.ownerRequired;
+		if (!rules.validInt.test(owner)) errors.ownerId = validationErrors.ownerId;
+
+		if (!type || !rules.empty.test(type)) errors.accountTypeRequired = validationErrors.accountTypeRequired;
+		if (!rules.accountType.test(type)) errors.validType = validationErrors.validType;
+		
+		return errors;
+	}
 
 	/**
    * check if data validation produces any errors
