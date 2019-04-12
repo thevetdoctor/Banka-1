@@ -1,7 +1,7 @@
 // import modules
 import express from 'express';
 import bodyParser from 'body-parser';
-import routes from './Server/routes';
+import routes from './server/routes';
 
 
 // declare constants
