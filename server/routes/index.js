@@ -10,5 +10,6 @@ const routes = (app) => {
 
 
 	app.post("/api/v1/auth/signup", ValidateUser.validateSignup, ValidateUser.checkDuplicateEmail, UsersController.signup);
+	app.post('/api/v1/auth/signin', ValidateUser.validateSignin, UsersController.signIn);
 };
 export default routes;

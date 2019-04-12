@@ -6,6 +6,7 @@ import validationErrors from "../helpers/validationErrors";
 
 const { expect } = chai;
 const signupURL = "/api/v1/auth/signup";
+const loginURL = "/api/v1/auth/signin";
 
 chai.use(chaiHttp);
 
@@ -205,4 +206,96 @@ describe("USER CONTROLLER ", () => {
 				});
 		});
 	});
+	
+	 describe('POST /api/v1/auth/signin', () => {
+    it('it should signin a user with correct and complete information', (done) => {
+      chai.request(app)
+        .post(`${loginURL}`)
+        .send({
+          email: testData.newUsers[0].email,
+          password: testData.newUsers[0].password,
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          expect(response.body).to.be.an('object');
+          expect(response.body.data.firstName).to.equal(testData.newUsers[0].firstName);
+          done();
+        });
+    });
+    it('should not signin a user with an invalid email address', (done) => {
+      chai.request(app)
+        .post(`${loginURL}`)
+        .send({
+          email: '@gmail',
+          password: testData.newUsers[0].password,
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(406);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error.validEmail).to.equal(validationErrors.validEmail);
+          done();
+        });
+    });
+
+    it('should not signin a user without an email address', (done) => {
+      chai.request(app)
+        .post(`${loginURL}`)
+        .send({
+          email: '',
+          password: testData.newUsers[0].password,
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(406);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.loginRequired);
+          done();
+        });
+    });
+
+    it('should not signin a user with an empty password field', (done) => {
+      chai.request(app)
+        .post(`${loginURL}`)
+        .send({
+          email: testData.newUsers[0].email,
+          password: '',
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(406);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.loginRequired);
+          done();
+        });
+    });
+
+    it('should not signin a user where email and password do not match', (done) => {
+      chai.request(app)
+        .post(`${loginURL}`)
+        .send({
+          email: testData.newUsers[0].email,
+          password: 'whatareyousaying',
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(401);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.loginFailure);
+          done();
+        });
+    });
+
+    it('should not signin a user where email does not exist in the database', (done) => {
+      chai.request(app)
+        .post(`${loginURL}`)
+        .send({
+          email: 'joseph@gmail.com',
+          password: testData.newUsers[1].password,
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.noEmail);
+          done();
+        });
+    });
+  });
+
 });

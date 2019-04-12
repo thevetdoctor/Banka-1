@@ -57,5 +57,45 @@ class ValidateUser {
    		}
    		 return next();
 	}
+
+
+	 /**
+   * validate user signin input length and content
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @callback {Function} next
+   *
+   * @return {Object} json
+   */
+  static validateSignin(request, response, next) {
+    const {
+      email,
+      password,
+    } = request.body;
+
+    if (email && password) {
+      const errors = {};
+
+      if (!rules.validEmail.test(email)) errors.validEmail = validationErrors.validEmail;
+
+      if (Object.keys(errors).length > 0) {
+        return response.status(406).json({
+          status: 406,
+          error: errors,
+        });
+      }
+      return next();
+    }
+    return ValidateUser.loginRequiredResponse(response);
+  }
+
+  static loginRequiredResponse(response) {
+    return response.status(406).json({
+      status: 406,
+      error: validationErrors.loginRequired,
+    });
+  }
+
 }
 export default ValidateUser;
