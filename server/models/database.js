@@ -1,3 +1,5 @@
+import passwordHelper from "../helpers/password";
+
 class Database {
  
 	constructor() {
@@ -21,12 +23,15 @@ class Database {
 	create(data, table) {
 		let newTable;
 		if(table == "user") {
+				let password = data.password
+
+				password = passwordHelper.hashPassword(password.trim());
 				 newTable = {
 				id: this.database[table].length + 1,
 				email: data.email.toLowerCase() || "",
 				firstName: data.firstName || "",
 				lastName: data.lastName || "",
-				password: data.password || "",
+				password: password || "",
 				type: data.type || "staff",
 				isAdmin: data.isAdmin || 0
 			};
