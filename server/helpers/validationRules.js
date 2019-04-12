@@ -9,6 +9,8 @@ const rules = {
 	validId: /^[1-9]{1,}/,
 	validPassword: /^[\S]+$/,
 	passwordLength: /^.{5,}$/,
+  accountType: /(savings|current)$/,
+  validInt: /^\d+$/,
 };
 
 export default rules;
