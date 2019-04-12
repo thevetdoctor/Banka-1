@@ -1,4 +1,5 @@
 import passwordHelper from "../helpers/password";
+import serialNumber from "../helpers/serialNumber";
 
 class Database {
  
@@ -39,12 +40,12 @@ class Database {
 		} else if(table == "account") {
 				 newTable = {
 				id: this.database[table].length + 1,
-				accountNumber: data.accountNumber || "",
+				accountNumber: serialNumber.serialNumber(this.database[table].length + 1) || "",
 				createOn: Date.now(),
 				owner: data.owner || "",
 				type: data.type || "",
-				status: data.status || "",
-				balance: data.balance || ""
+				status: "draft",
+				balance: 0
 			};
 		} else {
 				 newTable = {
