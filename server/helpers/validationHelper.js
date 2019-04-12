@@ -49,5 +49,6 @@ class ValidateHelper {
 		}
 		return next();
 	}
+
 }
 export default ValidateHelper;

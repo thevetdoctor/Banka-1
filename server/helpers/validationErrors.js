@@ -15,6 +15,7 @@ const validationErrors = {
 	validType: "Please enter a valid type. The type can only be staff which can only be client or staff",
   loginFailure: 'Could not login. The email and password do not match',
   noEmail: 'Could not login. The email and password do not match',
+  loginRequired: 'Sorry, both your email and password are required',
 };
 
 export default validationErrors;
