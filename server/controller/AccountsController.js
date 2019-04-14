@@ -14,7 +14,6 @@ class AccountsController {
 			type
 		} = request.body;
 
-
 		const newData = database.create(request.body, "account");
     	AccountsController.createAccountQuery(request, response, newData.data);
 		
@@ -33,7 +32,7 @@ class AccountsController {
 		   const findUser = users.filter(value => {
 		   			return value.id == request.body.owner;
 		   		});
-		   
+
 		    if(findUser.length > 0) {
 	   		return response.status(201).json({
 			status: 201,
@@ -50,6 +49,40 @@ class AccountsController {
 	  	 }
     
 	}
+
+
+		/**
+   *  Admin change Bank Account Status
+   *  @param {Object} request
+   *  @param {Object} response
+   *  @return {Object} json
+   */
+
+    static updateAccountStatus(request, response) {
+    	const { accountNumber } = request.params;
+		const { status } = request.body;
+
+		const updatedData = database.updateAccountStatus(request.body, accountNumber, "account");
+    	AccountsController.updateAccountSuccess(response, updatedData.data);	
+	}
+
+	 /**
+   *  Return update account status response
+   *  @param {Object} response
+   *  @param {Object} dbResult
+   *  @return {Object} json
+   *
+   */
+  static updateAccountSuccess(response, dbResult) {
+
+    return response.status(202).json({
+      status: 202,
+      data: {
+      	accountNumber: dbResult.accountNumber,
+      	status: dbResult.status
+      }
+    });
+  }
  }
 
  export default AccountsController;

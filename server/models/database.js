@@ -42,7 +42,7 @@ class Database {
 				id: this.database[table].length + 1,
 				accountNumber: serialNumber.serialNumber(this.database[table].length + 1) || "",
 				createOn: Date.now(),
-				owner: data.owner || "",
+				owner: parseInt(data.owner) || "",
 				type: data.type || "",
 				status: "draft",
 				balance: 0
@@ -71,6 +71,21 @@ class Database {
 	findAll(table) {
 		return this.database[table];
 	}
+
+	updateAccountStatus(data,accountNumber,table) {
+		 const accountTable = this.database[table];
+		   const findAccount = accountTable.filter(value => {
+		   			return value.accountNumber == accountNumber;
+		   		});
+
+		   if(findAccount.length > 0) {
+		   	   findAccount[0].status = data.status
+		   }
+		   const success = {
+			"data": findAccount[0]
+			};
+			return success;
+		}
 	
 }
 export default new Database();
