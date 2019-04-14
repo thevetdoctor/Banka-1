@@ -90,6 +90,44 @@ class AccountsController {
       }
     });
   }
+
+  /**
+   *  Delete bank account
+   *  @param {Object} request
+   *  @param {Object} response
+   *  @return {Object} json
+   */
+  static deleteBankAccount(request, response) {
+  		const { accountNumber } = request.params;
+
+    	const accounts = database.findAll("account");
+
+    	const accountIndex = accounts.map(account => {
+		  return account.accountNumber;
+		}).indexOf(parseInt(accountNumber));
+
+		accounts.splice(accountIndex, 1);
+		if(accountIndex != -1) {
+			return AccountsController.deleteBankAccountSuccess(response);
+		}
+        return response.status(404).json({
+        	status: 404,
+        	error: "Account Not Found"
+        })
+  }
+
+  /**
+   *  Return delete bank account success response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+  static deleteBankAccountSuccess(response) {
+    return response.status(202).json({
+      status: 202,
+      message: 'Account successfully deleted',
+    });
+  }
  }
 
  export default AccountsController;
