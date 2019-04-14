@@ -32,7 +32,7 @@ class AccountsController {
 		   const findUser = users.filter(value => {
 		   			return value.id == request.body.owner;
 		   		});
-		   
+
 	   		return response.status(201).json({
 			status: 201,
 			data: {
@@ -50,7 +50,7 @@ class AccountsController {
 
 
 		/**
-   *  Admin change Bank Account Status
+   *  User change Bank Account Status
    *  @param {Object} request
    *  @param {Object} response
    *  @return {Object} json
