@@ -60,7 +60,6 @@ class ValidateHelper {
 	static validateUpdateAccountStatus(status) {
 		const errors = {};
 		if (!status || !rules.empty.test(status)) errors.statusRequired = validationErrors.statusRequired;
-
 		if (!rules.accountStatus.test(status)) errors.validStatus = validationErrors.validStatus;
 		
 		return errors;

@@ -45,7 +45,7 @@ class Database {
 				owner: parseInt(data.owner) || "",
 				type: data.type || "",
 				status: "draft",
-				balance: 0
+				balance: 0.00
 			};
 		} else {
 				 newTable = {
@@ -80,11 +80,15 @@ class Database {
 
 		   if(findAccount.length > 0) {
 		   	   findAccount[0].status = data.status
-		   }
-		   const success = {
+
+		   	   const success = {
 			"data": findAccount[0]
 			};
 			return success;
+		   } else {
+		   	 return "error";
+		   }
+		   
 		}
 	
 }

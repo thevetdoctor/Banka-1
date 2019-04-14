@@ -32,8 +32,7 @@ class AccountsController {
 		   const findUser = users.filter(value => {
 		   			return value.id == request.body.owner;
 		   		});
-
-		    if(findUser.length > 0) {
+		   
 	   		return response.status(201).json({
 			status: 201,
 			data: {
@@ -46,7 +45,6 @@ class AccountsController {
 			}
 		});
 	  	 
-	  	 }
     
 	}
 
@@ -63,7 +61,16 @@ class AccountsController {
 		const { status } = request.body;
 
 		const updatedData = database.updateAccountStatus(request.body, accountNumber, "account");
-    	AccountsController.updateAccountSuccess(response, updatedData.data);	
+
+		if(updatedData.hasOwnProperty('data')) {
+			AccountsController.updateAccountSuccess(response, updatedData.data);	
+		} else {
+			return response.status(404).json({
+				status: 404,
+				error: "Account Number not found",
+			})
+		}
+    	
 	}
 
 	 /**
