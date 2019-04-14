@@ -10,6 +10,7 @@ chai.use(chaiHttp);
 
 const createBankAccountURL = "/api/v1/accounts";
 const updateAccountStatusURL = "/api/v1/account";
+const deleteAccountURL = "/api/v1/accounts";
 
 
 describe("ACCOUNT CONTROLLER ", () => {
@@ -188,7 +189,32 @@ describe("ACCOUNT CONTROLLER ", () => {
           done();
         });
     	});
-    
+	});
+
+describe('DELETE /accounts/:accountNumber endpoint', () => {
+
+    it('it should delete an account', (done) => {
+      chai.request(app)
+        .delete(`${deleteAccountURL}/1000000001`)
+        .end((error, response) => {
+          expect(response).to.have.status(202);
+          expect(response.body).to.be.an('object');
+          expect(response.body).to.have.property('message');
+          expect(response.body.message).to.equal('Account successfully deleted');
+          done();
+        });
+    });
+
+    it('it should return error if account is not found', (done) => {
+      chai.request(app)
+        .delete(`${deleteAccountURL}/1000000002`)
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal('Account Not Found');
+          done();
+        });
+    });
 
 	});
 });
