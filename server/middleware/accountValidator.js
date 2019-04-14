@@ -39,10 +39,6 @@ class ValidateAccount {
 	    const { status } = request.body;
 	    const accountStatusError = ValidationHelper.validateUpdateAccountStatus(status);
 
-	    if (!ValidationHelper.checkValidAccountNumber(request.params.accountNumber)) {
-	      errors.validAccountNumber = validationErrors.validAccountNumber;
-	    }
-
 	     errors = Object.assign(errors, accountStatusError);
 	     
 	    ValidationHelper.checkValidationErrors(response, errors, next);
@@ -67,6 +63,16 @@ class ValidateAccount {
 				});
    		}
    		 return next();
+	}
+
+	static validateAccountNumber(request, response, next) {
+		 let errors = {};
+		 
+		  if (!ValidationHelper.checkValidAccountNumber(request.params.accountNumber)) {
+	      errors.validAccountNumber = validationErrors.validAccountNumber;
+	    }
+
+	      ValidationHelper.checkValidationErrors(response, errors, next);
 	}
 
 
