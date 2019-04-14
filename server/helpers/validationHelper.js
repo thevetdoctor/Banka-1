@@ -34,6 +34,13 @@ class ValidateHelper {
 		return errors;
 	}
 
+	/**
+   * validate account
+   * @param {String} owner
+   * @param {String} type
+   * @return {Object} errors
+   */
+
 	static validateAccount(owner, type) {
 		const errors = {};
 		if (!owner || !rules.empty.test(owner)) errors.ownerRequired = validationErrors.ownerRequired;
@@ -44,6 +51,35 @@ class ValidateHelper {
 		
 		return errors;
 	}
+
+	/**
+   * validate account status
+   * @param {String} status
+   * @return {Object} errors
+   */
+	static validateUpdateAccountStatus(status) {
+		const errors = {};
+		if (!status || !rules.empty.test(status)) errors.statusRequired = validationErrors.statusRequired;
+
+		if (!rules.accountStatus.test(status)) errors.validStatus = validationErrors.validStatus;
+		
+		return errors;
+	}
+
+	/**
+   * check if id is valid
+   * @param {Object} request
+   * @return {boolean} true
+   */
+	  static checkValidAccountNumber(number) {
+
+	    if (rules.validInt.test(number)) {
+	    	if(number.length == 10) {
+	    		 return true;
+	    	}
+	    }
+	    return false;
+	  }
 
 	/**
    * check if data validation produces any errors
@@ -59,6 +95,8 @@ class ValidateHelper {
 		}
 		return next();
 	}
+
+	
 
 }
 export default ValidateHelper;

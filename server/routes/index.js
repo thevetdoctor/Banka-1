@@ -14,6 +14,6 @@ const routes = (app) => {
 	app.post("/api/v1/auth/signup", ValidateUser.validateSignup, ValidateUser.checkDuplicateEmail, UsersController.signup);
 	app.post('/api/v1/auth/signin', ValidateUser.validateSignin, UsersController.signIn);
 	app.post('/api/v1/accounts', ValidateAccount.validateCreateAccount, ValidateAccount.checkDuplicateAccount, AccountsController.createAccount);
-	app.put('/api/v1/account/:accountNumber', AccountsController.updateAccountStatus);
+	app.put('/api/v1/account/:accountNumber', ValidateAccount.validateAccountStatus, AccountsController.updateAccountStatus);
 };
 export default routes;
