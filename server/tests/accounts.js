@@ -4,10 +4,13 @@ import app from "../../app";
 import testData from "./testData";
 import validationErrors from "../helpers/validationErrors";
 
-const { expect } = chai;
-const createBankAccountURL = "/api/v1/accounts";
 
+const { expect } = chai;
 chai.use(chaiHttp);
+
+const createBankAccountURL = "/api/v1/accounts";
+const updateAccountStatusURL = "/api/v1/account";
+
 
 describe("ACCOUNT CONTROLLER ", () => {
 	describe("POST /api/v1/accounts", () => {
@@ -96,6 +99,96 @@ describe("ACCOUNT CONTROLLER ", () => {
 					done();
 				});
 		});
+
+	});
+
+
+	describe('PUT /account/:accountNumber endpoint', () => {
+    it('it should update the status of an account', (done) => {
+      chai.request(app)
+        .put(`${updateAccountStatusURL}/1000000001`)
+        .send({
+          status: 'dormant',
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(202);
+          expect(response.body).to.be.an('object');
+          expect(response.body).to.have.property('data');
+          expect(response.body.data.status).to.equal('dormant');
+          done();
+        });
+    });
+
+    it('it should not update the status of an account with invalid account number', (done) => {
+      chai.request(app)
+        .put(`${updateAccountStatusURL}/18e`)
+        .send({
+          status: 'dormant',
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(406);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error.validAccountNumber).to.equal(validationErrors.validAccountNumber);
+          done();
+        });
+    });
+      it('it should not update the status of an account which has length not 10', (done) => {
+      chai.request(app)
+        .put(`${updateAccountStatusURL}/100000000`)
+        .send({
+          status: 'dormant',
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(406);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error.validAccountNumber).to.equal(validationErrors.validAccountNumber);
+          done();
+        });
+    });
+
+    it('it should return an error for update of non existent accountNumber', (done) => {
+      chai.request(app)
+        .put(`${updateAccountStatusURL}/1000000002`)
+        .send({
+          status: 'dormant',
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal("Account Number not found");
+          done();
+        });
+    });
+
+    it('it should not update the status of an account with invalid status', (done) => {
+      chai.request(app)
+        .put(`${updateAccountStatusURL}/1000000001`)
+        .send({
+          status: 'any status',
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(406);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error.validStatus).to.equal(validationErrors.validStatus);
+          done();
+        });
+    	});
+
+
+    it('it should not update the status of an account with empty status', (done) => {
+      chai.request(app)
+        .put(`${updateAccountStatusURL}/1000000001`)
+        .send({
+          status: '',
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(406);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error.statusRequired).to.equal(validationErrors.statusRequired);
+          done();
+        });
+    	});
+    
 
 	});
 });

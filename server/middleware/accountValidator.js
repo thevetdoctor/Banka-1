@@ -27,6 +27,27 @@ class ValidateAccount {
 		ValidationHelper.checkValidationErrors(response, errors, next);
 	}
 
+		/**
+   * validate updateAccountStatus input
+   * @param {Object} request
+   * @param {Object} response
+   * @callback {Function} next
+   * @return {String} errors
+   */
+	static validateAccountStatus(request, response, next) {
+	    let errors = {};
+	    const { status } = request.body;
+	    const accountStatusError = ValidationHelper.validateUpdateAccountStatus(status);
+
+	    if (!ValidationHelper.checkValidAccountNumber(request.params.accountNumber)) {
+	      errors.validAccountNumber = validationErrors.validAccountNumber;
+	    }
+
+	     errors = Object.assign(errors, accountStatusError);
+	     
+	    ValidationHelper.checkValidationErrors(response, errors, next);
+	  }
+
 
 	/**
    * check if user already has an account
@@ -47,6 +68,8 @@ class ValidateAccount {
    		}
    		 return next();
 	}
+
+
 }
 
 export default ValidateAccount;

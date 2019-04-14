@@ -14,7 +14,6 @@ class AccountsController {
 			type
 		} = request.body;
 
-
 		const newData = database.create(request.body, "account");
     	AccountsController.createAccountQuery(request, response, newData.data);
 		
@@ -34,7 +33,6 @@ class AccountsController {
 		   			return value.id == request.body.owner;
 		   		});
 		   
-		    if(findUser.length > 0) {
 	   		return response.status(201).json({
 			status: 201,
 			data: {
@@ -47,9 +45,51 @@ class AccountsController {
 			}
 		});
 	  	 
-	  	 }
     
 	}
+
+
+		/**
+   *  Admin change Bank Account Status
+   *  @param {Object} request
+   *  @param {Object} response
+   *  @return {Object} json
+   */
+
+    static updateAccountStatus(request, response) {
+    	const { accountNumber } = request.params;
+		const { status } = request.body;
+
+		const updatedData = database.updateAccountStatus(request.body, accountNumber, "account");
+
+		if(updatedData.hasOwnProperty('data')) {
+			AccountsController.updateAccountSuccess(response, updatedData.data);	
+		} else {
+			return response.status(404).json({
+				status: 404,
+				error: "Account Number not found",
+			})
+		}
+    	
+	}
+
+	 /**
+   *  Return update account status response
+   *  @param {Object} response
+   *  @param {Object} dbResult
+   *  @return {Object} json
+   *
+   */
+  static updateAccountSuccess(response, dbResult) {
+
+    return response.status(202).json({
+      status: 202,
+      data: {
+      	accountNumber: dbResult.accountNumber,
+      	status: dbResult.status
+      }
+    });
+  }
  }
 
  export default AccountsController;

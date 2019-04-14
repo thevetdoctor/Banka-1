@@ -12,6 +12,18 @@ chai.use(chaiHttp);
 
 describe("USER CONTROLLER ", () => {
 	describe("POST /api/v1/auth/signup", () => {
+		it("Endpoint does not exist", (done) => {
+			chai.request(app)
+				.post(`${signupURL}/test`)
+				.send(testData.newUsers[0])
+				.end((error, response) => {
+					expect(response).to.have.status(404);
+					expect(response.body).to.be.an("object");
+					expect(response.body.error).to.equal('The URL you are trying to access does not exist. Please enter a valid url');
+					done();
+				});
+		});
+
 		it("it should register a user with correct and complete information", (done) => {
 			chai.request(app)
 				.post(`${signupURL}`)
