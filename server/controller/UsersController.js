@@ -14,11 +14,17 @@ class UsersController {
 		const {
 			email,
 			firstName,
-			lastName
+			lastName,
+      password
 		} = request.body;
 
+      // let { 
+      //   password,
+      //    } = request.body;
 
-		const newData = database.create(request.body, "user");
+      let  hashedPassword = passwordHelper.hashPassword(password.trim());
+
+		const newData = database.create({email, firstName, lastName, hashedPassword}, "user");
     	UsersController.signupQuery(request, response, newData.data);
 		
 	}
@@ -62,7 +68,8 @@ class UsersController {
 	   if(findEmail.length == 0) {
 	   	return UsersController.wrongEmailResponse(response)
 	   }
-
+     console.log(findEmail[0])
+ 
    		if (!passwordHelper.comparePasswords(password.trim(), findEmail[0].password)) {
           return UsersController.passwordFailureResponse(response);
         }
@@ -106,10 +113,10 @@ class UsersController {
       status: 200,
       data: {
       	token: token,
-		id: data.id, 
-		firstName: data.firstName,
-		lastName: data.lastName,
-      }
+    		id: data.id, 
+    		firstName: data.firstName,
+    		lastName: data.lastName,
+          }
     });
   }
 

@@ -1,7 +1,9 @@
 import UsersController from "../controller/UsersController";
 import AccountsController from "../controller/AccountsController";
+import TransactionsController from "../controller/TransactionsController";
 import ValidateUser from "../middleware/userValidator";
 import ValidateAccount from "../middleware/accountValidator";
+
 
 const routes = (app) => {
 	// app.get("/", (request, response) => response.status(200).send({
@@ -16,5 +18,6 @@ const routes = (app) => {
 	app.post('/api/v1/accounts', ValidateAccount.validateCreateAccount, ValidateAccount.checkDuplicateAccount, AccountsController.createAccount);
 	app.put('/api/v1/account/:accountNumber', ValidateAccount.validateAccountNumber, ValidateAccount.validateAccountStatus, AccountsController.updateAccountStatus);
 	app.delete('/api/v1/accounts/:accountNumber', ValidateAccount.validateAccountNumber,  AccountsController.deleteBankAccount);
-};
+	app.post('/api/v1/transactions/:accountNumber/debit', ValidateAccount.validateAccountNumber, TransactionsController.debitAccount);
+};	
 export default routes;

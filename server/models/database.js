@@ -21,18 +21,16 @@ class Database {
 			"transaction": []		
 		};
 	}
-	create(data, table) {
+	create(data, table, accountNumber) {
 		let newTable;
 		if(table == "user") {
-				let password = data.password
-
-				password = passwordHelper.hashPassword(password.trim());
+				console.log(data)
 				 newTable = {
 				id: this.database[table].length + 1,
 				email: data.email.toLowerCase() || "",
 				firstName: data.firstName || "",
 				lastName: data.lastName || "",
-				password: password || "",
+				password: data.hashedPassword || "",
 				type: data.type || "staff",
 				isAdmin: data.isAdmin || 0
 			};
@@ -47,16 +45,16 @@ class Database {
 				status: "draft",
 				balance: 0.00
 			};
-		} else {
+		} else if(table == "transaction")  {
 				 newTable = {
 				id: this.database[table].length + 1,
 				createOn: Date.now(),
 				type: data.type || "",
-				accountNumber: data.accountNumber || "",
+				accountNumber: accountNumber || "",
 				cashier: data.cashier || "",
 				amount: data.amount || "",
-				oldBalance: data.oldBalance || "",
-				balance: data.balance || ""
+				oldBalance: data.oldBalance || 0.00,
+				balance: data.balance || data.amount
 			};	
 		}
 			

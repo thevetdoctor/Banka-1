@@ -20,7 +20,7 @@ const validationErrors = {
 	passwordEmpty: "Your password is required",
 	validType: "Please enter a valid type. The type can only be savings or current",
   validStatus: "Please enter a valid status. The type can only be active, draft or dormant",
-  loginFailure: 'Could not login. The email and password do not match',
+  loginFailure: 'Could not login. The email or password is incorrect',
   noEmail: 'Could not login. The email and password do not match',
   loginRequired: 'Sorry, both your email and password are required',
 };
