@@ -169,23 +169,24 @@
 	<div class="main">
 	<!-- Side Navigation Menu First Level -->
 	<div class="false sidebar sidebar__fixed--vertical">
-		<nav class="sidebar__nav">
-			<ul>
-				<li class="sidebar__list">
-					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
-						<i class="fa fa-dashboard fa-3x"></i>
-						<span class="sidebar__label">Dashboard</span>
-					</a>
-				</li>
-				<li class="sidebar__list" id="account__btn">
-					<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
-						<i class="fa fa-user fa-3x"></i>
-						<span class="sidebar__label">Account</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
-	</div>
+			<nav class="sidebar__nav">
+				<ul>
+					<li class="sidebar__list">
+						<a href="dashboard.html" class="sidebar__nav__link"
+						 id="sidebar__nav__link__mobile">
+							<i class="fa fa-user fa-3x"></i>
+							<span class="sidebar__label">Account</span>
+						</a>
+					</li>
+					<li class="sidebar__list" id="account__btn">
+						<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
+							<i class="fa fa-dashboard fa-3x"></i>
+							<span class="sidebar__label">Dashboard</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
 
 	<!-- Side Navigation on mobile -->
 			<div id="st-container" class="st-container">
@@ -251,7 +252,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="text" name="fname" class="form-control" placeholder="First Name" data-validate-field="fname" >
+														<input type="text" name="fname" class="form-control" placeholder="First Name" required>
 													</div>
 												</div>
 												<div class="form-group ">
@@ -265,7 +266,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="text" name="lname" class="form-control" placeholder="Last Name" data-validate-field="lname" >
+														<input type="text" name="lname" class="form-control" placeholder="Last Name" required>
 													</div>
 												</div>
 											</div>
@@ -274,7 +275,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="email" name="email" class="form-control" placeholder="Email" data-validate-field="email" >
+														<input type="email" name="email" class="form-control" placeholder="Email" required>
 													</div>
 												</div>
 											</div>
@@ -284,13 +285,13 @@
 												<div class="form-group ">
 													<label>Phone Number</label>
 													<div class="relative">
-														<input type="phone" name="phone" class="form-control" placeholder="Ex: 8066428001" data-validate-field="phone" >
+														<input type="phone" name="phone" class="form-control" placeholder="Ex: 8066428001"required>
 													</div>
 												</div>
 												<div class="form-group">
 													<label>Choose Date of Birth</label>
 													<div class="relative">
-														<input class="form-control" id="datepicker" type="text" placeholder="Ex: 29/01/1995" data-validate-field="dob" >
+														<input class="form-control" id="datepicker" type="text" placeholder="Ex: 29/01/1995"required>
 													</div>
 												</div>
 											</div>
@@ -301,7 +302,7 @@
 												<div class="form-group ">
 													<label>Marital Status:</label>
 													<div class="relative">
-														<select data-validate-field="maritalstatus" class="form-control" required>
+														<select class="form-control" required>
 														<option disabled selected></option>
 														  <option value="m">Male</option>
 														  <option value="f">Female</option>
@@ -312,7 +313,7 @@
 												<div class="form-group ">
 													<label>Account Type:</label>
 													<div class="relative">
-														<select data-validate-field="accounttype" class="form-control">
+														<select data-validate-field="accounttype" class="form-control" required>
 														<option disabled selected></option>
 														  <option>Savings</option>
 														  <option>Current</option>
@@ -327,7 +328,7 @@
 												<div class="form-group ">
 													<label>Select State</label>
 													<div class="relative">
-														<select data-validate-field="state" id="stateSel" class="form-control">
+														<select data-validate-field="state" id="stateSel" class="form-control" required>
 														  <option disabled selected></option>
 														</select>
 													</div>
@@ -335,7 +336,7 @@
 												<div class="form-group BB__lga">
 													<label>Select LGA</label>
 													<div class="relative">
-														<select data-validate-field="lga" id="lgaSel" class="form-control">
+														<select data-validate-field="lga" id="lgaSel" class="form-control" required>
 														  <option disabled selected></option>
 														</select>
 													</div>
@@ -346,7 +347,7 @@
 										<div class="clearfix">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
-												<textarea data-validate-field="address"  placeholder="Street Address" class="form-control" rows="4" cols="87"></textarea>
+												<textarea placeholder="Street Address" class="form-control" rows="4" cols="87"></textarea>
 											</div>
 										</div>
 										</div>
@@ -375,53 +376,7 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
-	<script src="js/just-validate.js"></script>
 	<script type="text/javascript" src="js/state.js"></script>
-	<script>
-	new window.JustValidate('.create-account', {
-						    rules: {
-						      fname: {
-						          required: true,
-						          minLength: 3,
-          						  maxLength: 15
-						      },
-						      lname: {
-						          required: true,
-						          minLength: 3,
-          						  maxLength: 15
-						      },
-						      email: {
-						      	required: true,
-						      	  email: true
-						      },
-						      phone: {
-						      	required: true,
-						      	phone: true
-						      },
-						      dob: {
-						      	required: true
-						      },
-						      address: {
-						      	required: true
-						      },
-						      maritalstatus: {
-						      	required: true
-						      },
-						      accounttype: {
-						      	required: true
-						      },
-						      state: {
-						      	required: true
-						      },
-						      lga: {
-						      	required: true
-						      }
-						  },
-						  messages: {
-						  	minLength: 'The field must contain a minimum of :value characters',
-						  	maxLength: 'The field must contain a maximum of :value characters'
-						  }
-						});
 		  $( function() {
 		    $( "#datepicker" ).datepicker();
 		  } );
