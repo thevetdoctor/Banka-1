@@ -18,10 +18,6 @@ class UsersController {
       password
 		} = request.body;
 
-      // let { 
-      //   password,
-      //    } = request.body;
-
       let  hashedPassword = passwordHelper.hashPassword(password.trim());
 
 		const newData = database.create({email, firstName, lastName, hashedPassword}, "user");

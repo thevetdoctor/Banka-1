@@ -4,6 +4,9 @@ const validationErrors = {
   ownerRequired: "Sorry! the owner Id is required",
   statusRequired: "Sorry! the Status is required",
   accountTypeRequired: "Sorry! account type is required",
+  debitTypeRequired: "Sorry! debit type is required",
+   amountRequired: "Sorry! amount is required",
+   cashierRequired: "Sorry! cashier is required",
 	validNumber: "Please your phone number can only contain numbers and cannot be greater than 15 or less than 8 characters",
 	fnameLength: "Sorry your first name cannot be less than 2 characters.",
 	validFName: "Please enter a valid first name. Names can only contain letters.",
@@ -23,6 +26,7 @@ const validationErrors = {
   loginFailure: 'Could not login. The email or password is incorrect',
   noEmail: 'Could not login. The email and password do not match',
   loginRequired: 'Sorry, both your email and password are required',
+  insufficientFund: 'Sorry, Insufficient fund in account. Pleasefund your account.',
 };
 
 export default validationErrors;

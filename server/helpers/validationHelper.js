@@ -80,6 +80,27 @@ class ValidateHelper {
 	    return false;
 	  }
 
+	  	/**
+   * validate user email and name
+   * @param {String} name
+   * @param {String} email
+   * @return {Object} errors
+   */
+	static validateDebitAccount(cashier, amount, type) {
+		const errors = {};
+
+		if (!cashier || !rules.empty.test(cashier)) {
+			errors.cashierRequired = validationErrors.cashierRequired;
+		}
+
+		if (!amount || !rules.empty.test(amount)) {
+			errors.amountRequired = validationErrors.amountRequired;
+		}
+
+		if ((!type || !rules.empty.test(type))) errors.debitTypeRequired = validationErrors.debitTypeRequired;
+		return errors;
+	}
+
 	/**
    * check if data validation produces any errors
    * @param {Object} request

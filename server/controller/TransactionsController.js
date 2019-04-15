@@ -1,4 +1,5 @@
 import database from "../models/database";
+import validationErrors from "../helpers/validationErrors";
 
 class TransactionsController {
 	/**
@@ -18,26 +19,18 @@ class TransactionsController {
 
 		const transactions = database.findAll("transaction");
 		  const findDebitTransactions = transactions.filter(value => {
-   			return value.type == type.toLowerCase();
+   			return value.type == 'credit';
    		});
 
 		if(!findDebitTransactions.length) {
-			const newData = database.create(request.body, "transaction", accountNumber);
-	    	TransactionsController.runAccountQuery(response, newData.data);
+			TransactionsController.debitError(response)	
 		} else {
-			let lastTransaction = findDebitTransactions[findDebitTransactions.length - 1]
-
-			console.log(lastTransaction.balance)
-			console.log(lastTransaction.oldBalance)
-			oldBalance = lastTransaction.balance
-			balance = lastTransaction.balance + amount
-			return response.status(201).json({
-				test: 'hi'
-			})
+			let transactions = transactions[transactions.length - 1]
+			let balance = transactions.balance - amount;
+			let oldBalance = transactions.balance
+			const newData = database.create(request.body, "transaction", { accountNumber, cashier, amount, type, balance, oldBalance});
+	    	TransactionsController.runAccountQuery(response, newData.data);
 		}
-      // let { password } = request.body
-
-      //   password = passwordHelper.hashPassword(password.trim());
 		
 	}
 
@@ -60,6 +53,22 @@ class TransactionsController {
 				transactionType: newData.type,
 				accountBalance: newData.balance
 			}
+		});
+    
+	}
+
+		/**
+   *  Run user debit account query
+   *  @param {Object} request
+   *  @param {Object} response
+   * @param {String} query
+   *  @return {Object} json
+   *
+   */
+	static debitError(response, newData) {
+		return response.status(406).json({
+			status: 406,
+			error: validationErrors.insufficientFund,
 		});
     
 	}
