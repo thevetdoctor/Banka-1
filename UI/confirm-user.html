@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Confirm User</title>
+	<title>Confirm Password</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
@@ -123,7 +123,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Login Form -->				
+					<!-- End Login Form -->
+					
 				</div>
 			</div>
 	<div>
@@ -160,7 +161,7 @@
 								
 							</div>
 						</div>
-				</div>
+					</div>
 		</header>
 	</div>
 
@@ -168,47 +169,47 @@
 
 	<!-- Side Navigation Menu First Level -->
 	<div class="false sidebar sidebar__fixed--vertical">
-		<nav class="sidebar__nav">
-			<!-- Mobile Navigation -->
-			<div class="mobile__profile mobile-sidebar show">
-			<div class="mobile-profile">
-				<div class="mobile-setting">
-				<div class="mobile-profile-image">
-				<img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png">
+			<nav class="sidebar__nav">
+				<ul>
+					<li class="sidebar__list">
+						<a href="dashboard.html" class="sidebar__nav__link"
+						 id="sidebar__nav__link__mobile">
+							<i class="fa fa-user fa-3x"></i>
+							<span class="sidebar__label">Account</span>
+						</a>
+					</li>
+					<li class="sidebar__list" id="account__btn">
+						<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
+							<i class="fa fa-dashboard fa-3x"></i>
+							<span class="sidebar__label">Dashboard</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	<!-- Side Navigation on mobile -->
+			<div id="st-container" class="st-container">
+				<nav class="st-menu st-effect-1" id="menu-1">
+				<div class="profile__image__mobile">
+			    	<div class="mobile-profile-image">
+			    		<img src="#"></img>
+			    	</div>
+					<div class="mobile-logout">
+							<button>Log Out</button>
+					</div>
 				</div>
-				<div class="mobile-logout">
-					<button>Log Out</button>
-				</div>
-				</div>
-				<div class="mobile-profile-details">
-				<h3>Ugbanu James</h3>
-				<p>singlecliq@gmail.com</p>
-				</div>
+			    <ul>
+			      <li><a class="fa fa-dashboard" href="dashboard.html"> Dashboard</a></li>
+			      <li><a class="fa fa-user" href="create-account.html"> Create Account</a></li>
+			      <li><a class="fa fa-user" href="add-user.html"> Add User</a></li>
+			      <li><a class="fa fa-book" href="credit.html"> Credit</a></li>
+			      <li><a class="fa fa-book" href="debit.html"> Debit</a></li>
+			      <li><a class="fa fa-book" href="account-history.html"> Account History</a></li>
+			      <li><a class="fa fa-user" href="user.html"> User</a></li>
+			      <li><a class="fa fa-book" href="users-account.html"> All Account</a></li>
+			    </ul>
+			  </nav>
 			</div>
-			 <div class="border-box">
-	 			<ul>
-	 				<li class="active"><a href="#"><span class="fa fa-dashboard fa-3x"></span>Dashboard</a></li>
-	 				<li><a href="#"><span class="fa fa-user fa-3x"></span>Account</a></li>
-	 			</ul>
-			</div>
-			</div>
-			<!-- End Mobile Navigation -->
-			<ul>
-				<li class="sidebar__list">
-					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
-						<i class="fa fa-dashboard fa-3x"></i>
-						<span class="sidebar__label">Dashboard</span>
-					</a>
-				</li>
-				<li class="sidebar__list" id="account__btn">
-					<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
-						<i class="fa fa-user fa-3x"></i>
-						<span class="sidebar__label">Account</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
-	</div>
 	<!-- Second Level Menu -->
 	<div class="account__side__wrapper show">
 			<div class="account__categories__list">
@@ -240,7 +241,7 @@
 					<div class="col_ten">
 						<div class="Card">
 							<div class="prof_head ">
-								<h3>Confirm User</h3>
+								<h3>Credit Account</h3>
 							</div>
 								<div class="form__width">
 									<form class="js-form form" action="#">
@@ -248,9 +249,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="password" pattern="^\S{6,}$" name="password" class="form-control"
-														onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;"
-														 placeholder="Enter Password" required>
+														<input type="password" class="form-control"  placeholder="Enter Password" required>
 													</div>
 												</div>
 											</div>
@@ -259,9 +258,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="password" pattern="^\S{6,}$" name="repassword" class="form-control" 
-														onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" 
-														placeholder="Confirm Password" required>
+														<input type="password" class="form-control" placeholder="Confirm Password" required>
 													</div>
 												</div>
 											</div>
@@ -270,7 +267,7 @@
 									<div class="clearfix">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
-												<input type="submit" class="btn btn-account" name="confirm" value="Confirm User">
+												<input type="submit" class="btn btn-account" value="Confirm Password">
 											</div>
 										</div>
 									</div>				

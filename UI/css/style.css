@@ -160,6 +160,13 @@ z-index: 99;
     border-radius: 3px;
    
 }
+.submenu {
+    position: absolute;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 8px 13px rgba(0, 0, 0, 0.36), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
 .submenu-ul {
     list-style: none;
     padding: 1em 10px;
@@ -175,6 +182,9 @@ z-index: 99;
 .submenu-ul a {
 	color: #000;
 	text-decoration: none;
+}
+.submenu-ul a:hover {
+    color: orange;
 }
 @media only screen and (max-width: 700px) {
         .header__hamburger {
@@ -231,7 +241,7 @@ z-index: 99;
         visibility: hidden;
         width: 300px;
         height: 100%;
-        background: #BF2532;
+        background: #005F89;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
         overflow: scroll;
@@ -288,7 +298,7 @@ z-index: 99;
         }
         .mobile-logout button {
             margin-top: 50px;
-            background: #912d35;
+            background:#03567C;
             padding: 10px 20px;
             border-radius: 30px;
             border: none;
@@ -344,7 +354,7 @@ z-index: 99;
 .sidebar__nav {
     padding: 1rem 0;
     background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BF2532', endColorstr='#BF2532', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#005F89', endColorstr='#005F89', GradientType=0);
     position: absolute;
     top: 85px;
     width: 100%;
@@ -369,7 +379,7 @@ z-index: 99;
     cursor: pointer;
 }
 .sidebar__nav__link.active {
-    background-color: #912d35;
+    background-color:#03567C;
     box-shadow: -2px 0px 10px 0px rgba(191, 37, 50, 0.51);
     border-left: 4px solid #fff;
     cursor: pointer;
@@ -390,7 +400,7 @@ z-index: 99;
 
 /*Side Navigation Second Level*/
 .account__side__wrapper {
-    background: #912d35;
+    background:#03567C;
     position: fixed;
     left: 105px;
     top: 80px;
@@ -404,7 +414,7 @@ z-index: 99;
 	 width: 100%;
 }
 .account__side__wrapper a:hover {
-	background-color: #d65964;
+	background-color: rgba(55,58,60,1);
 }
 
 .account__categories__list {
@@ -433,7 +443,7 @@ z-index: 99;
     z-index: 99;
     }
     .sidebar__nav {
-        background-image: linear-gradient(to bottom, #BF2532 0%, #BF2532 100%);
+        background-image: linear-gradient(to bottom, #005F89 0%, #005F89 100%);
     }
     
 }
@@ -467,27 +477,31 @@ z-index: 99;
 /** Banner **/
 .home__slider {
     position: relative;
-    height: 450px;
-    background-size: contain;
+    height: 510px;
     background-repeat: no-repeat;
     background-image: url(../img/broad-bank-banner.png);
     overflow: hidden;
 }
 @media only screen and (max-width: 1500px) and (min-width: 1000px) {
  .home__slider {
-    margin-left: 100px;
+  /*  margin-left: 100px;*/
      top: 85px;
+}
+}
+@media only screen and (max-width: 700px)  {
+ .home__slider {
+   background-size: contain;
 }
 }
 
 .btn__login {
-    color: #912d35;
+    color:#03567C;
     background-color: rgba(0, 0, 0, 0);
-    border-color: #912d35;
+    border-color:#03567C;
 }
 .btn__register {
     color: #fff;
-    background-color: #912d35;
+    background-color:#03567C;
     border: none;
 }
 
@@ -510,7 +524,7 @@ z-index: 99;
 
 .rodal {
     position: fixed;
-    background: rgba(191, 37, 50, 0.8);
+       background: rgba(3, 86, 124, 0.8);
     color: #fff;
 
 }
@@ -616,7 +630,7 @@ z-index: 99;
 }
 .btn-account {
     color: #FFF;
-    background-color: #85B24E;
+    background-color: #03567C;
     border-color: transparent;
     width: 100%;
     margin-top: 1.2rem;
@@ -848,7 +862,7 @@ z-index: 99;
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background: #85B24E;
+  background: #03567C;
   color: white;
 }
 
@@ -871,5 +885,5 @@ z-index: 99;
     background: red;
 }
 .action__button a:nth-child(3) {
-    background: #85B24E;
+    background: #03567C;
 }

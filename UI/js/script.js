@@ -17,7 +17,7 @@ const accountInfo = [
 		]
 
 document.addEventListener('DOMContentLoaded', () => {
-	// const profileDiv = document.querySelector('#ProfileDropDown')
+	const profileDiv = document.querySelector('#ProfileDropDown')
 		const registerButton = document.querySelector('#RegisterOverlay')
 		const registerButtonOnMobile = document.querySelector('#RegisterOverlayOnMobile')
 		const loginButton = document.querySelector('#LoginOverlay')
@@ -32,8 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		const accountButton = document.querySelector('#account__btn')
 		const secondNav = document.querySelector('.account__side__wrapper')
 
+		const btn = document.querySelector('#topBarHeaderResponsiveBar');
+		const menu = document.querySelector('#st-container');
+		const pusher = document.querySelector('.body');
+
 	function toggleAccountOnWideScreen() {
 	
+		profileDiv.addEventListener('click', () => {
+				toggle.classList.toggle("show")
+
+		})
 		registerButton.addEventListener('click', () => {
 		
 			if(registerOverlay.classList.contains("show")) {
@@ -42,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		})
 		registerButtonOnMobile.addEventListener('click', () => {
-			console.log(registerOverlay)
 			if(registerOverlay.classList.contains("show")) {
 				registerOverlay.classList.remove("show")
 			} 
@@ -67,16 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		})
 		accountButton.addEventListener('click', () => {
-			if(secondNav.classList.contains("show")) {
-				secondNav.classList.remove("show")
-			} else {
-				secondNav.classList.add("show")
-			}
+				secondNav.classList.toggle("show")
 		})
 	}
-		const btn = document.querySelector('#topBarHeaderResponsiveBar');
-		const menu = document.querySelector('#st-container');
-		const pusher = document.querySelector('.body');
+		
 
 		btn.addEventListener('click', addClass)
 		pusher.addEventListener('click', closeMenu);
@@ -93,7 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		  	{
 		    menu.classList.remove('st-effect-1');
 		    menu.classList.remove('st-menu-open');
-		  } 
+		  }
+		  if(!el.target.classList.contains('fa') && !secondNav.classList.contains('show')) {
+		  	secondNav.classList.add("show")
+		  }
 		}
 
 
