@@ -35,6 +35,37 @@ class TransactionsController {
 	}
 
 	/**
+   *  Debit a bank account
+   *  @param {Object} request
+   *  @param {Object} response
+   *  @return {Object} json
+   */
+	static creditAccount(request, response) {
+		const {
+			cashier,
+			amount,
+			type
+		} = request.body;
+		let {accountNumber} = request.params;
+
+
+		const transactions = database.findAll("transaction");
+
+		if(!transactions.length) {
+			const newData = database.create(request.body, "transaction", request.body);
+	    	TransactionsController.runAccountQuery(response, newData.data);	
+		} else {
+			let transactions = transactions[transactions.length - 1]
+			let balance = transactions.balance + amount;
+			let oldBalance = transactions.balance
+			const newData = database.create(request.body, "transaction", { accountNumber, cashier, amount, type, balance, oldBalance});
+	    	TransactionsController.runAccountQuery(response, newData.data);
+		}
+		
+	}
+
+
+	/**
    *  Run user debit account query
    *  @param {Object} request
    *  @param {Object} response

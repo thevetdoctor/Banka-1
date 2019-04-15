@@ -20,5 +20,6 @@ const routes = (app) => {
 	app.put('/api/v1/account/:accountNumber', ValidateAccount.validateAccountNumber, ValidateAccount.validateAccountStatus, AccountsController.updateAccountStatus);
 	app.delete('/api/v1/accounts/:accountNumber', ValidateAccount.validateAccountNumber,  AccountsController.deleteBankAccount);
 	app.post('/api/v1/transactions/:accountNumber/debit', ValidateAccount.validateAccountNumber, ValidateTransaction.checkAmount, TransactionsController.debitAccount);
+	app.post('/api/v1/transactions/:accountNumber/credit', ValidateAccount.validateAccountNumber, TransactionsController.creditAccount);
 };	
 export default routes;
