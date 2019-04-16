@@ -207,6 +207,7 @@ z-index: 99;
 
         .st-pusher {
                     position: relative;
+                    top: 81px;
                     left: 0;
                     z-index: 1;
                     -webkit-transition: -webkit-transform 0.5s;
