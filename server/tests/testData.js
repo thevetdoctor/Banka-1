@@ -11,6 +11,22 @@ const newUsers = [
 		email: "joespen@gmail.com",
 		password: "hopeful",
 	},
+	{
+		firstName: "Afred",
+		lastName: "Juan",
+		email: "jab@gmail.com",
+		password: "1234jk",
+		type: "staff",
+		isAdmin: 1,
+	},
+	{
+		firstName: "Afred",
+		lastName: "Juan",
+		email: "test@gmail.com",
+		password: "whyask",
+		type: "staff",
+		isAdmin: 1,
+	},
 ];
 
 const newAccounts = [

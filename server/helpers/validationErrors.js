@@ -31,6 +31,8 @@ const validationErrors = {
   loginRequired: 'Sorry, both your email and password are required',
   insufficientFund: 'Sorry, Insufficient fund in account. Please fund your account.',
   accountNumberCheck: 'Sorry, Account Number does not exists.',
+  notAllowed: 'Sorry, You are not allowed to view this resource',
+  notAuthenticated:'Please Kindly login or sign up',
 };
 
 export default validationErrors;

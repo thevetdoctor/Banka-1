@@ -5,10 +5,10 @@ import testData from "./testData";
 import validationErrors from "../helpers/validationErrors";
 
 const { expect } = chai;
+chai.use(chaiHttp);
 const signupURL = "/api/v1/auth/signup";
 const loginURL = "/api/v1/auth/signin";
 
-chai.use(chaiHttp);
 
 describe("USER CONTROLLER ", () => {
 	describe("POST /api/v1/auth/signup", () => {

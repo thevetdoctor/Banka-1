@@ -2,6 +2,9 @@ import passwordHelper from "../helpers/password";
 import generateToken from "../helpers/token";
 import validationErrors from "../helpers/validationErrors";
 import database from "../models/database";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class UsersController {
 	/**
@@ -35,6 +38,7 @@ class UsersController {
    */
 	static signupQuery(request, response, newData) {
 		const currentToken = generateToken(newData);
+    process.env.CURRENT_TOKEN = currentToken;
 		return response.status(201).json({
 			status: 201,
 			data: {
@@ -68,9 +72,9 @@ class UsersController {
    		if (!passwordHelper.comparePasswords(password.trim(), findEmail[0].password)) {
           return UsersController.passwordFailureResponse(response);
         }
-        const token = generateToken(findEmail[0]);
-        process.env.CURRENT_TOKEN = token;
-        return UsersController.loginSuccessResponse(response, token, findEmail[0]);
+        const currentToken = generateToken(findEmail[0]);
+        process.env.CURRENT_TOKEN = currentToken;
+        return UsersController.loginSuccessResponse(response, currentToken, findEmail[0]);
   }
 
     /**
@@ -103,11 +107,11 @@ class UsersController {
    *  @param {Object} response
    *  @return {Object} json
    */
-  static loginSuccessResponse(response, token, data) {
+  static loginSuccessResponse(response, currentToken, data) {
     return response.status(200).json({
       status: 200,
       data: {
-      	token: token,
+      	token: currentToken,
     		id: data.id, 
     		firstName: data.firstName,
     		lastName: data.lastName,
