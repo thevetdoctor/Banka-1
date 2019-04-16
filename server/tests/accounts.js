@@ -73,7 +73,7 @@ describe("ACCOUNT CONTROLLER ", () => {
 				});
 		});
 
-		it("it should not create a bank account without savings or current as the accouunt type", (done) => {
+		it("it should not create a bank account without savings or current as the account type", (done) => {
 			chai.request(app)
 				.post(`${createBankAccountURL}`)
 				.send({
@@ -147,19 +147,6 @@ describe("ACCOUNT CONTROLLER ", () => {
         });
     });
 
-    it('it should return an error for update of non existent accountNumber', (done) => {
-      chai.request(app)
-        .put(`${updateAccountStatusURL}/1000000002`)
-        .send({
-          status: 'dormant',
-        })
-        .end((error, response) => {
-          expect(response).to.have.status(404);
-          expect(response.body).to.be.an('object');
-          expect(response.body.error).to.equal("Account Number not found");
-          done();
-        });
-    });
 
     it('it should not update the status of an account with invalid status', (done) => {
       chai.request(app)
@@ -209,9 +196,9 @@ describe('DELETE /accounts/:accountNumber endpoint', () => {
       chai.request(app)
         .delete(`${deleteAccountURL}/1000000002`)
         .end((error, response) => {
-          expect(response).to.have.status(404);
+          expect(response).to.have.status(406);
           expect(response.body).to.be.an('object');
-          expect(response.body.error).to.equal('Account Not Found');
+          expect(response.body.error.accountNumberCheck).to.equal(validationErrors.accountNumberCheck);
           done();
         });
     });

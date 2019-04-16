@@ -67,10 +67,19 @@ class ValidateAccount {
 
 	static validateAccountNumber(request, response, next) {
 		 let errors = {};
-		 
+		 const accounts = database.findAll("account");
+
 		  if (!ValidationHelper.checkValidAccountNumber(request.params.accountNumber)) {
 	      errors.validAccountNumber = validationErrors.validAccountNumber;
 	    }
+
+	    	const check = accounts.filter(value => {
+		   			return value.accountNumber == request.params.accountNumber;
+		   		});
+
+	    	if(!check.length) {
+	    		errors.accountNumberCheck = validationErrors.accountNumberCheck;
+	    	}
 
 	      ValidationHelper.checkValidationErrors(response, errors, next);
 	}

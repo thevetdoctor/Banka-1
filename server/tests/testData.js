@@ -24,4 +24,17 @@ const newAccounts = [
 	},
 ];
 
-export default { newUsers, newAccounts };
+const newTransactions = [
+	{
+		cashier: 1,
+		amount: 150.00,
+		type: "credit",
+	},
+	{
+		cashier: 1,
+		amount: 100.00,
+		type: "debit",
+	},
+];
+
+export default { newUsers, newAccounts, newTransactions };

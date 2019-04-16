@@ -17,20 +17,13 @@ class TransactionsController {
 		let {accountNumber} = request.params;
 
 
-		const transactions = database.findAll("transaction");
-		  const findDebitTransactions = transactions.filter(value => {
-   			return value.type == 'credit';
-   		});
+		let transactions = database.findAll("transaction");
 
-		if(!findDebitTransactions.length) {
-			TransactionsController.debitError(response)	
-		} else {
-			let transactions = transactions[transactions.length - 1]
+			 transactions = transactions[transactions.length - 1]
 			let balance = transactions.balance - amount;
 			let oldBalance = transactions.balance
-			const newData = database.create(request.body, "transaction", { accountNumber, cashier, amount, type, balance, oldBalance});
+			const newData = database.create({ accountNumber, cashier, amount, type, balance, oldBalance}, "transaction");
 	    	TransactionsController.runAccountQuery(response, newData.data);
-		}
 		
 	}
 
@@ -49,16 +42,17 @@ class TransactionsController {
 		let {accountNumber} = request.params;
 
 
-		const transactions = database.findAll("transaction");
+		let transactions = database.findAll("transaction");
+		
+		if(transactions.length === 0) {
 
-		if(!transactions.length) {
-			const newData = database.create(request.body, "transaction", request.body);
+			const newData = database.create( {cashier, amount, type, accountNumber}, "transaction");
 	    	TransactionsController.runAccountQuery(response, newData.data);	
 		} else {
-			let transactions = transactions[transactions.length - 1]
-			let balance = transactions.balance + amount;
+			 transactions = transactions[transactions.length - 1]
+			let balance = parseFloat(transactions.balance) + parseFloat(amount);
 			let oldBalance = transactions.balance
-			const newData = database.create(request.body, "transaction", { accountNumber, cashier, amount, type, balance, oldBalance});
+			const newData = database.create({ accountNumber, cashier, amount, type, balance, oldBalance}, "transaction");
 	    	TransactionsController.runAccountQuery(response, newData.data);
 		}
 		
@@ -84,22 +78,6 @@ class TransactionsController {
 				transactionType: newData.type,
 				accountBalance: newData.balance
 			}
-		});
-    
-	}
-
-		/**
-   *  Run user debit account query
-   *  @param {Object} request
-   *  @param {Object} response
-   * @param {String} query
-   *  @return {Object} json
-   *
-   */
-	static debitError(response, newData) {
-		return response.status(406).json({
-			status: 406,
-			error: validationErrors.insufficientFund,
 		});
     
 	}
