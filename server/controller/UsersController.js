@@ -64,7 +64,6 @@ class UsersController {
 	   if(findEmail.length == 0) {
 	   	return UsersController.wrongEmailResponse(response)
 	   }
-     console.log(findEmail[0])
  
    		if (!passwordHelper.comparePasswords(password.trim(), findEmail[0].password)) {
           return UsersController.passwordFailureResponse(response);

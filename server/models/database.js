@@ -21,10 +21,9 @@ class Database {
 			"transaction": []		
 		};
 	}
-	create(data, table, accountNumber) {
+	create(data, table) {
 		let newTable;
 		if(table == "user") {
-				console.log(data)
 				 newTable = {
 				id: this.database[table].length + 1,
 				email: data.email.toLowerCase() || "",
@@ -50,7 +49,7 @@ class Database {
 				id: this.database[table].length + 1,
 				createOn: Date.now(),
 				type: data.type || "",
-				accountNumber: accountNumber || "",
+				accountNumber: data.accountNumber || "",
 				cashier: data.cashier || "",
 				amount: data.amount || "",
 				oldBalance: data.oldBalance || 0.00,
@@ -76,16 +75,13 @@ class Database {
 		   			return value.accountNumber == accountNumber;
 		   		});
 
-		   if(findAccount.length > 0) {
 		   	   findAccount[0].status = data.status
 
 		   	   const success = {
 			"data": findAccount[0]
 			};
 			return success;
-		   } else {
-		   	 return "error";
-		   }
+
 		   
 		}
 	

@@ -12,6 +12,7 @@ const rules = {
 	accountType: /(savings|current)$/,
 	accountStatus: /(active|dormant|draft)$/,
 	validInt: /^\d+$/,
+	validAmount: /^(\d{1,3})?(,?\d{3})*(\.\d{2})?$/,
 };
 
 export default rules;

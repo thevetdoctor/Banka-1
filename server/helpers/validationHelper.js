@@ -81,7 +81,7 @@ class ValidateHelper {
 	  }
 
 	  	/**
-   * validate user email and name
+   * validate cashier, amount, type
    * @param {String} name
    * @param {String} email
    * @return {Object} errors
@@ -92,13 +92,44 @@ class ValidateHelper {
 		if (!cashier || !rules.empty.test(cashier)) {
 			errors.cashierRequired = validationErrors.cashierRequired;
 		}
+		if(!rules.validInt.test(cashier)) errors.cashierId = validationErrors.cashierId;
 
 		if (!amount || !rules.empty.test(amount)) {
 			errors.amountRequired = validationErrors.amountRequired;
 		}
-
-		if ((!type || !rules.empty.test(type))) errors.debitTypeRequired = validationErrors.debitTypeRequired;
+		if(!rules.validAmount.test(amount)) errors.validAmount = validationErrors.validAmount;
+		
+		if (!type || !rules.empty.test(type)) errors.debitTypeRequired = validationErrors.debitTypeRequired;
+		
+		if(type !== 'debit') errors.debitTypeRequired = validationErrors.debitTypeRequired;
+		
 		return errors;
+	}
+
+		/**
+   * validate cashier, amount, type
+   * @param {String} name
+   * @param {String} email
+   * @return {Object} errors
+   */
+	static validateCreditAccount(cashier, amount, type) {
+		const errors = {};
+
+		if (!cashier || !rules.empty.test(cashier)) {
+			errors.cashierRequired = validationErrors.cashierRequired;
+		}
+		if(!rules.validInt.test(cashier)) errors.cashierId = validationErrors.cashierId;
+
+		if (!amount || !rules.empty.test(amount)) {
+			errors.amountRequired = validationErrors.amountRequired;
+		}
+		if(!rules.validAmount.test(amount)) errors.validAmount = validationErrors.validAmount;
+
+		if (!type || !rules.empty.test(type)) errors.creditTypeRequired = validationErrors.creditTypeRequired;
+		
+		if(type !== 'credit') errors.creditTypeRequired = validationErrors.creditTypeRequired;
+		return errors;
+		
 	}
 
 	/**

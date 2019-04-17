@@ -62,15 +62,7 @@ class AccountsController {
 
 		const updatedData = database.updateAccountStatus(request.body, accountNumber, "account");
 
-		if(updatedData.hasOwnProperty('data')) {
-			AccountsController.updateAccountSuccess(response, updatedData.data);	
-		} else {
-			return response.status(404).json({
-				status: 404,
-				error: "Account Number not found",
-			})
-		}
-    	
+			AccountsController.updateAccountSuccess(response, updatedData.data);	   	
 	}
 
 	 /**
@@ -107,13 +99,8 @@ class AccountsController {
 		}).indexOf(parseInt(accountNumber));
 
 		accounts.splice(accountIndex, 1);
-		if(accountIndex != -1) {
+
 			return AccountsController.deleteBankAccountSuccess(response);
-		}
-        return response.status(404).json({
-        	status: 404,
-        	error: "Account Not Found"
-        })
   }
 
   /**
