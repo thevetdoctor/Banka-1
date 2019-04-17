@@ -15,7 +15,17 @@ class Database {
 					"type": "client",
 					"password": "12345",
 					"isAdmin": 0
+				},
+				{
+					"id": 2,
+					"firstName": "john",
+					"lastName": "Theme",
+					"email": "jt@gmail.com",
+					"type": "staff",
+					"password": "12345",
+					"isAdmin": 1
 				}
+
 			],
 			"account": [],
 			"transaction": []		
@@ -31,7 +41,7 @@ class Database {
 				lastName: data.lastName || "",
 				password: data.hashedPassword || "",
 				type: data.type || "staff",
-				isAdmin: data.isAdmin || 0
+				isAdmin: data.isAdmin || 1
 			};
 
 		} else if(table == "account") {

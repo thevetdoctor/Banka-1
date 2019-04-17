@@ -11,14 +11,27 @@ chai.use(chaiHttp);
 const createBankAccountURL = "/api/v1/accounts";
 const updateAccountStatusURL = "/api/v1/account";
 const deleteAccountURL = "/api/v1/accounts";
+const signupURL = "/api/v1/auth/signup";
+
+let currrentToken;
 
 
 describe("ACCOUNT CONTROLLER ", () => {
 	describe("POST /api/v1/accounts", () => {
+    before((done) => {
+      chai.request(app)
+        .post(`${signupURL}`)
+        .send(testData.newUsers[2])
+        .end((error, response) => {
+          currrentToken = response.body.data.token;
+          done();
+        })
+    })
 		it("it should create a new bank account", (done) => {
 			chai.request(app)
 				.post(`${createBankAccountURL}`)
 				.send(testData.newAccounts[0])
+        .set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(201);
 					expect(response.body).to.be.an("object");
@@ -26,6 +39,18 @@ describe("ACCOUNT CONTROLLER ", () => {
 					done();
 				});
 		});
+      it("it should not create a new bank account with the wrong token", (done) => {
+      chai.request(app)
+        .post(`${createBankAccountURL}`)
+        .send(testData.newAccounts[0])
+        .set('token', 'nsndfnbbnvcbnvbnd')
+        .end((error, response) => {
+          expect(response).to.have.status(401);
+          expect(response.body).to.be.an("object");
+          expect(response.body.error).to.equal(validationErrors.notAuthenticated);
+          done();
+        });
+    });
 
 		it("it should not create a bank account with an empty owner field", (done) => {
 			chai.request(app)
@@ -34,6 +59,7 @@ describe("ACCOUNT CONTROLLER ", () => {
 					owner: "",
 					type: "savings",
 				})
+        .set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -49,6 +75,7 @@ describe("ACCOUNT CONTROLLER ", () => {
 					owner: "J",
 					type: "savings",
 				})
+        .set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body.error).to.be.an("object");
@@ -65,6 +92,7 @@ describe("ACCOUNT CONTROLLER ", () => {
 					owner: 1,
 					type: "",
 				})
+        .set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -80,6 +108,7 @@ describe("ACCOUNT CONTROLLER ", () => {
 					owner: 1,
 					type: "nolls",
 				})
+        .set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body.error).to.be.an("object");
@@ -93,6 +122,7 @@ describe("ACCOUNT CONTROLLER ", () => {
 			chai.request(app)
 				.post(`${createBankAccountURL}`)
 				.send(testData.newAccounts[0])
+        .set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -105,12 +135,14 @@ describe("ACCOUNT CONTROLLER ", () => {
 
 
 	describe('PUT /account/:accountNumber endpoint', () => {
+
     it('it should update the status of an account', (done) => {
       chai.request(app)
         .put(`${updateAccountStatusURL}/1000000001`)
         .send({
           status: 'dormant',
         })
+        .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(202);
           expect(response.body).to.be.an('object');
@@ -126,6 +158,7 @@ describe("ACCOUNT CONTROLLER ", () => {
         .send({
           status: 'dormant',
         })
+        .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(406);
           expect(response.body).to.be.an('object');
@@ -139,6 +172,7 @@ describe("ACCOUNT CONTROLLER ", () => {
         .send({
           status: 'dormant',
         })
+        .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(406);
           expect(response.body).to.be.an('object');
@@ -154,6 +188,7 @@ describe("ACCOUNT CONTROLLER ", () => {
         .send({
           status: 'any status',
         })
+        .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(406);
           expect(response.body).to.be.an('object');
@@ -169,6 +204,7 @@ describe("ACCOUNT CONTROLLER ", () => {
         .send({
           status: '',
         })
+        .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(406);
           expect(response.body).to.be.an('object');
@@ -183,6 +219,7 @@ describe('DELETE /accounts/:accountNumber endpoint', () => {
     it('it should delete an account', (done) => {
       chai.request(app)
         .delete(`${deleteAccountURL}/1000000001`)
+        .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(202);
           expect(response.body).to.be.an('object');
@@ -195,6 +232,7 @@ describe('DELETE /accounts/:accountNumber endpoint', () => {
     it('it should return error if account is not found', (done) => {
       chai.request(app)
         .delete(`${deleteAccountURL}/1000000002`)
+        .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(406);
           expect(response.body).to.be.an('object');
@@ -204,4 +242,5 @@ describe('DELETE /accounts/:accountNumber endpoint', () => {
     });
 
 	});
+
 });

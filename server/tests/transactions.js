@@ -11,16 +11,28 @@ chai.use(chaiHttp);
 const createBankAccountURL = "/api/v1/accounts";
 const creditAccountURL = "/api/v1/transactions";
 const debitAccountURL = "/api/v1/transactions";
+const signupURL = "/api/v1/auth/signup";
 
+let currrentToken;
 
 describe("TRANSACTION CONTROLLER ", () => {
 
 	describe("POST /api/v1/transactions/:accountNumber/credit", () => {
+		 before((done) => {
+		      chai.request(app)
+		        .post(`${signupURL}`)
+		        .send(testData.newUsers[3])
+		        .end((error, response) => {
+		          currrentToken = response.body.data.token;
+		          done();
+		        })
+		    })
 
 			it("it should create a new bank account", (done) => {
 			chai.request(app)
 				.post(`${createBankAccountURL}`)
 				.send(testData.newAccounts[0])
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(201);
 					expect(response.body).to.be.an("object");
@@ -32,6 +44,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 			chai.request(app)
 				.post(`${creditAccountURL}/1000000001/credit`)
 				.send(testData.newTransactions[0])
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(201);
 					expect(response.body).to.be.an("object");
@@ -48,6 +61,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 150.00,
 					type: "credit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -64,6 +78,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 150.00,
 					type: "credit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body.error).to.be.an("object");
@@ -81,6 +96,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: '',
 					type: "credit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -97,6 +113,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 'J',
 					type: "credit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body.error).to.be.an("object");
@@ -113,6 +130,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 50.0,
 					type: "",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -129,6 +147,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 50.0,
 					type: "cedit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -144,8 +163,8 @@ describe("TRANSACTION CONTROLLER ", () => {
       chai.request(app)
         .post(`${debitAccountURL}/1000000001/debit`)
         .send(testData.newTransactions[1])
+        .set('token', currrentToken)
         .end((error, response) => {
-        		console.log(response.body)
           expect(response).to.have.status(201);
           expect(response.body).to.be.an('object');
           expect(response.body).to.have.property('data');
@@ -162,6 +181,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 150.00,
 					type: "debit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -178,6 +198,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 150.00,
 					type: "debit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body.error).to.be.an("object");
@@ -195,6 +216,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: '',
 					type: "debit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -211,6 +233,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 'J',
 					type: "debit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body.error).to.be.an("object");
@@ -227,6 +250,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 50.0,
 					type: "",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -242,6 +266,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 					amount: 50.0,
 					type: "deit",
 				})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");
@@ -258,6 +283,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 						amount: 100.00,
 						type: "debit",
 					})
+				.set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(406);
 					expect(response.body).to.be.an("object");

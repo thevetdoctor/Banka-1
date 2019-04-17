@@ -4,7 +4,7 @@ import ValidationHelper from "../helpers/validationHelper";
 import database from "../models/database";
 
 
-class ValidateAccount {
+class ValidateTransaction {
 	/**
    * validate Debit Account input
    * @param {Object} request
@@ -59,28 +59,28 @@ class ValidateAccount {
 	static checkAmount(request, response, next) {
    		let transaction = database.findAll("transaction");
    		
-   		if(transaction.length) {
-   			let lastTransaction = transaction[transaction.length - 1]
+   		if(!transaction.length) {
+   			ValidateTransaction.insufficientFundResponse(response)
+   		}
+   		let lastTransaction = transaction[transaction.length - 1]
 
+   		if(lastTransaction) {
    			if(parseFloat(lastTransaction.balance) < request.body.amount) {
-   				return response.status(406)
-								.json({
-									status: 406,
-									error: validationErrors.insufficientFund,
-					});
-   			}
-   		} else {
-   			return response.status(406)
-								.json({
-									status: 406,
-								error: validationErrors.insufficientFund,
-					});
+   				ValidateTransaction.insufficientFundResponse(response)
+   		}
    		}
    		
-   		 return next();
+   		   	return next();	
+   				
 	}
 
+	 static insufficientFundResponse(response) {
+    return response.status(406).json({
+      status: 406,
+      error: validationErrors.insufficientFund,
+    });
+  }
 
 }
 
-export default ValidateAccount;
+export default ValidateTransaction;
