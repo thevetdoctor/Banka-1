@@ -1,10 +1,10 @@
 const newUsers = [
-	{
-		firstName: "James",
-		lastName: "Ugbanu",
-		email: "james@gmail.com",
-		password: "thankyou",
-	},
+	 {
+		  firstName: 'james',
+		  lastName: 'Joseph',
+		  email: 'p@gmail.com',
+		  password: '123456' 
+		},
 	{
 		firstName: "Joe",
 		lastName: "Spenser",
@@ -42,13 +42,11 @@ const newAccounts = [
 
 const newTransactions = [
 	{
-		cashier: 1,
-		amount: 150.00,
+		amount: 150,
 		type: "credit",
 	},
 	{
-		cashier: 1,
-		amount: 100.00,
+		amount: 100,
 		type: "debit",
 	},
 ];

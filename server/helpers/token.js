@@ -5,7 +5,7 @@ const { secretKey } = config;
 
 const expirationTime = 86400;
 
-/**
+/** 
 * function to generate token
 * @param {Object} userObject
 * @returns {Object} generateToken

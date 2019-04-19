@@ -8,12 +8,11 @@ client.connect();
 
 const userPassword = password.hashPassword('scrip#9ju');
 const adminQuery = `INSERT INTO users(firstname, lastname, email, type, password, isAdmin) VALUES 
-('james', 'Ugbanu', 'jamesugbanu@gmail.com', 'staff', '${userPassword}', 1) RETURNING *;`;
+('james', 'Ugbanu', 'jamesugbanu@gmail.com', 'staff', '${userPassword}', true) RETURNING *;`;
 
 
 const dbQueries = `${destroyQuery}${createQuery}${adminQuery}`;
 
 client.query(dbQueries, (err, res) => {
-	console.log(res)
   client.end();
 });

@@ -11,7 +11,8 @@ chai.use(chaiHttp);
 const createBankAccountURL = "/api/v1/accounts";
 const creditAccountURL = "/api/v1/transactions";
 const debitAccountURL = "/api/v1/transactions";
-const signupURL = "/api/v1/auth/signup";
+const loginURL = "/api/v1/auth/signin";
+const updateAccountStatusURL = "/api/v1/account";
 
 let currrentToken;
 
@@ -20,26 +21,29 @@ describe("TRANSACTION CONTROLLER ", () => {
 	describe("POST /api/v1/transactions/:accountNumber/credit", () => {
 		 before((done) => {
 		      chai.request(app)
-		        .post(`${signupURL}`)
-		        .send(testData.newUsers[3])
+		        .post(`${loginURL}`)
+		        .send({
+		        	email: "jamesugbanu@gmail.com",
+		        	password: "scrip#9ju",
+		        })
 		        .end((error, response) => {
 		          currrentToken = response.body.data.token;
 		          done();
 		        })
 		    })
-
-			it("it should create a new bank account", (done) => {
+		 it("it should create a new bank account", (done) => {
 			chai.request(app)
 				.post(`${createBankAccountURL}`)
 				.send(testData.newAccounts[0])
-				.set('token', currrentToken)
+        .set('token', currrentToken)
 				.end((error, response) => {
 					expect(response).to.have.status(201);
 					expect(response.body).to.be.an("object");
-					expect(response.body.data.openingBalance).to.equal(0);
+					expect(response.body.data.openingBalance).to.equal('0.00');
 					done();
 				});
 		});
+
 		it("it should credit an account", (done) => {
 			chai.request(app)
 				.post(`${creditAccountURL}/1000000001/credit`)
@@ -53,52 +57,17 @@ describe("TRANSACTION CONTROLLER ", () => {
 				});
 		});
 
-		it("it should not credit an account with an empty cashier field", (done) => {
-			chai.request(app)
-				.post(`${creditAccountURL}/1000000001/credit`)
-				.send({
-					cashier: '',
-					amount: 150.00,
-					type: "credit",
-				})
-				.set('token', currrentToken)
-				.end((error, response) => {
-					expect(response).to.have.status(406);
-					expect(response.body).to.be.an("object");
-					expect(response.body.error.cashierRequired).to.equal(validationErrors.cashierRequired);
-					done();
-				});
-		});
-
-		it("it should not credit an account with cashier not an integer", (done) => {
-			chai.request(app)
-				.post(`${creditAccountURL}/1000000001/credit`)
-				.send({
-					cashier: 'J',
-					amount: 150.00,
-					type: "credit",
-				})
-				.set('token', currrentToken)
-				.end((error, response) => {
-					expect(response).to.have.status(406);
-					expect(response.body.error).to.be.an("object");
-					expect(response.body.error.cashierId).to.equal(validationErrors.cashierId);
-					done();
-				});
-		});
-
 
 		it("it should not credit a bank account with an empty amount", (done) => {
 			chai.request(app)
 				.post(`${creditAccountURL}/1000000001/credit`)
 				.send({
-					cashier: 1,
 					amount: '',
 					type: "credit",
 				})
 				.set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.amountRequired).to.equal(validationErrors.amountRequired);
 					done();
@@ -109,13 +78,12 @@ describe("TRANSACTION CONTROLLER ", () => {
 			chai.request(app)
 				.post(`${creditAccountURL}/1000000001/credit`)
 				.send({
-					cashier: 1,
 					amount: 'J',
 					type: "credit",
 				})
 				.set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body.error).to.be.an("object");
 					expect(response.body.error.validAmount).to.equal(validationErrors.validAmount);
 					done();
@@ -126,13 +94,13 @@ describe("TRANSACTION CONTROLLER ", () => {
 		it("should not credit a bank account when type is empty", (done) => {
 			chai.request(app)
 				.post(`${creditAccountURL}/1000000001/credit`)
-				.send({ cashier: 1,
-					amount: 50.0,
+				.send({
+					amount: 50,
 					type: "",
 				})
 				.set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.creditTypeRequired).to.equal(validationErrors.creditTypeRequired);
 					done();
@@ -143,13 +111,13 @@ describe("TRANSACTION CONTROLLER ", () => {
 	it("should not credit a bank account when type is not credit", (done) => {
 			chai.request(app)
 				.post(`${creditAccountURL}/1000000001/credit`)
-				.send({ cashier: 1,
+				.send({
 					amount: 50.0,
 					type: "cedit",
 				})
 				.set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.creditTypeRequired).to.equal(validationErrors.creditTypeRequired);
 					done();
@@ -159,7 +127,37 @@ describe("TRANSACTION CONTROLLER ", () => {
 	});
 
 	describe('POST /api/v1/transactions/:accountNumber/debit', () => {
-    it('it should debit an account', (done) => {
+
+		 it('it should not debit an account if not active', (done) => {
+      chai.request(app)
+        .post(`${debitAccountURL}/1000000001/debit`)
+        .send(testData.newTransactions[1])
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.accountNotActive);
+          done();
+        });
+    });
+
+		it('it should update the status of an account', (done) => {
+      chai.request(app)
+        .put(`${updateAccountStatusURL}/1000000001`)
+        .send({
+          status: 'active',
+        })
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(202);
+          expect(response.body).to.be.an('object');
+          expect(response.body).to.have.property('data');
+          expect(response.body.data.status).to.equal('active');
+          done();
+        });
+    });
+
+    it('it should debit an account if active', (done) => {
       chai.request(app)
         .post(`${debitAccountURL}/1000000001/debit`)
         .send(testData.newTransactions[1])
@@ -173,52 +171,19 @@ describe("TRANSACTION CONTROLLER ", () => {
         });
     });
 
-	it("it should not debit an account with an empty cahier field", (done) => {
-			chai.request(app)
-				.post(`${debitAccountURL}/1000000001/debit`)
-				.send({
-					cashier: '',
-					amount: 150.00,
-					type: "debit",
-				})
-				.set('token', currrentToken)
-				.end((error, response) => {
-					expect(response).to.have.status(406);
-					expect(response.body).to.be.an("object");
-					expect(response.body.error.cashierRequired).to.equal(validationErrors.cashierRequired);
-					done();
-				});
-		});
-
-		it("it should not debit an account with cashier not an integer", (done) => {
-			chai.request(app)
-				.post(`${debitAccountURL}/1000000001/debit`)
-				.send({
-					cashier: 'J',
-					amount: 150.00,
-					type: "debit",
-				})
-				.set('token', currrentToken)
-				.end((error, response) => {
-					expect(response).to.have.status(406);
-					expect(response.body.error).to.be.an("object");
-					expect(response.body.error.cashierId).to.equal(validationErrors.cashierId);
-					done();
-				});
-		});
+    
 
 
 		it("it should not debit a bank account with an empty amount", (done) => {
 			chai.request(app)
 				.post(`${debitAccountURL}/1000000001/debit`)
 				.send({
-					cashier: 1,
 					amount: '',
 					type: "debit",
 				})
 				.set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.amountRequired).to.equal(validationErrors.amountRequired);
 					done();
@@ -229,13 +194,12 @@ describe("TRANSACTION CONTROLLER ", () => {
 			chai.request(app)
 				.post(`${debitAccountURL}/1000000001/debit`)
 				.send({
-					cashier: 1,
 					amount: 'J',
 					type: "debit",
 				})
 				.set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body.error).to.be.an("object");
 					expect(response.body.error.validAmount).to.equal(validationErrors.validAmount);
 					done();
@@ -246,13 +210,13 @@ describe("TRANSACTION CONTROLLER ", () => {
 		it("should not debit a bank account when type is empty", (done) => {
 			chai.request(app)
 				.post(`${debitAccountURL}/1000000001/debit`)
-				.send({ cashier: 1,
+				.send({ 
 					amount: 50.0,
 					type: "",
 				})
 				.set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.debitTypeRequired).to.equal(validationErrors.debitTypeRequired);
 					done();
@@ -262,13 +226,13 @@ describe("TRANSACTION CONTROLLER ", () => {
 	it("should not debit a bank account when type is not debit", (done) => {
 			chai.request(app)
 				.post(`${debitAccountURL}/1000000001/debit`)
-				.send({ cashier: 1,
+				.send({ 
 					amount: 50.0,
 					type: "deit",
 				})
 				.set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.debitTypeRequired).to.equal(validationErrors.debitTypeRequired);
 					done();
@@ -279,13 +243,12 @@ describe("TRANSACTION CONTROLLER ", () => {
 			chai.request(app)
 				.post(`${debitAccountURL}/1000000001/debit`)
 				.send({
-						cashier: 1,
 						amount: 100.00,
 						type: "debit",
 					})
 				.set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error).to.equal(validationErrors.insufficientFund);
 					done();

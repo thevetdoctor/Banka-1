@@ -1,4 +1,13 @@
-import database from "../models/database";
+import db from '../helpers/query';
+import dotenv from 'dotenv';
+import config from '../config/config';
+import serialNumber from "../helpers/serialNumber";
+import jwt from 'jsonwebtoken';
+import validationErrors from "../helpers/validationErrors";
+
+dotenv.config();
+const { secretKey } = config;
+
 
 class AccountsController {
 	/**
@@ -10,12 +19,30 @@ class AccountsController {
 
    static createAccount(request, response) {
 		const {
-			owner,
 			type
 		} = request.body;
 
-		const newData = database.create(request.body, "account");
-    	AccountsController.createAccountQuery(request, response, newData.data);
+    let id;
+        db.dbQuery('SELECT * FROM accounts ORDER BY createdon DESC LIMIT 1')
+          .then(result => {
+            if(!result.rows.length) {
+              id = 1;
+            }
+            else {
+              id = result.rows[0].id + 1
+            }
+        
+
+      const token = request.headers['x-access'] || request.headers.token || request.query.token;
+      const verifiedToken = jwt.verify(token, secretKey);
+    
+     const query = {
+      text: 'INSERT INTO accounts(accountnumber, owner, type) VALUES ($1, $2, $3) RETURNING *',
+      values: [serialNumber.serialNumber(id), verifiedToken.user.id, type.trim()],
+    };
+
+      AccountsController.createAccountQuery(request, response, query);
+        })
 		
 	}
 
@@ -27,24 +54,23 @@ class AccountsController {
    *  @return {Object} json
    *
    */
-	static createAccountQuery(request, response, newData) {
-		 const users = database.findAll("user");
-		   const findUser = users.filter(value => {
-		   			return value.id == request.body.owner;
-		   		});
+	static createAccountQuery(request, response, query) {
 
-	   		return response.status(201).json({
-			status: 201,
-			data: {
-				accountNumber: newData.accountNumber,
-				firstName: findUser[0].firstName,
-				lastName: findUser[0].lastName,
-				email: findUser[0].email,
-				type: newData.type,
-				openingBalance: newData.balance
-			}
-		});
-	  	 
+
+    db.dbQuery(query)
+      .then(dbResult => {
+        return response.status(201).json({
+          status: 201,
+          data: {
+              accountNumber: dbResult.rows[0].accountnumber,
+              firstName: dbResult.rows[0].firstname,
+              lastName: dbResult.rows[0].lastname,
+              type: dbResult.rows[0].type,
+              openingBalance: dbResult.rows[0].balance
+          }
+        });
+      })
+      // .catch(error => response.status(500).send(error));
     
 	}
 
@@ -58,11 +84,22 @@ class AccountsController {
 
     static updateAccountStatus(request, response) {
     	const { accountNumber } = request.params;
-		const { status } = request.body;
+		  let { status } = request.body;
+        status = status.trim()
+    const query = `UPDATE accounts set status = '${status}' WHERE accountnumber=${accountNumber} RETURNING *`;
 
-		const updatedData = database.updateAccountStatus(request.body, accountNumber, "account");
-
-			AccountsController.updateAccountSuccess(response, updatedData.data);	   	
+      db.dbQuery(query)
+      .then((dbResult) => {
+        if (!dbResult.rows[0]) {
+          return response.status(404).json({
+            status: 404,
+            success: false,
+            error: validationErrors.accountNotFound,
+          });
+        }
+        return AccountsController.updateAccountSuccess(response, dbResult);
+      })
+      .catch((error) => { response.status(500).send(error); });   	
 	}
 
 	 /**
@@ -77,8 +114,8 @@ class AccountsController {
     return response.status(202).json({
       status: 202,
       data: {
-      	accountNumber: dbResult.accountNumber,
-      	status: dbResult.status
+      	accountNumber: dbResult.rows[0].accountnumber,
+      	status: dbResult.rows[0].status
       }
     });
   }
@@ -92,15 +129,19 @@ class AccountsController {
   static deleteBankAccount(request, response) {
   		const { accountNumber } = request.params;
 
-    	const accounts = database.findAll("account");
-
-    	const accountIndex = accounts.map(account => {
-		  return account.accountNumber;
-		}).indexOf(parseInt(accountNumber));
-
-		accounts.splice(accountIndex, 1);
-
-			return AccountsController.deleteBankAccountSuccess(response);
+        const query = `DELETE from accounts WHERE accountnumber = ${accountNumber}`;
+     db.dbQuery(query)
+        .then((dbResult) => {
+         
+          if (!dbResult.rowCount) {
+            return response.status(404).json({
+              status: 404,
+              error: validationErrors.accountNotFound,
+            });
+          }
+          return AccountsController.deleteBankAccountSuccess(response);
+        })
+        .catch((error) => { response.status(500).send(error); });
   }
 
   /**

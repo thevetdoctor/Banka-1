@@ -1,7 +1,8 @@
+import db from '../helpers/query';
 import rules from "../helpers/validationRules";
 import validationErrors from "../helpers/validationErrors";
 import ValidationHelper from "../helpers/validationHelper";
-import database from "../models/database";
+
 
 class ValidateUser {
 	/**
@@ -20,7 +21,7 @@ class ValidateUser {
 			password
 		} = request.body;
 
-		const userErrors = ValidationHelper.validateUser(email, firstName, lastName,  true);
+		const userErrors = ValidationHelper.validateUser(email.trim(), firstName.trim(), lastName.trim(),  true);
 
 		let errors = {};
 
@@ -44,18 +45,18 @@ class ValidateUser {
    * @return {object}
    */
 	static checkDuplicateEmail(request, response, next) {
-   		const users = database.findAll("user");
-   		const findEmail = users.filter(value => {
-   			return value.email == request.body.email.toLowerCase();
-   		});
-   		if(findEmail.length > 0) {
-   			return response.status(406)
-				.json({
-					status: 406,
-					error: validationErrors.emailExists,
-				});
-   		}
-   		 return next();
+   		 const query = `SELECT email FROM users WHERE email ='${request.body.email}'`;
+      db.dbQuery(query)
+      .then(dbResult => {
+        if (dbResult.rows[0]) {
+          return response.status(400)
+            .json({
+              status: 400,
+              error: validationErrors.emailExists,
+            });
+        }
+        return next();
+      }).catch();
 	}
 
 
@@ -77,11 +78,11 @@ class ValidateUser {
     if (email && password) {
       const errors = {};
 
-      if (!rules.validEmail.test(email)) errors.validEmail = validationErrors.validEmail;
+      if (!rules.validEmail.test(email.trim())) errors.validEmail = validationErrors.validEmail;
 
       if (Object.keys(errors).length > 0) {
-        return response.status(406).json({
-          status: 406,
+        return response.status(400).json({
+          status: 400,
           error: errors,
         });
       }
@@ -91,8 +92,8 @@ class ValidateUser {
   }
 
   static loginRequiredResponse(response) {
-    return response.status(406).json({
-      status: 406,
+    return response.status(400).json({
+      status: 400,
       error: validationErrors.loginRequired,
     });
   }

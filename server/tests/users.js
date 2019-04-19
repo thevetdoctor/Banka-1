@@ -46,7 +46,7 @@ describe("USER CONTROLLER ", () => {
 					password: "test24",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.fnameRequired).to.equal(validationErrors.fnameRequired);
 					done();
@@ -63,7 +63,7 @@ describe("USER CONTROLLER ", () => {
 					password: "test24",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body.error).to.be.an("object");
 					expect(response.body.error.fnameLength).to.equal(validationErrors.fnameLength);
 					done();
@@ -80,7 +80,7 @@ describe("USER CONTROLLER ", () => {
 					password: "test24",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.validFName).to.equal(validationErrors.validFName);
 					done();
@@ -97,7 +97,7 @@ describe("USER CONTROLLER ", () => {
 					password: "test24",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.lnameRequired).to.equal(validationErrors.lnameRequired);
 					done();
@@ -114,7 +114,7 @@ describe("USER CONTROLLER ", () => {
 					password: "test24",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body.error).to.be.an("object");
 					expect(response.body.error.lnameLength).to.equal(validationErrors.lnameLength);
 					done();
@@ -131,7 +131,7 @@ describe("USER CONTROLLER ", () => {
 					password: "test24",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.validLName).to.equal(validationErrors.validLName);
 					done();
@@ -143,7 +143,7 @@ describe("USER CONTROLLER ", () => {
 				.post(`${signupURL}`)
 				.send(testData.newUsers[0])
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error).to.equal(validationErrors.emailExists);
 					done();
@@ -160,7 +160,7 @@ describe("USER CONTROLLER ", () => {
 					password: "test24",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.validEmail).to.equal(validationErrors.validEmail);
 					done();
@@ -177,7 +177,7 @@ describe("USER CONTROLLER ", () => {
 					password: "test24",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.emailRequired).to.equal(validationErrors.emailRequired);
 					done();
@@ -194,7 +194,7 @@ describe("USER CONTROLLER ", () => {
 					password: "test",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body.error).to.be.an("object");
 					expect(response.body.error.passwordLength).to.equal(validationErrors.passwordLength);
 					done();
@@ -211,7 +211,7 @@ describe("USER CONTROLLER ", () => {
 					password: "",
 				})
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.passwordRequired).to.equal(validationErrors.passwordRequired);
 					done();
@@ -224,8 +224,8 @@ describe("USER CONTROLLER ", () => {
       chai.request(app)
         .post(`${loginURL}`)
         .send({
-          email: testData.newUsers[0].email,
-          password: testData.newUsers[0].password,
+          email: 'jamesugbanu@gmail.com',
+          password: 'scrip#9ju',
         })
         .end((error, response) => {
           expect(response).to.have.status(200);
@@ -242,7 +242,7 @@ describe("USER CONTROLLER ", () => {
           password: testData.newUsers[0].password,
         })
         .end((error, response) => {
-          expect(response).to.have.status(406);
+          expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
           expect(response.body.error.validEmail).to.equal(validationErrors.validEmail);
           done();
@@ -257,7 +257,7 @@ describe("USER CONTROLLER ", () => {
           password: testData.newUsers[0].password,
         })
         .end((error, response) => {
-          expect(response).to.have.status(406);
+          expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
           expect(response.body.error).to.equal(validationErrors.loginRequired);
           done();
@@ -272,7 +272,7 @@ describe("USER CONTROLLER ", () => {
           password: '',
         })
         .end((error, response) => {
-          expect(response).to.have.status(406);
+          expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
           expect(response.body.error).to.equal(validationErrors.loginRequired);
           done();
@@ -308,6 +308,6 @@ describe("USER CONTROLLER ", () => {
           done();
         });
     });
-  });
+   });
 
 });

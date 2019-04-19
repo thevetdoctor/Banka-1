@@ -1,5 +1,11 @@
-import database from "../models/database";
+import db from '../helpers/query';
+import dotenv from 'dotenv';
+import config from '../config/config';
+import jwt from 'jsonwebtoken';
 import validationErrors from "../helpers/validationErrors";
+
+dotenv.config();
+const { secretKey } = config;
 
 class TransactionsController {
 	/**
@@ -9,22 +15,50 @@ class TransactionsController {
    *  @return {Object} json
    */
 	static debitAccount(request, response) {
-		const {
-			cashier,
+ 
+ 		const {
 			amount,
 			type
 		} = request.body;
 		let {accountNumber} = request.params;
 
+		const token = request.headers['x-access'] || request.headers.token || request.query.token;
+      const verifiedToken = jwt.verify(token, secretKey);
+ 
+ 		let balance = `SELECT * FROM accounts WHERE accountnumber ='${accountNumber}'`;
 
-		let transactions = database.findAll("transaction");
+ 
+ 				let rows = db.dbQuery(balance);
 
-			 transactions = transactions[transactions.length - 1]
-			let balance = transactions.balance - amount;
-			let oldBalance = transactions.balance
-			const newData = database.create({ accountNumber, cashier, amount, type, balance, oldBalance}, "transaction");
-	    	TransactionsController.runAccountQuery(response, newData.data);
-		
+ 				rows.then(dbResult => {
+ 					if(dbResult.rowCount > 0) {
+ 						if(dbResult.rows[0].balance >= amount) {
+
+ 							if(dbResult.rows[0].status === "active") {
+ 							let newbalance = parseFloat(dbResult.rows[0].balance) - parseFloat(amount);
+						let oldBalance = dbResult.rows[0].balance;
+		        	const newQuery = {
+			      text: 'INSERT INTO transactions(cashier, amount, type, accountnumber, oldbalance, newbalance) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+			      values: [verifiedToken.user.id, amount, type.trim(), accountNumber, oldBalance, newbalance],
+			    };
+			    		TransactionsController.runAccountQuery(response, newQuery);
+ 							} else {
+ 								return response.status(400).json({
+							          status: 400,
+							          error: validationErrors.accountNotActive
+			 						})
+ 							}
+ 						
+
+ 						} else {
+ 							return response.status(400).json({
+				          status: 400,
+				          error:  validationErrors.insufficientFund
+ 						})
+ 						
+ 					}
+ 					}
+ 				})
 	}
 
 	/**
@@ -35,28 +69,34 @@ class TransactionsController {
    */
 	static creditAccount(request, response) {
 		const {
-			cashier,
 			amount,
 			type
 		} = request.body;
 		let {accountNumber} = request.params;
 
+		const token = request.headers['x-access'] || request.headers.token || request.query.token;
+      const verifiedToken = jwt.verify(token, secretKey);
+ 
+ 		let balance = `SELECT balance FROM accounts WHERE accountnumber ='${accountNumber}'`;
 
-		let transactions = database.findAll("transaction");
-		
-		if(transactions.length === 0) {
+ 
+ 				let rows = db.dbQuery(balance);
 
-			const newData = database.create( {cashier, amount, type, accountNumber}, "transaction");
-	    	TransactionsController.runAccountQuery(response, newData.data);	
-		} else {
-			 transactions = transactions[transactions.length - 1]
-			let balance = parseFloat(transactions.balance) + parseFloat(amount);
-			let oldBalance = transactions.balance
-			const newData = database.create({ accountNumber, cashier, amount, type, balance, oldBalance}, "transaction");
-	    	TransactionsController.runAccountQuery(response, newData.data);
-		}
+ 				rows.then(dbResult => {
+ 					if(dbResult.rowCount > 0) {
+ 						let newbalance = parseFloat(dbResult.rows[0].balance) + parseFloat(amount);
+						let oldBalance = dbResult.rows[0].balance;
+		        	const newQuery = {
+			      text: 'INSERT INTO transactions(cashier, amount, type, accountnumber, oldbalance, newbalance) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+			      values: [verifiedToken.user.id, amount, type.trim(), accountNumber, oldBalance, newbalance],
+			    };
+			    TransactionsController.runAccountQuery(response, newQuery);
+
+ 					}
+ 				})
 		
 	}
+
 
 
 	/**
@@ -67,19 +107,28 @@ class TransactionsController {
    *  @return {Object} json
    *
    */
-	static runAccountQuery(response, newData) {
-		return response.status(201).json({
-			status: 201,
-			data: {
-				id: newData.id,
-				accountNumber: newData.accountNumber,
-				amount: newData.amount,
-				cashier: newData.cashier,
-				transactionType: newData.type,
-				accountBalance: newData.balance
-			}
-		});
-    
+	static runAccountQuery(response, newQuery) {
+
+			db.dbQuery(newQuery)
+				.then(updateResult => {
+						
+			const updateQuery = `UPDATE accounts set balance = '${updateResult.rows[0].newbalance}' WHERE accountnumber=${updateResult.rows[0].accountnumber} RETURNING *`;
+		 			
+		 			db.dbQuery(updateQuery)
+			 			.then(dbResult => {
+			 				 return response.status(201).json({
+				          status: 201,
+				          data: {
+				          	  id: updateResult.rows[0].id,
+				              accountNumber: updateResult.rows[0].accountnumber,
+				              amount: updateResult.rows[0].amount,
+				              cashier: updateResult.rows[0].cashier,
+				              transactionType: updateResult.rows[0].type,
+				              accountBalance: dbResult.rows[0].balance
+				          		}
+				       		 });
+			 			})
+				})
 	}
 }
 

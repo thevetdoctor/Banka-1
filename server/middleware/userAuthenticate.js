@@ -51,7 +51,7 @@ class UserAuthentication {
       const verifiedToken = jwt.verify(token, secretKey);
       request.token = verifiedToken;
       
-      if (verifiedToken.user.type !== "staff") {
+      if (!verifiedToken.user.isadmin) {
         return response.status(403).json({
           status: 403,
           error: validationErrors.notAllowed,
@@ -77,8 +77,8 @@ class UserAuthentication {
       const token = request.headers['x-access'] || request.headers.token || request.query.token;
       const verifiedToken = jwt.verify(token, secretKey);
       request.token = verifiedToken;
-
-      if (verifiedToken.user.isAdmin !== 1) {
+ 
+      if (!verifiedToken.user.isadmin) {
         return response.status(403).json({
           status: 403,
           error: validationErrors.notAllowed,

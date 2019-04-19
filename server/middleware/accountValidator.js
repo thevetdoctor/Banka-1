@@ -1,7 +1,13 @@
+import db from '../helpers/query';
+import dotenv from 'dotenv';
+import config from '../config/config';
 import rules from "../helpers/validationRules";
 import validationErrors from "../helpers/validationErrors";
 import ValidationHelper from "../helpers/validationHelper";
-import database from "../models/database";
+import jwt from 'jsonwebtoken';
+
+dotenv.config();
+const { secretKey } = config;
 
 
 class ValidateAccount {
@@ -19,7 +25,7 @@ class ValidateAccount {
 			type,
 		} = request.body;
 
-		const accountErrors = ValidationHelper.validateAccount(owner, type);
+		const accountErrors = ValidationHelper.validateAccount(type.trim());
 
 		let errors = {};
 
@@ -37,7 +43,7 @@ class ValidateAccount {
 	static validateAccountStatus(request, response, next) {
 	    let errors = {};
 	    const { status } = request.body;
-	    const accountStatusError = ValidationHelper.validateUpdateAccountStatus(status);
+	    const accountStatusError = ValidationHelper.validateUpdateAccountStatus(status.trim());
 
 	     errors = Object.assign(errors, accountStatusError);
 	     
@@ -50,41 +56,52 @@ class ValidateAccount {
    * @param {String} ID
    * @return {object}
    */
+
 	static checkDuplicateAccount(request, response, next) {
-   		const users = database.findAll("account");
-   		const findUser = users.filter(value => {
-   			return value.owner == request.body.owner;
-   		});
-   		if(findUser.length > 0) {
-   			return response.status(406)
-				.json({
-					status: 406,
-					error: validationErrors.accountExists,
-				});
-   		}
-   		 return next();
+		const { type } = request.body;
+
+   		  const token = request.headers['x-access'] || request.headers.token || request.query.token;
+      const verifiedToken = jwt.verify(token, secretKey);
+
+   		  const query = `SELECT owner FROM accounts WHERE owner ='${verifiedToken.user.id}' AND type = '${type}'`;
+    db.dbQuery(query)
+      .then(dbResult => {
+        if (dbResult.rows[0]) {
+          return response.status(400)
+            .json({
+              status: 400,
+              error: validationErrors.accountExists,
+            });
+        }
+        return next();
+      }).catch();
 	}
+
 
 	static validateAccountNumber(request, response, next) {
-		 let errors = {};
-		 const accounts = database.findAll("account");
+		const accountNumber = request.params.accountNumber;
 
-		  if (!ValidationHelper.checkValidAccountNumber(request.params.accountNumber)) {
-	      errors.validAccountNumber = validationErrors.validAccountNumber;
-	    }
-
-	    	const check = accounts.filter(value => {
-		   			return value.accountNumber == request.params.accountNumber;
-		   		});
-
-	    	if(!check.length) {
-	    		errors.accountNumberCheck = validationErrors.accountNumberCheck;
+		  if (!ValidationHelper.checkValidAccountNumber(accountNumber)) {
+	      		return response.status(400)
+				            .json({
+				              status: 400,
+				              error: validationErrors.validAccountNumber,
+				   });
 	    	}
 
-	      ValidationHelper.checkValidationErrors(response, errors, next);
-	}
-
-
+	    	 const query = `SELECT * FROM accounts WHERE accountnumber ='${accountNumber}'`;
+		     db.dbQuery(query)
+		      .then(dbResult => {
+		        if (dbResult.rowCount == 0) {
+		          return response.status(400)
+		            .json({
+		              status: 400,
+		              error: validationErrors.noAccountNumber,
+		            });
+		        } 
+		       })	
+		      return next();
+			}
 }
 
 export default ValidateAccount;
