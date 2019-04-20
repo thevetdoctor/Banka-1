@@ -112,8 +112,17 @@ z-index: 99;
 
 .header__account__buttons {
     z-index: 20;
-    min-width: 400px;
+    min-width: 600px;
     float: right;
+}
+.header__account__buttons .admin__link {
+    text-decoration: none;
+    color: #fff;
+    background: #03567C;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 12px;
+
 }
 
 .relative {
@@ -123,7 +132,7 @@ z-index: 99;
     margin: 0;
 }
 .col-xs-6 {
-    float: left;
+    float: right;
     width: 70%;
 }
 .account__profile {
@@ -478,12 +487,13 @@ z-index: 99;
 /** Banner **/
 .home__slider {
     position: relative;
-    height: 510px;
+    height: 80vh;
     background-repeat: no-repeat;
     background-image: url(../img/broad-bank-banner.png);
+    background-size: cover;
     overflow: hidden;
 }
-@media only screen and (max-width: 1500px) and (min-width: 1000px) {
+@media only screen and (max-width: 3000px) and (min-width: 1000px) {
  .home__slider {
   /*  margin-left: 100px;*/
      top: 85px;
@@ -654,7 +664,7 @@ z-index: 99;
     overflow: auto;
     background: #f9fafc;
 }
-@media only screen and (max-width: 1500px) and (min-width: 1000px) {
+@media only screen and (max-width: 3000px) and (min-width: 1000px) {
  .bb__container {
     position: absolute;
     bottom: 35px;

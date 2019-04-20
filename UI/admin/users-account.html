@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Debit Account</title>
+	<title>All User Account</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-	<link type="text/css" href="css/style.css" rel="stylesheet">
+	<link type="text/css" href="../css/style.css" rel="stylesheet">
 </head>
 <body>
 	<!-- Navigation Menu-->
@@ -133,17 +133,16 @@
             <button id="topBarHeaderResponsiveBar" class="fa fa-bars fa-2x"></button>
 			</div>
 			<div>
-				<a href="index.html" class="header__logo"></a>
+				<a href="../index.html" class="header__logo"></a>
 			</div>
 			<div>
 				<button class="btn btn__login" id="RegisterOverlayOnMobile">Register/Login</button>
 			</div>
 			</div>
 			<div>
-				<a href="index.html" class="header__logo"></a>
+				<a href="../index.html" class="header__logo"></a>
 			</div>
-			
-					<div id="headerAccount" class="header__account__buttons relative">
+				<div id="headerAccount" class="header__account__buttons relative">
 						<div class="row no-margin">
 							<div class="no-padding col col-xs-6">
 								<button class="btn btn__login" id="LoginOverlay">Login</button>
@@ -161,7 +160,7 @@
 								
 							</div>
 						</div>
-					</div>
+				</div>
 		</header>
 	</div>
 
@@ -171,20 +170,19 @@
 	<div class="false sidebar sidebar__fixed--vertical">
 			<nav class="sidebar__nav">
 				<ul>
-					<li class="sidebar__list">
-						<a href="dashboard.html" class="sidebar__nav__link"
-						 id="sidebar__nav__link__mobile">
-							<i class="fa fa-user fa-3x"></i>
-							<span class="sidebar__label">Account</span>
-						</a>
-					</li>
-					<li class="sidebar__list" id="account__btn">
-						<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
-							<i class="fa fa-dashboard fa-3x"></i>
-							<span class="sidebar__label">Dashboard</span>
-						</a>
-					</li>
-				</ul>
+				<li class="sidebar__list">
+					<a href="dashboard.html" class="sidebar__nav__link active" id="sidebar__nav__link__mobile">
+						<i class="fa fa-dashboard fa-3x"></i>
+						<span class="sidebar__label">Dashboard</span>
+					</a>
+				</li>
+				<li class="sidebar__list" id="account__btn">
+					<a class="sidebar__nav__link" id="sidebar__nav__link__account">
+						<i class="fa fa-book fa-3x"></i>
+						<span class="sidebar__label">Transaction</span>
+					</a>
+				</li>
+			</ul>
 			</nav>
 		</div>
 	<!-- Side Navigation on mobile -->
@@ -213,12 +211,6 @@
 	<!-- Second Level Menu -->
 	<div class="account__side__wrapper show">
 			<div class="account__categories__list">
-				<a href="create-account.html" class="ps-container">
-					<span>Create an Account</span>
-				</a>
-				<a href="account-history.html" class="ps-container">
-					<span>Account Transaction History</span>
-				</a>
 				<a href="users-account.html" class="ps-container">
 					<span>View All Accounts</span>
 				</a>
@@ -236,100 +228,60 @@
 				</a>
 			</div>
 	</div>
-		<div class="bb__container">	
+		<div class="bb__container">
+				
 				<div class="bb__con">
-					<div class="col_ten">
-						<div class="Card">
 							<div class="prof_head ">
-								<h3>Debit Account</h3>
+								<h3>All Users Account</h3>
 							</div>
-								<div class="form__width">
-									<form class="js-form form" action="#">
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="form-group ">
-													<div class="relative">
-														<input type="text" name="accnumber" id="account_input" class="form-control" list="account_list" placeholder="Account Number" required>
-														 <datalist id="account_list"></datalist>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="form-group ">
-													<label>Enter Amount</label>
-													<div class="relative">
-														<input type="number" name="amount" class="form-control" placeholder="Amount" required>
-													</div>
-												</div>
-											</div>
-										</div>
 				
-									<div class="clearfix">
-										<div class="col-md-12 col-sm-12 col-xs-12">
-											<div class="form-group">
-												<input type="submit" class="btn btn-account" name="debit" value="Debit">
-											</div>
-										</div>
-									</div>				
-										</form>
-								</div>
+							<div class="table__width">
+								<table class="table">
+									  <tr>
+									    <th>ID</th>
+									    <th>First Name</th>
+									    <th>Last Name</th>
+									    <th>Account Number</th>
+									    <th>Account Type</th>
+									    <th>Balance</th>
+									    <th>Action</th>
+									  </tr>
+									  <tr>
+									    <td>1</td>
+									    <td>James</td>
+									    <td>Ugbanu</td>
+									    <td>1206782388</td>
+									    <td>Current</td>
+									    <td>#16,000</td>
+									    <td class="action__button">
+									    	<a href="user.html" class="fa fa-eye"></a>
+									    	<a class="fa fa-times"></a>
+									    	<a class="fa fa-check"></a>
+									    </td>
+									  </tr>
+									  <tr>
+									    <td>2</td>
+									    <td>Tunde</td>
+									    <td>Chukwudi</td>
+									     <td>1206749308</td>
+									    <td>Savings</td>
+									    <td>#25,000</td>
+									    <td class="action__button">
+									    	<a href="user.html" class="fa fa-eye"></a>
+									    	<a class="fa fa-times"></a>
+									    	<a class="fa fa-check"></a>
+									    </td>
+									  </tr>
+									</table>
 
-					</div>
-					
-					</div>
-					
-				</div>
-				
+							</div>
+						</div>
 		</div>
 
 	<!-- Footer -->
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
 </div>
-	<script type="text/javascript" src="js/script.js"></script>
-	<script>
-
-	document.addEventListener('DOMContentLoaded', () => {
-
-			const account_input = document.querySelector('#account_input')
-
-    // Autocomplete for form
-	function filterSearch(event) {
-
-    // retireve the input element
-    let input = event.target;
-
-    // retrieve the datalist element
-    let account_list = document.querySelector('#account_list');
-
-    // minimum number of characters before we start to generate suggestions
-    const min_characters = 8;
-
-    if (input.value.length < min_characters ) { 
-        return;
-    } else { 
-
-    	 // clear any previously loaded options in the datalist
-                account_list.innerHTML = ""
-
-    	accountInfo.forEach(account => {
-    					if(account.account_number.includes(input.value)) {
-    						 // Create a new <option> element.
-			                    const option = document.createElement('option')
-			                    option.value = account.account_number + " - "+account.account_name
-								// attach the option to the datalist element
-			                    account_list.appendChild(option);
-    					}			
-					 
-				})
-       
-    }
-}
-
-	account_input.addEventListener("keyup", function(event){filterSearch(event)})
-		})
-	</script>
+	<script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>

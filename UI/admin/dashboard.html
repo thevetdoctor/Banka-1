@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+	<title>Dashboard</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-	<link type="text/css" href="css/style.css" rel="stylesheet">
+	<link type="text/css" href="../css/style.css" rel="stylesheet">
 </head>
 <body>
 	<!-- Navigation Menu-->
@@ -24,13 +24,14 @@
 								</div>
 								<div class="account__lg--width">
 									<h1 class="account__heading">Register</h1>
-									<form class="reg-form form">
+									<form class="">
+										
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
 													<label class="float__label  ">Email</label>
 													<div class="relative">
-														<input type="email" name="email" class="form-control float__input" placeholder="Email" required>
+														<input type="email" name="email" class="form-control float__input" placeholder="Email">
 													</div>
 												</div>
 											</div>
@@ -38,11 +39,9 @@
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
-													<label class="float__label ">Password</label>
+													<label class="float__label  ">Password</label>
 													<div class="relative">
-														<input type="password" pattern="^\S{6,}$" name="password" class="form-control float__input"
-														onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;"
-														placeholder="Password" required>
+														<input type="password" name="password" class="form-control float__input" placeholder="Password">
 													</div>
 												</div>
 											</div>
@@ -52,9 +51,7 @@
 												<div class="float__input form-group ">
 													<label class="float__label  ">Retype Password</label>
 													<div class="relative">
-														<input type="password" pattern="^\S{6,}$" name="confirmPassword" class="form-control float__input" id="password_two" 
-														onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" 
-														placeholder="Confirm Password" required>
+														<input type="password" name="confirmPassword" class="form-control float__input" placeholder="Confirm Password">
 													</div>
 												</div>
 											</div>
@@ -62,13 +59,13 @@
 									<div class="clearfix">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
-												<input type="submit" id="regBtn" class="btn btn-account" name="Register" value="Register">
+												<input type="submit" class="btn btn-account" name="Register" value="Register">
 											</div>
 										</div>
 									</div>
 											<div class="account__links">
 												<div class="account__links--item">
-													Already have an account? <a href="dashboard.html">Login</a>
+													Already have an account? <a href="#">Login</a>
 												</div>
 											</div>
 										</form>
@@ -88,13 +85,13 @@
 								</div>
 								<div class="account__lg--width">
 									<h1 class="account__heading">Login</h1>
-									<form class="login-form form" id="accountLoginForm" action="#">
+									<form class="">
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
 													<label class="float__label  ">Email</label>
 													<div class="relative">
-														<input type="email" name="email" data-validate-field="email" class="form-control float__input" placeholder="Email">
+														<input type="email" name="email" class="form-control float__input" placeholder="Email">
 													</div>
 												</div>
 											</div>
@@ -104,7 +101,7 @@
 												<div class="float__input form-group ">
 													<label class="float__label  ">Password</label>
 													<div class="relative">
-														<input type="password" name="password" class="form-control float__input" data-validate-field="password" placeholder="Password">
+														<input type="password" name="password" class="form-control float__input" placeholder="Password">
 													</div>
 												</div>
 											</div>
@@ -126,8 +123,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Login Form -->
-					</div>
+					<!-- End Login Form -->				
+				</div>
 			</div>
 	<div>
 		<header class="header container-fluid  clearfix">
@@ -136,19 +133,18 @@
             <button id="topBarHeaderResponsiveBar" class="fa fa-bars fa-2x"></button>
 			</div>
 			<div>
-				<a href="index.html" class="header__logo"></a>
+				<a href="../index.html" class="header__logo"></a>
 			</div>
 			<div>
 				<button class="btn btn__login" id="RegisterOverlayOnMobile">Register/Login</button>
 			</div>
 			</div>
 			<div>
-				<a href="index.html" class="header__logo"></a>
+				<a href="../index.html" class="header__logo"></a>
 			</div>
 			<div id="headerAccount" class="header__account__buttons relative">
 						<div class="row no-margin">
 							<div class="no-padding col col-xs-6">
-								<a  href="admin/dashboard.html" class="btn admin__link">Admin</a>
 								<button class="btn btn__login" id="LoginOverlay">Login</button>
 								<button class="btn btn__register" id="RegisterOverlay">Register</button>
 								<div class="account__profile clearfix" id="ProfileDropDown">
@@ -160,33 +156,35 @@
 											<li><a href="#">Sign Out</a></li>
 										  </ul>
 										</nav>
-							</div>	
+								</div>
+								
+							</div>
 						</div>
 					</div>
-			</div>
 		</header>
 	</div>
-	<div>
-	<!-- Side Navigation Menu First Level -->
-	<!-- <div class="sidebar sidebar__fixed--vertical">
-		<nav class="sidebar__nav">
 
+	<div class="main">
+
+	<!-- Side Navigation Menu First Level -->
+	<div class="false sidebar sidebar__fixed--vertical">
+		<nav class="sidebar__nav">
 			<ul>
 				<li class="sidebar__list">
-					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
+					<a href="dashboard.html" class="sidebar__nav__link active" id="sidebar__nav__link__mobile">
 						<i class="fa fa-dashboard fa-3x"></i>
 						<span class="sidebar__label">Dashboard</span>
 					</a>
 				</li>
 				<li class="sidebar__list" id="account__btn">
 					<a class="sidebar__nav__link" id="sidebar__nav__link__account">
-						<i class="fa fa-user fa-3x"></i>
-						<span class="sidebar__label">Account</span>
+						<i class="fa fa-book fa-3x"></i>
+						<span class="sidebar__label">Transaction</span>
 					</a>
 				</li>
 			</ul>
 		</nav>
-	</div> -->
+	</div>
 	<!-- Side Navigation on mobile -->
 			<div id="st-container" class="st-container">
 				<nav class="st-menu st-effect-1" id="menu-1">
@@ -211,14 +209,8 @@
 			  </nav>
 			</div>
 	<!-- Second Level Menu -->
-	<!-- <div class="account__side__wrapper show">
+	<div class="account__side__wrapper show">
 			<div class="account__categories__list">
-				<a href="create-account.html" class="ps-container">
-					<span>Create an Account</span>
-				</a>
-				<a href="account-history.html" class="ps-container">
-					<span>Account Transaction History</span>
-				</a>
 				<a href="users-account.html" class="ps-container">
 					<span>View All Accounts</span>
 				</a>
@@ -235,15 +227,142 @@
 					<span>Confirm User</span>
 				</a>
 			</div>
-	</div> -->
-	<div class="st-pusher">
-	<div class="home__slider">
 	</div>
+		<div class="bb__container">
+				<div class="topProfileCon">
+					<div class="profileWrapper">
+						<div class="profileimg">
+							<div class="PR DIB">
+								<img class="ssp-img userimg" src="#">
+							</div>
+						</div>
+				</div>
+				</div>
+				<div class="bb__con">
+					<div class="col_six">
+						<div class="Card">
+							<div class="prof_head ">
+								<h3>Basic Info</h3>
+							</div>
+							<!-- <div class="prof_body ">
+								<div class="prof_l2c">
+									<ul class="prof_title">
+										<li>
+											<span>First Name</span>
+										</li>
+										<li>
+											<span>Last Name</span>
+										</li>
+										<li>
+											<span>Email ID</span>
+										</li>
+										<li>
+											<span>Other Names</span>
+										</li>
+									</ul>
+								</div>
+								<div class="prof_l2c">
+									<ul>
+										<li>
+											<span>James</span>
+										</li>
+										<li>
+											<span>Ugbanu</span>
+										</li>
+										<li>
+											<span>jamesugbanu@gmail.com</span>
+										</li>
+										<li>
+											<span>Osinachi</span>
+										</li>
+									</ul>
+								</div>
+							</div> -->
+					</div>
+					<div class="Card">
+							<div class="prof_head ">
+								<h3>Personal</h3>
+							</div>
+							<!-- <div class="prof_body ">
+								<div class="prof_body ">
+								<div class="prof_l2c">
+									<ul class="prof_title">
+										<li>
+											<span>Mobile Phone</span>
+										</li>
+										<li>
+											<span>Birth Date</span>
+										</li>
+										<li>
+											<span>Home Address</span>
+										</li>
+										<li>
+											<span>Marital status</span>
+										</li>
+										<li>
+											<span>Age</span>
+										</li>
+									</ul>
+								</div>
+								<div class="prof_l2c">
+									<ul>
+										<li>
+											<span>08066428001</span>
+										</li>
+										<li>
+											<span>29-May</span>
+										</li>
+										<li>
+											<span>20 Oyedele Street, Off liasu road, Ikotun Egbe</span>
+										</li>
+										<li>
+											<span>Single</span>
+										</li>
+										<li>
+											<span>2</span>
+										</li>
+									</ul>
+								</div>
+							</div> -->
+							</div>
+					</div>
+					</div>
+					<div class="col_six">
+						<!-- <div class="Card">
+							<div class="prof_head ">
+								<h3>Account</h3>
+							</div>
+							<div class="prof_body ">
+								<div class="prof_l2c">
+									<ul class="prof_title">
+										<li>
+											<span>Account Name</span>
+										</li>
+										<li>
+											<span>Account Type</span>
+										</li>
+									</ul>
+								</div>
+								<div class="prof_l2c">
+									<ul>
+										<li>
+											<span>09278278902</span>
+										</li>
+										<li>
+											<span>Savings</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+					</div> -->
+				</div>
+				
+		</div>
+
 	<!-- Footer -->
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
-	</div>
 </div>
 </div>
-	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>
