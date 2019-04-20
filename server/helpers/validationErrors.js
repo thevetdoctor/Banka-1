@@ -29,10 +29,13 @@ const validationErrors = {
   loginFailure: 'Could not login. The email or password is incorrect',
   noEmail: 'Could not login. The email and password do not match',
   loginRequired: 'Sorry, both your email and password are required',
-  insufficientFund: 'Sorry, Insufficient fund in account. Please fund your account.',
+  insufficientFund: 'Sorry, Insufficient fund in account',
   accountNumberCheck: 'Sorry, Account Number does not exists.',
+  accountNotFound: 'Sorry, Account cannot be found.',
   notAllowed: 'Sorry, You are not allowed to view this resource',
   notAuthenticated:'Please Kindly login or sign up',
+  noAccountNumber: 'Account Number does not exist',
+  accountNotActive: 'Only activated account can be debit. Please activate account.'
 };
 
 export default validationErrors;

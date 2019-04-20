@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 const createBankAccountURL = "/api/v1/accounts";
 const updateAccountStatusURL = "/api/v1/account";
 const deleteAccountURL = "/api/v1/accounts";
-const signupURL = "/api/v1/auth/signup";
+const loginURL = "/api/v1/auth/signin";
 
 let currrentToken;
 
@@ -20,8 +20,11 @@ describe("ACCOUNT CONTROLLER ", () => {
 	describe("POST /api/v1/accounts", () => {
     before((done) => {
       chai.request(app)
-        .post(`${signupURL}`)
-        .send(testData.newUsers[2])
+        .post(`${loginURL}`)
+        .send({
+        	email: "jamesugbanu@gmail.com",
+        	password: "scrip#9ju",
+        })
         .end((error, response) => {
           currrentToken = response.body.data.token;
           done();
@@ -35,10 +38,23 @@ describe("ACCOUNT CONTROLLER ", () => {
 				.end((error, response) => {
 					expect(response).to.have.status(201);
 					expect(response.body).to.be.an("object");
-					expect(response.body.data.openingBalance).to.equal(0);
+					expect(response.body.data.openingBalance).to.equal('0.00');
 					done();
 				});
 		});
+
+    it("it should not create a new bank account with exisiting account number and type", (done) => {
+      chai.request(app)
+        .post(`${createBankAccountURL}`)
+        .send(testData.newAccounts[0])
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(400);
+          expect(response.body).to.be.an("object");
+          expect(response.body.error).to.equal(validationErrors.accountExists);
+          done();
+        });
+    });
       it("it should not create a new bank account with the wrong token", (done) => {
       chai.request(app)
         .post(`${createBankAccountURL}`)
@@ -52,49 +68,16 @@ describe("ACCOUNT CONTROLLER ", () => {
         });
     });
 
-		it("it should not create a bank account with an empty owner field", (done) => {
-			chai.request(app)
-				.post(`${createBankAccountURL}`)
-				.send({
-					owner: "",
-					type: "savings",
-				})
-        .set('token', currrentToken)
-				.end((error, response) => {
-					expect(response).to.have.status(406);
-					expect(response.body).to.be.an("object");
-					expect(response.body.error.ownerRequired).to.equal(validationErrors.ownerRequired);
-					done();
-				});
-		});
-
-		it("it should not create a bank account with owner not an integer", (done) => {
-			chai.request(app)
-				.post(`${createBankAccountURL}`)
-				.send({
-					owner: "J",
-					type: "savings",
-				})
-        .set('token', currrentToken)
-				.end((error, response) => {
-					expect(response).to.have.status(406);
-					expect(response.body.error).to.be.an("object");
-					expect(response.body.error.ownerId).to.equal(validationErrors.ownerId);
-					done();
-				});
-		});
-
 
 		it("it should not create a bank account with an empty account type", (done) => {
 			chai.request(app)
 				.post(`${createBankAccountURL}`)
 				.send({
-					owner: 1,
 					type: "",
 				})
         .set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body).to.be.an("object");
 					expect(response.body.error.accountTypeRequired).to.equal(validationErrors.accountTypeRequired);
 					done();
@@ -105,28 +88,13 @@ describe("ACCOUNT CONTROLLER ", () => {
 			chai.request(app)
 				.post(`${createBankAccountURL}`)
 				.send({
-					owner: 1,
 					type: "nolls",
 				})
         .set('token', currrentToken)
 				.end((error, response) => {
-					expect(response).to.have.status(406);
+					expect(response).to.have.status(400);
 					expect(response.body.error).to.be.an("object");
 					expect(response.body.error.validType).to.equal(validationErrors.validType);
-					done();
-				});
-		});
-
-
-		it("should not create a bank account for a user that already has an account", (done) => {
-			chai.request(app)
-				.post(`${createBankAccountURL}`)
-				.send(testData.newAccounts[0])
-        .set('token', currrentToken)
-				.end((error, response) => {
-					expect(response).to.have.status(406);
-					expect(response.body).to.be.an("object");
-					expect(response.body.error).to.equal(validationErrors.accountExists);
 					done();
 				});
 		});
@@ -160,23 +128,37 @@ describe("ACCOUNT CONTROLLER ", () => {
         })
         .set('token', currrentToken)
         .end((error, response) => {
-          expect(response).to.have.status(406);
+          expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.validAccountNumber).to.equal(validationErrors.validAccountNumber);
+          expect(response.body.error).to.equal(validationErrors.validAccountNumber);
           done();
         });
     });
       it('it should not update the status of an account which has length not 10', (done) => {
       chai.request(app)
-        .put(`${updateAccountStatusURL}/100000000`)
+        .put(`${updateAccountStatusURL}/100000001`)
         .send({
           status: 'dormant',
         })
         .set('token', currrentToken)
         .end((error, response) => {
-          expect(response).to.have.status(406);
+          expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.validAccountNumber).to.equal(validationErrors.validAccountNumber);
+          expect(response.body.error).to.equal(validationErrors.validAccountNumber);
+          done();
+        });
+    });
+        it('it should not update the status of an account which is not found', (done) => {
+      chai.request(app)
+        .put(`${updateAccountStatusURL}/1000000019`)
+        .send({
+          status: 'dormant',
+        })
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.noAccountNumber);
           done();
         });
     });
@@ -190,7 +172,7 @@ describe("ACCOUNT CONTROLLER ", () => {
         })
         .set('token', currrentToken)
         .end((error, response) => {
-          expect(response).to.have.status(406);
+          expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
           expect(response.body.error.validStatus).to.equal(validationErrors.validStatus);
           done();
@@ -206,7 +188,7 @@ describe("ACCOUNT CONTROLLER ", () => {
         })
         .set('token', currrentToken)
         .end((error, response) => {
-          expect(response).to.have.status(406);
+          expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
           expect(response.body.error.statusRequired).to.equal(validationErrors.statusRequired);
           done();
@@ -231,12 +213,12 @@ describe('DELETE /accounts/:accountNumber endpoint', () => {
 
     it('it should return error if account is not found', (done) => {
       chai.request(app)
-        .delete(`${deleteAccountURL}/1000000002`)
+        .delete(`${deleteAccountURL}/1000000001`)
         .set('token', currrentToken)
         .end((error, response) => {
-          expect(response).to.have.status(406);
+          expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.accountNumberCheck).to.equal(validationErrors.accountNumberCheck);
+          expect(response.body.error).to.equal(validationErrors.noAccountNumber);
           done();
         });
     });

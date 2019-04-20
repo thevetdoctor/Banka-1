@@ -1,10 +1,9 @@
+import db from '../helpers/query';
 import passwordHelper from "../helpers/password";
 import generateToken from "../helpers/token";
 import validationErrors from "../helpers/validationErrors";
-import database from "../models/database";
 import dotenv from "dotenv";
 
-dotenv.config();
 
 class UsersController {
 	/**
@@ -23,8 +22,11 @@ class UsersController {
 
       let  hashedPassword = passwordHelper.hashPassword(password.trim());
 
-		const newData = database.create({email, firstName, lastName, hashedPassword}, "user");
-    	UsersController.signupQuery(request, response, newData.data);
+      const query = {
+      text: 'INSERT INTO users(firstname, lastname, email, password) VALUES ($1, $2, $3, $4) RETURNING *',
+      values: [firstName.trim(), lastName.trim(), email.trim(), hashedPassword],
+    };
+        	UsersController.signupQuery(request, response, query);
 		
 	}
 
@@ -36,19 +38,23 @@ class UsersController {
    *  @return {Object} json
    *
    */
-	static signupQuery(request, response, newData) {
-		const currentToken = generateToken(newData);
-    process.env.CURRENT_TOKEN = currentToken;
-		return response.status(201).json({
-			status: 201,
-			data: {
-				token: currentToken,
-				id: newData.id,
-				firstName: newData.firstName,
-				lastName: newData.lastName,
-				email: newData.email
-			}
-		});
+	static signupQuery(request, response, query) {
+
+    db.dbQuery(query) 
+        .then(dbResult => {
+            const currentToken = generateToken(dbResult.rows[0]);
+        process.env.CURRENT_TOKEN = currentToken;
+        return response.status(201).json({
+          status: 201,
+          data: {
+              token: currentToken,
+              id: dbResult.rows[0].id,
+              firstName: dbResult.rows[0].firstname,
+              lastName: dbResult.rows[0].lastname,
+              email: dbResult.rows[0].email
+          }
+        });
+        })
     
 	}
 
@@ -60,21 +66,25 @@ class UsersController {
    */
   static signIn(request, response) {
     const { email, password } = request.body;
-   const users = database.findAll("user");
-   const findEmail = users.filter(value => {
-   			return value.email == request.body.email.toLowerCase();
-   		});
-  
-	   if(findEmail.length == 0) {
-	   	return UsersController.wrongEmailResponse(response)
-	   }
- 
-   		if (!passwordHelper.comparePasswords(password.trim(), findEmail[0].password)) {
+    const query = `SELECT * FROM users WHERE email = '${email}'`;
+
+    db.dbQuery(query)
+      .then(dbResult => {
+
+        if (dbResult.rowCount === 0) return UsersController.wrongEmailResponse(response);
+        if (!passwordHelper.comparePasswords(password.trim(), dbResult.rows[0].password)) {
           return UsersController.passwordFailureResponse(response);
         }
-        const currentToken = generateToken(findEmail[0]);
-        process.env.CURRENT_TOKEN = currentToken;
-        return UsersController.loginSuccessResponse(response, currentToken, findEmail[0]);
+ 
+        const token = generateToken(dbResult.rows[0]);
+        process.env.CURRENT_TOKEN = token;
+
+        return UsersController.loginSuccessResponse(response, token, dbResult.rows[0]);
+      })
+      // .catch(error => { 
+      //   response.status(500).send(error);
+      //    });
+
   }
 
     /**
@@ -108,13 +118,15 @@ class UsersController {
    *  @return {Object} json
    */
   static loginSuccessResponse(response, currentToken, data) {
+   
     return response.status(200).json({
       status: 200,
-      data: {
-      	token: currentToken,
-    		id: data.id, 
-    		firstName: data.firstName,
-    		lastName: data.lastName,
+       data: {
+              token: currentToken,
+              id: data.id,
+              firstName: data.firstname,
+              lastName: data.lastname,
+              email: data.email
           }
     });
   }
