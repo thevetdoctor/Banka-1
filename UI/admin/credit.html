@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Confirm Password</title>
+	<title>Credit Account</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-	<link type="text/css" href="css/style.css" rel="stylesheet">
+	<link type="text/css" href="../css/style.css" rel="stylesheet">
 </head>
 <body>
 	<!-- Navigation Menu-->
@@ -134,14 +134,14 @@
             <button id="topBarHeaderResponsiveBar" class="fa fa-bars fa-2x"></button>
 			</div>
 			<div>
-				<a href="index.html" class="header__logo"></a>
+				<a href="../index.html" class="header__logo"></a>
 			</div>
 			<div>
 				<button class="btn btn__login" id="RegisterOverlayOnMobile">Register/Login</button>
 			</div>
 			</div>
 			<div>
-				<a href="index.html" class="header__logo"></a>
+				<a href="../index.html" class="header__logo"></a>
 			</div>
 			<div id="headerAccount" class="header__account__buttons relative">
 						<div class="row no-margin">
@@ -171,20 +171,19 @@
 	<div class="false sidebar sidebar__fixed--vertical">
 			<nav class="sidebar__nav">
 				<ul>
-					<li class="sidebar__list">
-						<a href="dashboard.html" class="sidebar__nav__link"
-						 id="sidebar__nav__link__mobile">
-							<i class="fa fa-user fa-3x"></i>
-							<span class="sidebar__label">Account</span>
-						</a>
-					</li>
-					<li class="sidebar__list" id="account__btn">
-						<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
-							<i class="fa fa-dashboard fa-3x"></i>
-							<span class="sidebar__label">Dashboard</span>
-						</a>
-					</li>
-				</ul>
+				<li class="sidebar__list">
+					<a href="dashboard.html" class="sidebar__nav__link active" id="sidebar__nav__link__mobile">
+						<i class="fa fa-dashboard fa-3x"></i>
+						<span class="sidebar__label">Dashboard</span>
+					</a>
+				</li>
+				<li class="sidebar__list" id="account__btn">
+					<a class="sidebar__nav__link" id="sidebar__nav__link__account">
+						<i class="fa fa-book fa-3x"></i>
+						<span class="sidebar__label">Transaction</span>
+					</a>
+				</li>
+			</ul>
 			</nav>
 		</div>
 	<!-- Side Navigation on mobile -->
@@ -213,12 +212,6 @@
 	<!-- Second Level Menu -->
 	<div class="account__side__wrapper show">
 			<div class="account__categories__list">
-				<a href="create-account.html" class="ps-container">
-					<span>Create an Account</span>
-				</a>
-				<a href="account-history.html" class="ps-container">
-					<span>Account Transaction History</span>
-				</a>
 				<a href="users-account.html" class="ps-container">
 					<span>View All Accounts</span>
 				</a>
@@ -249,7 +242,8 @@
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
 													<div class="relative">
-														<input type="password" class="form-control"  placeholder="Enter Password" required>
+														<input type="text" name="accnumber" class="form-control" id="account_input" list="account_list"  placeholder="Account Number" required>
+														 <datalist id="account_list"></datalist>
 													</div>
 												</div>
 											</div>
@@ -257,8 +251,9 @@
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="form-group ">
+													<label>Enter Amount</label>
 													<div class="relative">
-														<input type="password" class="form-control" placeholder="Confirm Password" required>
+														<input type="number" name="amount" class="form-control" placeholder="Amount" required>
 													</div>
 												</div>
 											</div>
@@ -267,7 +262,7 @@
 									<div class="clearfix">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
-												<input type="submit" class="btn btn-account" value="Confirm Password">
+												<input type="submit" class="btn btn-account" name="credit" value="Credit">
 											</div>
 										</div>
 									</div>				
@@ -286,6 +281,48 @@
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
 </div>
 </div>
-	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="../js/script.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+
+			const account_input = document.querySelector('#account_input')
+
+    // Autocomplete for form
+	function filterSearch(event) {
+
+    // retireve the input element
+    let input = event.target;
+
+    // retrieve the datalist element
+    let account_list = document.querySelector('#account_list');
+
+
+    // minimum number of characters before we start to generate suggestions
+    const characters = 10;
+
+    if (input.value.length != characters ) { 
+        return;
+    } else { 
+
+    	 // clear any previously loaded options in the datalist
+                account_list.innerHTML = ""
+
+    	accountInfo.forEach(account => {
+    					if(account.account_number.includes(input.value)) {
+    						 // Create a new <option> element.
+			                    const option = document.createElement('option')
+			                    option.value = account.account_number + " - "+account.account_name
+								// attach the option to the datalist element
+			                    account_list.appendChild(option);
+    					}			
+					 
+				})
+       
+    }
+}
+
+	account_input.addEventListener("keyup", function(event){filterSearch(event)})
+		})
+	</script>
 </body>
 </html>
