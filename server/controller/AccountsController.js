@@ -156,6 +156,8 @@ class AccountsController {
       message: 'Account successfully deleted',
     });
   }
+
+
  }
 
  export default AccountsController;

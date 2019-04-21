@@ -130,6 +130,46 @@ class TransactionsController {
 			 			})
 				})
 	}
+
+	 /**
+   *  Return an account's transaction history response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+    static getAccountHistory(request, response) {
+          const { accountNumber } = request.params;
+          	console.log(accountNumber)
+          let history = `SELECT * FROM transactions WHERE accountnumber ='${accountNumber}'`;
+
+           db.dbQuery(history)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.historyNotFOund,
+              });
+            }
+             TransactionsController.getAccountHistorySuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+
+     /**
+   *  Return transaction account history status response
+   *  @param {Object} response
+   *  @param {Object} dbResult
+   *  @return {Object} json
+   *
+   */
+  static getAccountHistorySuccess(response, dbResult) {
+    return response.status(200).json({
+      status: 200,
+      data: dbResult.rows
+    });
+  }
+
 }
 
 export default TransactionsController;

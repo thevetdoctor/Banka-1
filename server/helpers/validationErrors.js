@@ -35,7 +35,8 @@ const validationErrors = {
   notAllowed: 'Sorry, You are not allowed to view this resource',
   notAuthenticated:'Please Kindly login or sign up',
   noAccountNumber: 'Account Number does not exist',
-  accountNotActive: 'Only activated account can be debit. Please activate account.'
+  accountNotActive: 'Only activated account can be debit. Please activate account.',
+  historyNotFOund: 'No Transaction history found for this user',
 };
 
 export default validationErrors;
