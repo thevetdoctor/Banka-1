@@ -234,6 +234,21 @@ class AccountsController {
           })
          .catch((error) => { response.status(500).send(error); }); 
 
+        } else if(request.query.status == 'active') {
+          let query = `SELECT * FROM accounts WHERE status = '${request.query.status}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); }); 
         }
 
           let query = `SELECT * FROM accounts`;
