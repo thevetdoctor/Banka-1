@@ -181,7 +181,7 @@ class TransactionsController {
          .catch((error) => { response.status(500).send(error); });  
     }
      /**
-   *  Return transaction account history status response
+   *  Return transaction account history response
    *  @param {Object} response
    *  @param {Object} dbResult
    *  @return {Object} json

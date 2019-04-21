@@ -24,5 +24,6 @@ const routes = (app) => {
 	app.post('/api/v1/transactions/:accountNumber/debit', userAuthenticate.authenticateStaff, ValidateAccount.validateAccountNumber, ValidateTransaction.validateDebitAccount, TransactionsController.debitAccount);
 	app.get('/api/v1/accounts/:accountNumber/transactions', userAuthenticate.authenticateUser, ValidateAccount.validateAccountNumber, TransactionsController.getUserAccountHistory);
 	app.get('/api/v1/transactions/:id', userAuthenticate.authenticateUser, ValidateAccount.validateId, TransactionsController.getUserTransaction);
+	app.get('/api/v1/user/:email/accounts', userAuthenticate.authenticateUser, ValidateAccount.validateEmail, AccountsController.getUserAccounts);
 };	
 export default routes;

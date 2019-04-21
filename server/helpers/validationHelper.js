@@ -109,6 +109,19 @@ class ValidateHelper {
 	    return false;
 	  }
 
+	    /**
+   * check if email is valid
+   * @param {Object} request
+   * @return {boolean} true
+   */
+	  static checkValidEmail(email) {
+
+	    if (rules.validEmail.test(email)) {
+	    		 return true;
+	    }
+	    return false;
+	  }
+
 	  	/**
    * validate cashier, amount, type
    * @param {String} name
