@@ -182,6 +182,32 @@ class AccountsController {
          .catch((error) => { response.status(500).send(error); });  
     }
 
+
+   /**
+   *  Return user account response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+    static getUserAccount(request, response) {
+          const { accountNumber } = request.params;
+           
+          let query = `SELECT accounts.createdOn, accounts.accountnumber, users.email, accounts.type, accounts.status, accounts.balance FROM accounts LEFT JOIN users ON users.id = accounts.owner WHERE accountnumber ='${accountNumber}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getUserAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+
       /**
    *  Return user account response
    *  @param {Object} response
@@ -193,7 +219,7 @@ class AccountsController {
 
     return response.status(200).json({
       status: 200,
-      accounts: dbResult.rows[0]
+      accounts: dbResult.rows
     });
   }
 
