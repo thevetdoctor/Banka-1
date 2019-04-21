@@ -96,6 +96,19 @@ class ValidateHelper {
 	    return false;
 	  }
 
+	  /**
+   * check if id is valid
+   * @param {Object} request
+   * @return {boolean} true
+   */
+	  static checkValidId(number) {
+
+	    if (rules.validInt.test(number)) {
+	    		 return true;
+	    }
+	    return false;
+	  }
+
 	  	/**
    * validate cashier, amount, type
    * @param {String} name

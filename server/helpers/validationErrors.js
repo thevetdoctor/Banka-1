@@ -15,6 +15,7 @@ const validationErrors = {
 	validPassword: "Sorry, your password cannot contain spaces.",
 	validEmail: "Please enter a valid email address.",
   validAccountNumber: "Please enter a valid account Number.",
+  validId: "Please enter a valid account Number.",
   validAmount: "Amount is invalid. Please a valid amount should be in this format 50.00",
   ownerId: "Owner Id should be an integer",
   cashierId: "cashier Id should be an integer",

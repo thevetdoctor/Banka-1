@@ -137,7 +137,7 @@ class TransactionsController {
    *  @return {Object} json
    *
    */
-    static getAccountHistory(request, response) {
+    static getUserAccountHistory(request, response) {
           const { accountNumber } = request.params;
           	console.log(accountNumber)
           let history = `SELECT * FROM transactions WHERE accountnumber ='${accountNumber}'`;
@@ -151,11 +151,35 @@ class TransactionsController {
                 error: validationErrors.historyNotFOund,
               });
             }
-             TransactionsController.getAccountHistorySuccess(response, dbResult);
+             TransactionsController.getTransactionSuccess(response, dbResult);
           })
          .catch((error) => { response.status(500).send(error); });  
     }
 
+     /**
+   *  Return a specific account transaction response
+   *  @param {Object} response
+   *  @return {Object} json
+   */
+
+ 	static getUserTransaction(request, response) {
+          const { id } = request.params;
+
+          const query = `SELECT * FROM transactions WHERE id ='${id}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.historyNotFOund,
+              });
+            }
+             TransactionsController.getTransactionSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
      /**
    *  Return transaction account history status response
    *  @param {Object} response
@@ -163,10 +187,10 @@ class TransactionsController {
    *  @return {Object} json
    *
    */
-  static getAccountHistorySuccess(response, dbResult) {
+  static getTransactionSuccess(response, dbResult) {
     return response.status(200).json({
       status: 200,
-      data: dbResult.rows
+      data: dbResult.rows[0]
     });
   }
 

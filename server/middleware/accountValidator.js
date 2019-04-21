@@ -101,7 +101,20 @@ class ValidateAccount {
 		        } 
 		       })	
 		      return next();
-			}
+	}
+
+	static validateId(request, response, next) {
+		const { id } = request.params;
+	
+		 if (!ValidationHelper.checkValidId(id)) {
+	      		return response.status(400)
+				            .json({
+				              status: 400,
+				              error: validationErrors.validId,
+				   });
+	    	}
+	    return next();
+	}
 }
 
 export default ValidateAccount;
