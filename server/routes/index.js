@@ -26,5 +26,6 @@ const routes = (app) => {
 	app.get('/api/v1/transactions/:id', userAuthenticate.authenticateUser, ValidateAccount.validateId, TransactionsController.getUserTransaction);
 	app.get('/api/v1/user/:email/accounts', userAuthenticate.authenticateUser, ValidateAccount.validateEmail, AccountsController.getUserAccounts);
 	app.get('/api/v1/accounts/:accountNumber', userAuthenticate.authenticateUser, ValidateAccount.validateAccountNumber, AccountsController.getUserAccount);
+	app.get('/api/v1/accounts', userAuthenticate.authenticateAdmin, AccountsController.getAllAccounts);
 };	
 export default routes;

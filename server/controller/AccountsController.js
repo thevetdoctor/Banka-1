@@ -203,7 +203,32 @@ class AccountsController {
                 error: validationErrors.accountNotFound,
               });
             }
-             AccountsController.getUserAccountsSuccess(response, dbResult);
+             AccountsController.getAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+
+
+      /**
+   *  Return user account response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+    static getAllAccounts(request, response) {
+           
+          let query = `SELECT * FROM accounts`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getAccountsSuccess(response, dbResult);
           })
          .catch((error) => { response.status(500).send(error); });  
     }
@@ -220,6 +245,21 @@ class AccountsController {
     return response.status(200).json({
       status: 200,
       accounts: dbResult.rows
+    });
+  }
+
+    /**
+   *  Return account response
+   *  @param {Object} response
+   *  @param {Object} dbResult
+   *  @return {Object} json
+   *
+   */
+  static getAccountsSuccess(response, dbResult) {
+
+    return response.status(200).json({
+      status: 200,
+      data: dbResult.rows
     });
   }
 
