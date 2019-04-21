@@ -8,11 +8,10 @@ import validationErrors from "../helpers/validationErrors";
 const { expect } = chai;
 chai.use(chaiHttp);
 
-const createBankAccountURL = "/api/v1/accounts";
-const creditAccountURL = "/api/v1/transactions";
-const debitAccountURL = "/api/v1/transactions";
+const transactionsUrl = "/api/v1/transactions";
 const loginURL = "/api/v1/auth/signin";
-const updateAccountStatusURL = "/api/v1/account";
+const accountUrl = "/api/v1/account";
+const accountsUrl = "/api/v1/accounts";
 
 let currrentToken;
 
@@ -35,7 +34,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 		it("it should credit an account", (done) => {
 			chai.request(app)
-				.post(`${creditAccountURL}/1000000001/credit`)
+				.post(`${transactionsUrl}/1000000001/credit`)
 				.send(testData.newTransactions[0])
 				.set('token', currrentToken)
 				.end((error, response) => {
@@ -49,7 +48,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 		it("it should not credit a bank account with an empty amount", (done) => {
 			chai.request(app)
-				.post(`${creditAccountURL}/1000000001/credit`)
+				.post(`${transactionsUrl}/1000000001/credit`)
 				.send({
 					amount: '',
 					type: "credit",
@@ -65,7 +64,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 		it("it should not credit a bank account with amount not an integer of float", (done) => {
 			chai.request(app)
-				.post(`${creditAccountURL}/1000000001/credit`)
+				.post(`${transactionsUrl}/1000000001/credit`)
 				.send({
 					amount: 'J',
 					type: "credit",
@@ -82,7 +81,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 		it("should not credit a bank account when type is empty", (done) => {
 			chai.request(app)
-				.post(`${creditAccountURL}/1000000001/credit`)
+				.post(`${transactionsUrl}/1000000001/credit`)
 				.send({
 					amount: 50,
 					type: "",
@@ -99,7 +98,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 	
 	it("should not credit a bank account when type is not credit", (done) => {
 			chai.request(app)
-				.post(`${creditAccountURL}/1000000001/credit`)
+				.post(`${transactionsUrl}/1000000001/credit`)
 				.send({
 					amount: 50.0,
 					type: "cedit",
@@ -119,7 +118,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 		 it('it should not debit an account if not active', (done) => {
       chai.request(app)
-        .post(`${debitAccountURL}/1000000001/debit`)
+        .post(`${transactionsUrl}/1000000001/debit`)
         .send(testData.newTransactions[1])
         .set('token', currrentToken)
         .end((error, response) => {
@@ -130,9 +129,9 @@ describe("TRANSACTION CONTROLLER ", () => {
         });
     });
 
-		it('it should update the status of an account', (done) => {
+		it('it should update the status of an account to active', (done) => {
       chai.request(app)
-        .put(`${updateAccountStatusURL}/1000000001`)
+        .put(`${accountUrl}/1000000001`)
         .send({
           status: 'active',
         })
@@ -148,7 +147,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
     it('it should debit an account if active', (done) => {
       chai.request(app)
-        .post(`${debitAccountURL}/1000000001/debit`)
+        .post(`${transactionsUrl}/1000000001/debit`)
         .send(testData.newTransactions[1])
         .set('token', currrentToken)
         .end((error, response) => {
@@ -165,7 +164,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 		it("it should not debit a bank account with an empty amount", (done) => {
 			chai.request(app)
-				.post(`${debitAccountURL}/1000000001/debit`)
+				.post(`${transactionsUrl}/1000000001/debit`)
 				.send({
 					amount: '',
 					type: "debit",
@@ -181,7 +180,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 		it("it should not debit a bank account with amount not an integer of float", (done) => {
 			chai.request(app)
-				.post(`${debitAccountURL}/1000000001/debit`)
+				.post(`${transactionsUrl}/1000000001/debit`)
 				.send({
 					amount: 'J',
 					type: "debit",
@@ -198,7 +197,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 		it("should not debit a bank account when type is empty", (done) => {
 			chai.request(app)
-				.post(`${debitAccountURL}/1000000001/debit`)
+				.post(`${transactionsUrl}/1000000001/debit`)
 				.send({ 
 					amount: 50.0,
 					type: "",
@@ -214,7 +213,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 	it("should not debit a bank account when type is not debit", (done) => {
 			chai.request(app)
-				.post(`${debitAccountURL}/1000000001/debit`)
+				.post(`${transactionsUrl}/1000000001/debit`)
 				.send({ 
 					amount: 50.0,
 					type: "deit",
@@ -230,7 +229,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 
 	it("should not debit a bank account when amount is less than balance", (done) => {
 			chai.request(app)
-				.post(`${debitAccountURL}/1000000001/debit`)
+				.post(`${transactionsUrl}/1000000001/debit`)
 				.send({
 						amount: 100.00,
 						type: "debit",
@@ -244,4 +243,31 @@ describe("TRANSACTION CONTROLLER ", () => {
 				});
 		});
  });
+describe('GET /api/v1/accounts/:accountNumber/transactions endpoint', () => {
+      it('it should return all account number transactions', (done) => {
+      chai.request(app)
+        .get(`${accountsUrl}/1000000001/transactions`)
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          expect(response.body).to.be.an('object');
+          done();
+        });
+    });
+
+  });
+
+describe('GET /api/v1/transactions/:id endpoint', () => {
+      it('it should return a specific transaction', (done) => {
+      chai.request(app)
+        .get(`${transactionsUrl}/1`)
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          expect(response.body).to.be.an('object');
+          done();
+        });
+    });
+
+  });
 });

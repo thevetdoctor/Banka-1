@@ -32,7 +32,6 @@ const routes = (app) => {
 	app.get('/api/v1/user/:email/accounts', userAuthenticate.authenticateUser, ValidateAccount.validateEmail, AccountsController.getUserAccounts);
 	app.get('/api/v1/accounts/:accountNumber', userAuthenticate.authenticateUser, ValidateAccount.validateAccountNumber, AccountsController.getUserAccount);
 	app.get('/api/v1/accounts', userAuthenticate.authenticateAdmin, AccountsController.getAllAccounts);
-	//app.get('/api/v1/accounts?status=dormant', userAuthenticate.authenticateAdmin, AccountsController.getAllDormantAccounts);
 	
 };	
 export default routes;
