@@ -36,12 +36,26 @@ describe("ACCOUNT CONTROLLER ", () => {
 				.send(testData.newAccounts[0])
         .set('token', currrentToken)
 				.end((error, response) => {
+          console.log(response.body)
 					expect(response).to.have.status(201);
 					expect(response.body).to.be.an("object");
 					expect(response.body.data.openingBalance).to.equal('0.00');
 					done();
 				});
 		});
+
+     it("it should create a new bank account", (done) => {
+      chai.request(app)
+        .post(`${createBankAccountURL}`)
+        .send(testData.newAccounts[1])
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(201);
+          expect(response.body).to.be.an("object");
+          expect(response.body.data.openingBalance).to.equal('0.00');
+          done();
+        });
+    });
 
     it("it should not create a new bank account with exisiting account number and type", (done) => {
       chai.request(app)
@@ -200,7 +214,7 @@ describe('DELETE /accounts/:accountNumber endpoint', () => {
 
     it('it should delete an account', (done) => {
       chai.request(app)
-        .delete(`${deleteAccountURL}/1000000001`)
+        .delete(`${deleteAccountURL}/1000000002`)
         .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(202);
@@ -213,7 +227,7 @@ describe('DELETE /accounts/:accountNumber endpoint', () => {
 
     it('it should return error if account is not found', (done) => {
       chai.request(app)
-        .delete(`${deleteAccountURL}/1000000001`)
+        .delete(`${deleteAccountURL}/1000000002`)
         .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(400);

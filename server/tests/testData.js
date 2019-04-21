@@ -31,11 +31,10 @@ const newUsers = [
 
 const newAccounts = [
 	{
-		owner: 1,
+
 		type: "savings",
 	},
 	{
-		owner: 2,
 		type: "current",
 	},
 ];

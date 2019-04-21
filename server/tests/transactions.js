@@ -31,18 +31,7 @@ describe("TRANSACTION CONTROLLER ", () => {
 		          done();
 		        })
 		    })
-		 it("it should create a new bank account", (done) => {
-			chai.request(app)
-				.post(`${createBankAccountURL}`)
-				.send(testData.newAccounts[0])
-        .set('token', currrentToken)
-				.end((error, response) => {
-					expect(response).to.have.status(201);
-					expect(response.body).to.be.an("object");
-					expect(response.body.data.openingBalance).to.equal('0.00');
-					done();
-				});
-		});
+		
 
 		it("it should credit an account", (done) => {
 			chai.request(app)
