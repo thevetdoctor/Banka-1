@@ -216,7 +216,26 @@ class AccountsController {
    *
    */
     static getAllAccounts(request, response) {
-           
+
+            if(request.query.status == 'dormant') {
+
+              let query = `SELECT * FROM accounts WHERE status = '${request.query.status}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); }); 
+
+        }
+
           let query = `SELECT * FROM accounts`;
 
            db.dbQuery(query)
@@ -232,6 +251,32 @@ class AccountsController {
           })
          .catch((error) => { response.status(500).send(error); });  
     }
+
+      /**
+   *  Return dormant account response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+    static getAllDormantAccounts(request, response) {
+            const { dormant } = request.query.status;
+           console.log(dormant)
+          let query = `SELECT accounts.createdOn, accounts.accountnumber, users.email, accounts.type, accounts.status, accounts.balance FROM accounts LEFT JOIN users ON users.id = accounts.owner WHERE type ='${dormant}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+              console.log(dbResult)
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+
 
       /**
    *  Return user account response

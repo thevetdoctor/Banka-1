@@ -1,3 +1,5 @@
+import url from 'url';
+import querystring from 'querystring';
 import UsersController from "../controller/UsersController";
 import AccountsController from "../controller/AccountsController";
 import TransactionsController from "../controller/TransactionsController";
@@ -13,6 +15,9 @@ const routes = (app) => {
 	// 	message: "Welcome to Banka Application",
 	// }));
 
+	// const rawUrl = 'accounts?status=dormant';
+	// const parseUrl = url.parse(rawUrl);
+	// const parsedQs = querystring.parse(parseUrl.query)
 
 
 	app.post("/api/v1/auth/signup", ValidateUser.validateSignup, ValidateUser.checkDuplicateEmail, UsersController.signup);
@@ -27,5 +32,7 @@ const routes = (app) => {
 	app.get('/api/v1/user/:email/accounts', userAuthenticate.authenticateUser, ValidateAccount.validateEmail, AccountsController.getUserAccounts);
 	app.get('/api/v1/accounts/:accountNumber', userAuthenticate.authenticateUser, ValidateAccount.validateAccountNumber, AccountsController.getUserAccount);
 	app.get('/api/v1/accounts', userAuthenticate.authenticateAdmin, AccountsController.getAllAccounts);
+	//app.get('/api/v1/accounts?status=dormant', userAuthenticate.authenticateAdmin, AccountsController.getAllDormantAccounts);
+	
 };	
 export default routes;
