@@ -130,6 +130,70 @@ class TransactionsController {
 			 			})
 				})
 	}
+
+	 /**
+   *  Return an account's transaction history response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+    static getUserAccountHistory(request, response) {
+          const { accountNumber } = request.params;
+          	console.log(accountNumber)
+          let history = `SELECT * FROM transactions WHERE accountnumber ='${accountNumber}'`;
+
+           db.dbQuery(history)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.historyNotFOund,
+              });
+            }
+             TransactionsController.getTransactionSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+
+     /**
+   *  Return a specific account transaction response
+   *  @param {Object} response
+   *  @return {Object} json
+   */
+
+ 	static getUserTransaction(request, response) {
+          const { id } = request.params;
+
+          const query = `SELECT * FROM transactions WHERE id ='${id}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.historyNotFOund,
+              });
+            }
+             TransactionsController.getTransactionSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+     /**
+   *  Return transaction account history response
+   *  @param {Object} response
+   *  @param {Object} dbResult
+   *  @return {Object} json
+   *
+   */
+  static getTransactionSuccess(response, dbResult) {
+    return response.status(200).json({
+      status: 200,
+      data: dbResult.rows[0]
+    });
+  }
+
 }
 
 export default TransactionsController;

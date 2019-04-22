@@ -156,6 +156,173 @@ class AccountsController {
       message: 'Account successfully deleted',
     });
   }
+
+   /**
+   *  Return user account response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+    static getUserAccounts(request, response) {
+          const { email } = request.params;
+           
+          let query = `SELECT accounts.createdOn, accounts.accountnumber, accounts.type, accounts.status, accounts.balance FROM users LEFT JOIN accounts ON accounts.owner = users.id WHERE email ='${email}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getUserAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+
+
+   /**
+   *  Return user account response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+    static getUserAccount(request, response) {
+          const { accountNumber } = request.params;
+           
+          let query = `SELECT accounts.createdOn, accounts.accountnumber, users.email, accounts.type, accounts.status, accounts.balance FROM accounts LEFT JOIN users ON users.id = accounts.owner WHERE accountnumber ='${accountNumber}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+
+
+      /**
+   *  Return user account response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+    static getAllAccounts(request, response) {
+
+            if(request.query.status == 'dormant') {
+
+              let query = `SELECT * FROM accounts WHERE status = '${request.query.status}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); }); 
+
+        } else if(request.query.status == 'active') {
+          let query = `SELECT * FROM accounts WHERE status = '${request.query.status}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); }); 
+        }
+
+          let query = `SELECT * FROM accounts`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+
+      /**
+   *  Return dormant account response
+   *  @param {Object} response
+   *  @return {Object} json
+   *
+   */
+    static getAllDormantAccounts(request, response) {
+            const { dormant } = request.query.status;
+           console.log(dormant)
+          let query = `SELECT accounts.createdOn, accounts.accountnumber, users.email, accounts.type, accounts.status, accounts.balance FROM accounts LEFT JOIN users ON users.id = accounts.owner WHERE type ='${dormant}'`;
+
+           db.dbQuery(query)
+          .then((dbResult) => {
+              console.log(dbResult)
+            if (!dbResult.rows[0]) {
+              return response.status(404).json({
+                status: 404,
+                error: validationErrors.accountNotFound,
+              });
+            }
+             AccountsController.getAccountsSuccess(response, dbResult);
+          })
+         .catch((error) => { response.status(500).send(error); });  
+    }
+
+
+      /**
+   *  Return user account response
+   *  @param {Object} response
+   *  @param {Object} dbResult
+   *  @return {Object} json
+   *
+   */
+  static getUserAccountsSuccess(response, dbResult) {
+
+    return response.status(200).json({
+      status: 200,
+      accounts: dbResult.rows
+    });
+  }
+
+    /**
+   *  Return account response
+   *  @param {Object} response
+   *  @param {Object} dbResult
+   *  @return {Object} json
+   *
+   */
+  static getAccountsSuccess(response, dbResult) {
+
+    return response.status(200).json({
+      status: 200,
+      data: dbResult.rows
+    });
+  }
+
  }
 
  export default AccountsController;

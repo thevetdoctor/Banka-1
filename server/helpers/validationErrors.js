@@ -15,6 +15,7 @@ const validationErrors = {
 	validPassword: "Sorry, your password cannot contain spaces.",
 	validEmail: "Please enter a valid email address.",
   validAccountNumber: "Please enter a valid account Number.",
+  validId: "Please enter a valid account Number.",
   validAmount: "Amount is invalid. Please a valid amount should be in this format 50.00",
   ownerId: "Owner Id should be an integer",
   cashierId: "cashier Id should be an integer",
@@ -35,7 +36,8 @@ const validationErrors = {
   notAllowed: 'Sorry, You are not allowed to view this resource',
   notAuthenticated:'Please Kindly login or sign up',
   noAccountNumber: 'Account Number does not exist',
-  accountNotActive: 'Only activated account can be debit. Please activate account.'
+  accountNotActive: 'Only activated account can be debit. Please activate account.',
+  historyNotFOund: 'No Transaction history found for this user',
 };
 
 export default validationErrors;

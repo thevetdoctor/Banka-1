@@ -101,7 +101,33 @@ class ValidateAccount {
 		        } 
 		       })	
 		      return next();
-			}
+	}
+
+	static validateId(request, response, next) {
+		const { id } = request.params;
+	
+		 if (!ValidationHelper.checkValidId(id)) {
+	      		return response.status(400)
+				            .json({
+				              status: 400,
+				              error: validationErrors.validId,
+				   });
+	    	}
+	    return next();
+	}
+
+	static validateEmail(request, response, next) {
+		const { email } = request.params;
+	
+		 if (!ValidationHelper.checkValidEmail(email)) {
+	      		return response.status(400)
+				            .json({
+				              status: 400,
+				              error: validationErrors.validEmail,
+				   });
+	    	}
+	    return next();
+	}
 }
 
 export default ValidateAccount;
