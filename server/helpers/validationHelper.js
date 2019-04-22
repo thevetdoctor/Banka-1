@@ -17,17 +17,17 @@ class ValidateHelper {
 	static validateUser(email, firstName, lastName, isSignup) {
 		let errors = {};
 
-		if (!firstName || !rules.empty.test(firstName)) {
+		if (!firstName || !rules.empty.test(firstName.trim())) {
 			errors.fnameRequired = validationErrors.fnameRequired;
 		}
 		
 
-		if (!lastName || !rules.empty.test(lastName)) {
+		if (!lastName || !rules.empty.test(lastName.trim())) {
 			errors.lnameRequired = validationErrors.lnameRequired;
 		}
 		
 
-		if ((!email || !rules.empty.test(email)) && isSignup) errors.emailRequired = validationErrors.emailRequired;
+		if ((!email || !rules.empty.test(email.trim())) && isSignup) errors.emailRequired = validationErrors.emailRequired;
 		
 			if(Object.keys(errors).length == 0) {
 				if (!rules.validName.test(firstName)) errors.validFName = validationErrors.validFName;
@@ -53,9 +53,9 @@ class ValidateHelper {
 	static validateAccount(type) {
 		let errors = {};
 
-		if (!type || !rules.empty.test(type)) errors.accountTypeRequired = validationErrors.accountTypeRequired;
+		if (!type || !rules.empty.test(type.trim())) errors.accountTypeRequired = validationErrors.accountTypeRequired;
 		if(Object.keys(errors).length == 0) {
-			if (!rules.accountType.test(type)) errors.validType = validationErrors.validType;
+			if (!rules.accountType.test(type.trim())) errors.validType = validationErrors.validType;
 			errors = ValidateHelper.getFirstError(errors)
 		}
 
@@ -70,10 +70,10 @@ class ValidateHelper {
    */
 	static validateUpdateAccountStatus(status) {
 		let errors = {};
-		if (!status || !rules.empty.test(status)) errors.statusRequired = validationErrors.statusRequired;
+		if (!status || !rules.empty.test(status.trim())) errors.statusRequired = validationErrors.statusRequired;
 
 		if(Object.keys(errors).length == 0) {
-			if (!rules.accountStatus.test(status)) errors.validStatus = validationErrors.validStatus;
+			if (!rules.accountStatus.test(status.trim())) errors.validStatus = validationErrors.validStatus;
 			errors = ValidateHelper.getFirstError(errors)
 		}
 
@@ -116,7 +116,7 @@ class ValidateHelper {
    */
 	  static checkValidEmail(email) {
 
-	    if (rules.validEmail.test(email)) {
+	    if (rules.validEmail.test(email.trim())) {
 	    		 return true;
 	    }
 	    return false;
@@ -136,7 +136,7 @@ class ValidateHelper {
 		}
 		
 		
-		if (!type || !rules.empty.test(type)) errors.debitTypeRequired = validationErrors.debitTypeRequired;
+		if (!type || !rules.empty.test(type.trim())) errors.debitTypeRequired = validationErrors.debitTypeRequired;
 		
 		if(Object.keys(errors).length == 0) {
 			if(!rules.validAmount.test(amount)) errors.validAmount = validationErrors.validAmount;
@@ -161,7 +161,7 @@ class ValidateHelper {
 
 		if(Object.keys(errors).length == 0) {
 			if(!rules.validAmount.test(amount)) errors.validAmount = validationErrors.validAmount;
-			if (!type || !rules.empty.test(type)) errors.creditTypeRequired = validationErrors.creditTypeRequired;
+			if (!type || !rules.empty.test(type.trim())) errors.creditTypeRequired = validationErrors.creditTypeRequired;
 		
 			if(type !== 'credit') errors.creditTypeRequired = validationErrors.creditTypeRequired;
 			errors = ValidateHelper.getFirstError(errors)
