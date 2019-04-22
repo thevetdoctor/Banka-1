@@ -15,9 +15,6 @@ https://techneplus.github.io/Banka/UI/index.html
 ## Server side hosted on Heroku
 https://broad-bank.herokuapp.com/
 
-## API Documentation
-https://broad-bank.herokuapp.com//api-docs
-
 ## Table of Content
  * [Getting Started](#getting-started)
 
