@@ -21,7 +21,7 @@ class ValidateUser {
 			password
 		} = request.body;
 
-		const userErrors = ValidationHelper.validateUser(email.trim(), firstName.trim(), lastName.trim(),  true);
+		const userErrors = ValidationHelper.validateUser(email, firstName,lastName,  true);
 
 		let errors = {};
 
