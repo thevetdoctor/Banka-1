@@ -15,10 +15,6 @@ const routes = (app) => {
 	// 	message: "Welcome to Banka Application",
 	// }));
 
-	// const rawUrl = 'accounts?status=dormant';
-	// const parseUrl = url.parse(rawUrl);
-	// const parsedQs = querystring.parse(parseUrl.query)
-
 
 	app.post("/api/v1/auth/signup", ValidateUser.validateSignup, ValidateUser.checkDuplicateEmail, UsersController.signup);
 	app.post('/api/v1/auth/signin', ValidateUser.validateSignin, UsersController.signIn);

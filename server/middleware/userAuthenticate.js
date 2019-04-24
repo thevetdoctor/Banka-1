@@ -51,7 +51,7 @@ class UserAuthentication {
       const verifiedToken = jwt.verify(token, secretKey);
       request.token = verifiedToken;
       
-      if (!verifiedToken.user.isadmin) {
+      if (verifiedToken.user.type != "staff") {
         return response.status(403).json({
           status: 403,
           error: validationErrors.notAllowed,

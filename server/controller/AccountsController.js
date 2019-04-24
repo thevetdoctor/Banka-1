@@ -99,7 +99,7 @@ class AccountsController {
         }
         return AccountsController.updateAccountSuccess(response, dbResult);
       })
-      .catch((error) => { response.status(500).send(error); });   	
+      // .catch((error) => { response.status(500).send(error); });   	
 	}
 
 	 /**
@@ -141,7 +141,7 @@ class AccountsController {
           }
           return AccountsController.deleteBankAccountSuccess(response);
         })
-        .catch((error) => { response.status(500).send(error); });
+        // .catch((error) => { response.status(500).send(error); });
   }
 
   /**
@@ -179,7 +179,7 @@ class AccountsController {
             }
              AccountsController.getUserAccountsSuccess(response, dbResult);
           })
-         .catch((error) => { response.status(500).send(error); });  
+         // .catch((error) => { response.status(500).send(error); });  
     }
 
 
@@ -205,7 +205,7 @@ class AccountsController {
             }
              AccountsController.getAccountsSuccess(response, dbResult);
           })
-         .catch((error) => { response.status(500).send(error); });  
+         // .catch((error) => { response.status(500).send(error); });  
     }
 
 
@@ -232,7 +232,7 @@ class AccountsController {
             }
              AccountsController.getAccountsSuccess(response, dbResult);
           })
-         .catch((error) => { response.status(500).send(error); }); 
+         // .catch((error) => { response.status(500).send(error); }); 
 
         } else if(request.query.status == 'active') {
           let query = `SELECT * FROM accounts WHERE status = '${request.query.status}'`;
@@ -248,51 +248,19 @@ class AccountsController {
             }
              AccountsController.getAccountsSuccess(response, dbResult);
           })
-         .catch((error) => { response.status(500).send(error); }); 
+         // .catch((error) => { response.status(500).send(error); }); 
         }
 
           let query = `SELECT * FROM accounts`;
 
            db.dbQuery(query)
           .then((dbResult) => {
-
-            if (!dbResult.rows[0]) {
-              return response.status(404).json({
-                status: 404,
-                error: validationErrors.accountNotFound,
-              });
-            }
              AccountsController.getAccountsSuccess(response, dbResult);
           })
-         .catch((error) => { response.status(500).send(error); });  
+         // .catch((error) => { response.status(500).send(error); });  
     }
 
-      /**
-   *  Return dormant account response
-   *  @param {Object} response
-   *  @return {Object} json
-   *
-   */
-    static getAllDormantAccounts(request, response) {
-            const { dormant } = request.query.status;
-           console.log(dormant)
-          let query = `SELECT accounts.createdOn, accounts.accountnumber, users.email, accounts.type, accounts.status, accounts.balance FROM accounts LEFT JOIN users ON users.id = accounts.owner WHERE type ='${dormant}'`;
-
-           db.dbQuery(query)
-          .then((dbResult) => {
-              console.log(dbResult)
-            if (!dbResult.rows[0]) {
-              return response.status(404).json({
-                status: 404,
-                error: validationErrors.accountNotFound,
-              });
-            }
-             AccountsController.getAccountsSuccess(response, dbResult);
-          })
-         .catch((error) => { response.status(500).send(error); });  
-    }
-
-
+  
       /**
    *  Return user account response
    *  @param {Object} response
