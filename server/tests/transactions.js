@@ -269,5 +269,74 @@ describe('GET /api/v1/transactions/:id endpoint', () => {
         });
     });
 
+
+      it('it should return a 404 error if id is not found', (done) => {
+      chai.request(app)
+        .get(`${transactionsUrl}/35`)
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.historyNotFOund);
+          done();
+        });
+    });
+
+       it('it should return error if transaction id is not an integer', (done) => {
+      chai.request(app)
+        .get(`${transactionsUrl}/j`)
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.validId);
+          done();
+        });
+    });
+
   });
+
+	describe('Check for Staff Authorisation', () => {
+
+		 before((done) => {
+		      chai.request(app)
+		        .post(`${loginURL}`)
+		        .send({
+		        	email: "tunex@gmail.com",
+		        	password: "hshdk#5g",
+		        })
+		        .end((error, response) => {
+		          currrentToken = response.body.data.token;
+		          done();
+		        })
+		    })
+
+      it('it should return 403 error if not a staff', (done) => {
+      chai.request(app)
+        .post(`${transactionsUrl}/1000000001/debit`)
+        .send(testData.newTransactions[1])
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(403);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.notAllowed);
+          done();
+        });
+    });
+
+      it('it should return 401 error if not logged in', (done) => {
+      chai.request(app)
+        .post(`${transactionsUrl}/1000000001/debit`)
+        .send(testData.newTransactions[1])
+        .set('token', 'bndghhjuiure782378ui')
+        .end((error, response) => {
+          expect(response).to.have.status(401);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.notAuthenticated);
+          done();
+        });
+    });
+
+  });
+
 });

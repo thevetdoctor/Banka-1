@@ -8,11 +8,16 @@ const connection = () => {
 
   if (process.env.NODE_ENV === 'test') {
     config = setup.test.dbTestUrl;
-  } else if(process.env.NODE_ENV === 'production') {
-    config = setup.production.DATABASE_URL;
   } else {
-  	config = setup.development.dbUrl;
+    config = setup.production.DATABASE_URL;
   }
+  
+  //  if(process.env.NODE_ENV === 'production') {
+  //   config = setup.production.DATABASE_URL;
+  // } 
+  //  if(process.env.NODE_ENV === 'development') {
+  //   config = setup.production.dbUrl;
+  // } 
   const client = new Client(config);
   return client;
 };

@@ -237,6 +237,18 @@ describe("ACCOUNT CONTROLLER ", () => {
         });
     });
 
+       it('it should return error if an invalid email', (done) => {
+      chai.request(app)
+        .get(`${userAccount}/jamesugbanu@gmail/accounts`)
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(400);
+          expect(response.body).to.be.an('object');
+           expect(response.body.error).to.equal(validationErrors.validEmail);
+          done();
+        });
+    });
+
   });
 
   describe('GET /api/v1/accounts/:accountNumber endpoint', () => {
@@ -321,6 +333,48 @@ describe("ACCOUNT CONTROLLER ", () => {
           done();
         });
     });
+
+  });
+
+      describe('Check for Admin Authorisation', () => {
+
+     before((done) => {
+          chai.request(app)
+            .post(`${loginURL}`)
+            .send({
+              email: "singlecliq@gmail.com",
+              password: "telju2573j",
+            })
+            .end((error, response) => {
+              currrentToken = response.body.data.token;
+              done();
+            })
+        })
+
+      it('it should return 403 error if not admin', (done) => {
+      chai.request(app)
+        .delete(`${accountsUrl}/1000000001`)
+        .set('token', currrentToken)
+        .end((error, response) => {
+          expect(response).to.have.status(403);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.notAllowed);
+          done();
+        });
+    });
+
+      it('it should return 401 error if not logged in', (done) => {
+      chai.request(app)
+         .delete(`${accountsUrl}/1000000001`)
+        .set('token', 'bndghhjuiure782378ui')
+        .end((error, response) => {
+          expect(response).to.have.status(401);
+          expect(response.body).to.be.an('object');
+          expect(response.body.error).to.equal(validationErrors.notAuthenticated);
+          done();
+        });
+    });
+
 
   });
 

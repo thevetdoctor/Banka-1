@@ -139,21 +139,14 @@ class TransactionsController {
    */
     static getUserAccountHistory(request, response) {
           const { accountNumber } = request.params;
-          	console.log(accountNumber)
+      
           let history = `SELECT * FROM transactions WHERE accountnumber ='${accountNumber}'`;
 
            db.dbQuery(history)
           .then((dbResult) => {
-
-            if (!dbResult.rows[0]) {
-              return response.status(404).json({
-                status: 404,
-                error: validationErrors.historyNotFOund,
-              });
-            }
              TransactionsController.getTransactionSuccess(response, dbResult);
           })
-         .catch((error) => { response.status(500).send(error); });  
+         // .catch((error) => { response.status(500).send(error); });  
     }
 
      /**
@@ -178,7 +171,7 @@ class TransactionsController {
             }
              TransactionsController.getTransactionSuccess(response, dbResult);
           })
-         .catch((error) => { response.status(500).send(error); });  
+         // .catch((error) => { response.status(500).send(error); });  
     }
      /**
    *  Return transaction account history response
