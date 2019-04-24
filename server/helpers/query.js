@@ -1,21 +1,17 @@
-import connection from '../helpers/conn';
+import connection from './conn';
 
 const client = connection();
 client.connect();
 
- const dbQuery = (query) => {
-
- 	return new Promise((resolve, reject) => {
+const dbQuery = query => new Promise((resolve, reject) => {
  		client.query(query)
- 		 .then(res => { 
- 		 	resolve(res)
+ 		 .then((res) => {
+ 		 	resolve(res);
  		 })
- 		 .catch(err => {
- 		 	reject(err)
- 		 })
- 	})
-
-   }
+ 		 .catch((err) => {
+ 		 	reject(err);
+ 		 });
+ 	});
 
 
-export default {dbQuery};
+export default { dbQuery };

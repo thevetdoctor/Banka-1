@@ -1,36 +1,35 @@
+import dotenv from 'dotenv';
 import db from '../helpers/query';
-import passwordHelper from "../helpers/password";
-import generateToken from "../helpers/token";
-import validationErrors from "../helpers/validationErrors";
-import dotenv from "dotenv";
+import passwordHelper from '../helpers/password';
+import generateToken from '../helpers/token';
+import validationErrors from '../helpers/validationErrors';
 
 
 class UsersController {
-	/**
+  /**
    *  Signup a user
    *  @param {Object} request
    *  @param {Object} response
    *  @return {Object} json
    */
-	static signup(request, response) {
-		const {
-			email,
-			firstName,
-			lastName,
-      password
-		} = request.body;
+  static signup(request, response) {
+    const {
+      email,
+      firstName,
+      lastName,
+      password,
+    } = request.body;
 
-      let  hashedPassword = passwordHelper.hashPassword(password.trim());
+    const hashedPassword = passwordHelper.hashPassword(password.trim());
 
-      const query = {
+    const query = {
       text: 'INSERT INTO users(firstname, lastname, email, password) VALUES ($1, $2, $3, $4) RETURNING *',
       values: [firstName.trim(), lastName.trim(), email.trim(), hashedPassword],
     };
         	UsersController.signupQuery(request, response, query);
-		
-	}
+  }
 
-	/**
+  /**
    *  Run user signup query
    *  @param {Object} request
    *  @param {Object} response
@@ -38,27 +37,25 @@ class UsersController {
    *  @return {Object} json
    *
    */
-	static signupQuery(request, response, query) {
-
-    db.dbQuery(query) 
-        .then(dbResult => {
-            const currentToken = generateToken(dbResult.rows[0]);
+  static signupQuery(request, response, query) {
+    db.dbQuery(query)
+      .then((dbResult) => {
+        const currentToken = generateToken(dbResult.rows[0]);
         process.env.CURRENT_TOKEN = currentToken;
         return response.status(201).json({
           status: 201,
           data: {
-              token: currentToken,
-              id: dbResult.rows[0].id,
-              firstName: dbResult.rows[0].firstname,
-              lastName: dbResult.rows[0].lastname,
-              email: dbResult.rows[0].email
-          }
+            token: currentToken,
+            id: dbResult.rows[0].id,
+            firstName: dbResult.rows[0].firstname,
+            lastName: dbResult.rows[0].lastname,
+            email: dbResult.rows[0].email,
+          },
         });
-        })
-    
-	}
+      });
+  }
 
-	/**
+  /**
    *  Sign in user
    *  @param {Object} requestuest
    *  @param {Object} response
@@ -69,25 +66,23 @@ class UsersController {
     const query = `SELECT * FROM users WHERE email = '${email}'`;
 
     db.dbQuery(query)
-      .then(dbResult => {
-
+      .then((dbResult) => {
         if (dbResult.rowCount === 0) return UsersController.wrongEmailResponse(response);
         if (!passwordHelper.comparePasswords(password.trim(), dbResult.rows[0].password)) {
           return UsersController.passwordFailureResponse(response);
         }
- 
+
         const token = generateToken(dbResult.rows[0]);
         process.env.CURRENT_TOKEN = token;
 
         return UsersController.loginSuccessResponse(response, token, dbResult.rows[0]);
-      })
-      // .catch(error => { 
-      //   response.status(500).send(error);
-      //    });
-
+      });
+    // .catch(error => {
+    //   response.status(500).send(error);
+    //    });
   }
 
-    /**
+  /**
    *  return message for non existent email in login
    *  @param {Object} response
    *  @return {Object} json
@@ -118,19 +113,17 @@ class UsersController {
    *  @return {Object} json
    */
   static loginSuccessResponse(response, currentToken, data) {
-   
     return response.status(200).json({
       status: 200,
-       data: {
-              token: currentToken,
-              id: data.id,
-              firstName: data.firstname,
-              lastName: data.lastname,
-              email: data.email
-          }
+      data: {
+        token: currentToken,
+        id: data.id,
+        firstName: data.firstname,
+        lastName: data.lastname,
+        email: data.email,
+      },
     });
   }
-
 }
 
 export default UsersController;

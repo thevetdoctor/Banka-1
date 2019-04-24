@@ -8,18 +8,18 @@ const connection = () => {
 
   if (process.env.NODE_ENV === 'test') {
     config = setup.test.dbTestUrl;
-  } else if(process.env.NODE_ENV === 'production') {
+  } else if (process.env.NODE_ENV === 'production') {
     config = setup.production.DATABASE_URL;
   } else {
     config = setup.production.dbUrl;
   }
-  
+
   //  if(process.env.NODE_ENV === '') {
   //   config = setup.production.DATABASE_URL;
-  // } 
+  // }
   //  if(process.env.NODE_ENV === 'development') {
   //   config = setup.production.dbUrl;
-  // } 
+  // }
   const client = new Client(config);
   return client;
 };

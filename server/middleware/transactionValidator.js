@@ -1,13 +1,13 @@
 import connection from '../helpers/conn';
-import rules from "../helpers/validationRules";
-import validationErrors from "../helpers/validationErrors";
-import ValidationHelper from "../helpers/validationHelper";
+import rules from '../helpers/validationRules';
+import validationErrors from '../helpers/validationErrors';
+import ValidationHelper from '../helpers/validationHelper';
 
 const client = connection();
 client.connect();
 
 class ValidateTransaction {
-	/**
+  /**
    * validate Debit Account input
    * @param {Object} request
    * @param {Object} response
@@ -15,21 +15,21 @@ class ValidateTransaction {
    * @return {String} errors
    */
 
-   static validateDebitAccount(request, response, next) {
-		const {
-			amount,
-			type
-		} = request.body;
+  static validateDebitAccount(request, response, next) {
+    const {
+      amount,
+      type,
+    } = request.body;
 
-		const debitAccountErrors = ValidationHelper.validateDebitAccount(amount, type);
+    const debitAccountErrors = ValidationHelper.validateDebitAccount(amount, type);
 
-		let errors = {};
+    let errors = {};
 
-		errors = Object.assign(errors, debitAccountErrors);
-		ValidationHelper.checkValidationErrors(response, errors, next);
-	}
+    errors = Object.assign(errors, debitAccountErrors);
+    ValidationHelper.checkValidationErrors(response, errors, next);
+  }
 
-	/**
+  /**
    * validate Credit Account input
    * @param {Object} request
    * @param {Object} response
@@ -37,20 +37,19 @@ class ValidateTransaction {
    * @return {String} errors
    */
 
-   static validateCreditAccount(request, response, next) {
-		const {
-			amount,
-			type
-		} = request.body;
+  static validateCreditAccount(request, response, next) {
+    const {
+      amount,
+      type,
+    } = request.body;
 
-		const debitAccountErrors = ValidationHelper.validateCreditAccount(amount, type);
+    const debitAccountErrors = ValidationHelper.validateCreditAccount(amount, type);
 
-		let errors = {};
+    let errors = {};
 
-		errors = Object.assign(errors, debitAccountErrors);
-		ValidationHelper.checkValidationErrors(response, errors, next);
-	}
-
+    errors = Object.assign(errors, debitAccountErrors);
+    ValidationHelper.checkValidationErrors(response, errors, next);
+  }
 }
 
 export default ValidateTransaction;
