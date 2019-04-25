@@ -144,23 +144,22 @@
 			</div>
 				<div id="headerAccount" class="header__account__buttons relative">
 						<div class="row no-margin">
-							<div class="no-padding col col-xs-6">
-								<button class="btn btn__login" id="LoginOverlay">Login</button>
-								<button class="btn btn__register" id="RegisterOverlay">Register</button>
+							<div class="no-padding col">
 								<div class="account__profile clearfix" id="ProfileDropDown">
-									<span class="navbar__icon"><i class="fa fa-user fa-2x"></i></span>
-									<span class="navbar__text">Osinachi Ugbanu</span>
+									<span class="navbar__icon navbar__text"><i class="fa fa-user fa-2x"></i>
+										Osinachi Ugbanu
+									</span>
 										<nav class="submenu show" id="ProfileNav">
 										  <ul class="submenu-ul">
-											<li><a href="profile.html">Profile</a></li>
-											<li><a href="#">Sign Out</a></li>
+											<li><a href="dashboard.html">Profile</a></li>
+											<li><a href="../index.html">Sign Out</a></li>
 										  </ul>
 										</nav>
 								</div>
 								
 							</div>
 						</div>
-				</div>
+					</div>
 		</header>
 	</div>
 
@@ -200,8 +199,7 @@
 			      <li><a class="fa fa-dashboard" href="dashboard.html"> Dashboard</a></li>
 			      <li><a class="fa fa-user" href="create-account.html"> Create Account</a></li>
 			      <li><a class="fa fa-user" href="add-user.html"> Add User</a></li>
-			      <li><a class="fa fa-book" href="credit.html"> Credit</a></li>
-			      <li><a class="fa fa-book" href="debit.html"> Debit</a></li>
+			      <li><a class="fa fa-book" href="transaction.html"> Credit/Debit</a></li>
 			      <li><a class="fa fa-book" href="account-history.html"> Account History</a></li>
 			      <li><a class="fa fa-user" href="user.html"> User</a></li>
 			      <li><a class="fa fa-book" href="users-account.html"> All Account</a></li>
@@ -214,11 +212,8 @@
 				<a href="users-account.html" class="ps-container">
 					<span>View All Accounts</span>
 				</a>
-				<a href="debit.html" class="ps-container">
-					<span>Debit User</span>
-				</a>
-				<a href="credit.html" class="ps-container">
-					<span>Credit User</span>
+				<a href="transaction.html" class="ps-container">
+					<span>Credit/Debit User</span>
 				</a>
 				<a href="add-user.html" class="ps-container">
 					<span>Add User</span>
@@ -254,9 +249,12 @@
 									    <td>Current</td>
 									    <td>#16,000</td>
 									    <td class="action__button">
-									    	<a href="user.html" class="fa fa-eye"></a>
-									    	<a class="fa fa-times"></a>
-									    	<a class="fa fa-check"></a>
+									    	<div class="tooltip"><a href="user.html" class="fa fa-eye"></a><span class="tooltiptext">View transactions</span></div>
+									    	<a class="fa fa-trash"></a>
+									    	<label class="switch">
+									    		<input type="checkbox">
+									    		<span class="slider round"></span>
+									    	</label>
 									    </td>
 									  </tr>
 									  <tr>
@@ -267,9 +265,12 @@
 									    <td>Savings</td>
 									    <td>#25,000</td>
 									    <td class="action__button">
-									    	<a href="user.html" class="fa fa-eye"></a>
-									    	<a class="fa fa-times"></a>
-									    	<a class="fa fa-check"></a>
+									    	<div class="tooltip"><a href="user.html" class="fa fa-eye"></a><span class="tooltiptext">View transactions</span></div>
+									    	<a class="fa fa-trash"></a>
+									    	<label class="switch">
+									    		<input type="checkbox" checked>
+									    		<span class="slider round"></span>
+									    	</label>
 									    </td>
 									  </tr>
 									</table>

@@ -145,16 +145,15 @@
 			
 					<div id="headerAccount" class="header__account__buttons relative">
 						<div class="row no-margin">
-							<div class="no-padding col col-xs-6">
-								<button class="btn btn__login" id="LoginOverlay">Login</button>
-								<button class="btn btn__register" id="RegisterOverlay">Register</button>
+							<div class="no-padding col">
 								<div class="account__profile clearfix" id="ProfileDropDown">
-									<span class="navbar__icon"><i class="fa fa-user fa-2x"></i></span>
-									<span class="navbar__text">Osinachi Ugbanu</span>
+									<span class="navbar__icon navbar__text"><i class="fa fa-user fa-2x"></i>
+										Osinachi Ugbanu
+									</span>
 										<nav class="submenu show" id="ProfileNav">
 										  <ul class="submenu-ul">
-											<li><a href="profile.html">Profile</a></li>
-											<li><a href="#">Sign Out</a></li>
+											<li><a href="dashboard.html">Profile</a></li>
+											<li><a href="index.html">Sign Out</a></li>
 										  </ul>
 										</nav>
 								</div>
@@ -226,29 +225,43 @@
 							<div class="prof_head ">
 								<h3>Transaction History</h3>
 							</div>
-				
+
+							<div id="jsModal" class="modal close">
+							  <div class="modal__overlay jsOverlay"></div>
+							  <div class="modal__container">
+							    <p>Transaction Details</p>
+							    <button class="modal__close jsModalClose">&#10005;</button>
+							    <div class="transaction__popup__details">
+							    	<div class="saction__popup__date">29-03-2019</div>
+							    	<div class="saction__popup__type">Credit</div>
+							    	<div class="saction__popup__description">
+							    	2000 was sent to TOM Hills
+							    	</div>
+							    </div>
+							  </div>
+							</div>
 							<div class="table__width">
-								<table class="table">
+								<table class="table" id="jsModalTrigger">
 									  <tr>
 									    <th>Date</th>
+									    <th>Account Number</th>
 									    <th>Desciption</th>
-									    <th>Withdrawal</th>
-									    <th>Deposit</th>
+									    <th>Transactions</th>
 									    <th>Balance</th>
 									  </tr>
-									  <tr>
+									  <tr class="">
 									    <td>29-03-2019</td>
+									    <td>1000000001</td>
 									    <td>Trf to TOM HILLS</td>
-									    <td>2,000</td>
-									    <td>0.00</td>
+									    <td><font  color="green">+2,000</font></td>
 									    <td>16,000</td>
 									  </tr>
 									  <tr>
 									    <td>28-03-2019</td>
+									    <td>1000000001</td>
 									    <td>Trf Payoneer</td>
-									    <td>0.00</td>
+									    <td><font  color="red">-1,000</font></td>
 									    <td>25,000</td>
-									    <td>18,000</td>
 									  </tr>
 									</table>
 
@@ -261,5 +274,6 @@
 </div>
 </div>
 	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/tableModal.js"></script>
 </body>
 </html>

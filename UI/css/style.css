@@ -18,7 +18,9 @@
 input[type=text], input[type=email], input[type=number], input[type=password], input[type=phone] {
     width: 100%;
     color: #000 !important;
+    outline: none;
 }
+
 textarea {
     width: 95%;
 }
@@ -112,17 +114,19 @@ z-index: 99;
 
 .header__account__buttons {
     z-index: 20;
-    min-width: 600px;
+    min-width: 500px;
     float: right;
+    margin-top: 30px;
 }
-.header__account__buttons .admin__link {
+.header__account__buttons .menu__link a{
     text-decoration: none;
-    color: #fff;
-    background: #03567C;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 12px;
-
+    color: #03567C;
+    font-size: 16px;
+    font-weight: bold;
+}
+.header__account__buttons .menu__link a:hover {
+    color: orange;
+    cursor: pointer;
 }
 
 .relative {
@@ -138,23 +142,19 @@ z-index: 99;
 .account__profile {
     display: inline-block;
     cursor: pointer;
-    width: 85px;
     max-width: 85px;
+    margin-left: 200px;
 }
 .navbar__icon {
     display: block;
-    height: 40px;
     padding: 0;
     margin: 0;
     text-align: center;
 }
 .navbar__text {
-    margin-top: -5px;
     display: inline-block;
     font-weight: 600;
-    font-size: 14px;
-    width: 100%;
-    max-width: 85px;
+    max-width: 100px;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -394,6 +394,9 @@ z-index: 99;
     border-left: 4px solid #fff;
     cursor: pointer;
 }
+.sidebar__list a:hover {
+    color: orange;
+}
 
 .sidebar__fixed--vertical .sidebar__nav__link {
     display: block;
@@ -424,7 +427,8 @@ z-index: 99;
 	 width: 100%;
 }
 .account__side__wrapper a:hover {
-	background-color: rgba(55,58,60,1);
+	background-color: #063c54;
+    color: orange;
 }
 
 .account__categories__list {
@@ -473,7 +477,7 @@ z-index: 99;
     height: 30px;
     line-height: 30px;
     background-color: white;
-    z-index: 2;
+    z-index: 0;
     font-size: 1.3em;
     box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
     color: #818a91;
@@ -505,16 +509,6 @@ z-index: 99;
 }
 }
 
-.btn__login {
-    color:#03567C;
-    background-color: rgba(0, 0, 0, 0);
-    border-color:#03567C;
-}
-.btn__register {
-    color: #fff;
-    background-color:#03567C;
-    border: none;
-}
 
 .btn {
     position: relative;
@@ -525,7 +519,7 @@ z-index: 99;
     font-size: 0.89em;
     font-weight: 600;
     margin: 0 10px;
-     cursor: pointer;
+    cursor: pointer;
 }
 
 /** Sign Up **/
@@ -567,11 +561,10 @@ z-index: 99;
 }
 .rodal-dialog {
     position: absolute;
-    top: 10%;
-    right: 15%;
+    right: 5%;
     z-index: 101;
     padding: 15px;
-    width: 70%;
+    width: 90%;
 }
 .account__alert {
     position: fixed;
@@ -583,7 +576,6 @@ z-index: 99;
 }
 .account__close--wrapper {
     position: relative;
-    max-width: 440px;
     margin: 0 auto;
     text-align: right;
     /*top: -30px;*/
@@ -660,17 +652,18 @@ z-index: 99;
  .bb__container {
     position: absolute;
     top: 85px;
+    bottom: 35px;
     width: 100%;
+    height: auto;
     overflow: auto;
     background: #f9fafc;
 }
 @media only screen and (max-width: 3000px) and (min-width: 1000px) {
- .bb__container {
-    position: absolute;
-    bottom: 35px;
-    /*left: 105px;*/
-    right: 0;
-    width: 92%;
+/* .bb__container {
+    height: 80%;
+}*/
+.form-control {
+    width: 105%;
 }
 }
 @media only screen and (max-width: 700px) {
@@ -726,9 +719,9 @@ z-index: 99;
 }
 .bb__con {
     position: relative;
+    left: 15%;
     display: inline-block;
-    width: 100%;
-    height: 100%;
+    width: 80%;
 }
 .col_six {
     float: left;
@@ -867,7 +860,7 @@ z-index: 99;
 
 .table tr:nth-child(even){background: #f2f2f2;}
 
-.table tr:hover {background: #ddd;}
+.table tr:hover {background: #dcdcdc;}
 
 .table th {
   padding-top: 12px;
@@ -897,4 +890,231 @@ z-index: 99;
 }
 .action__button a:nth-child(3) {
     background: #03567C;
+}
+
+.tooltip {
+    display: inline;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background: #000;
+    color: #fff;
+    font-size: 9px;
+    padding: 5px 5px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+}
+.tooltip:hover .tooltiptext{
+    visibility: visible;
+}
+
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #03567C;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/** Modal **/
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+/*  opacity: 0;*/
+  transition: visibility 0s linear 0.1s,opacity 0.3s ease;
+}
+.modal.open {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+.modal.close {
+visibility: hidden;
+  transition-delay: 0s;
+}
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 21;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 24px;
+  color: #747474;
+  font-weight: bold;
+}
+.modal__close:hover {
+  color: #000;
+}
+@media only screen and (max-width: 3000px) and (min-width: 1000px) {
+/* .bb__container {
+    height: 80%;
+}*/
+.modal__container {
+    width: 400px !important;
+    }
+}
+
+.modal__container {
+  position: relative;
+  z-index: 22;
+  width: 80%;
+  height: 100px;
+  top: 60%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  text-align: center;
+  color: #000;
+}
+.modal__container p {
+    font-size: 16px;
+}
+.transaction__popup__details {
+    display: grid;
+    grid-template-columns: 25% 25% 50%;
+}
+ 
+
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border: 1px solid #000;
+}
+
+.checkmark__container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* On mouse-over, add a grey background color */
+.checkmark__container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+ .checkmark__container input:checked ~ .checkmark {
+  background-color: #03567C;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkmark__container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+ .checkmark:after {
+  left: 5px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+  border: solid white;
+  border-width: 0 4px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.checkmark__container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
