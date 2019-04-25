@@ -38,14 +38,14 @@ class TransactionsController {
 			    };
 			    		TransactionsController.runAccountQuery(response, newQuery);
  							} else {
- 								return response.status(400).json({
-							          status: 400,
+ 								return response.status(200).json({
+							          status: 200,
 							          error: validationErrors.accountNotActive,
 			 						});
  							}
  						} else {
- 							return response.status(400).json({
-				          status: 400,
+ 							return response.status(200).json({
+				          status: 200,
 				          error: validationErrors.insufficientFund,
  						});
  					}
@@ -148,8 +148,8 @@ class TransactionsController {
     db.dbQuery(query)
       .then((dbResult) => {
         if (!dbResult.rows[0]) {
-          return response.status(404).json({
-            status: 404,
+          return response.status(200).json({
+            status: 200,
             error: validationErrors.historyNotFOund,
           });
         }

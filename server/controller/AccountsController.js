@@ -86,9 +86,8 @@ class AccountsController {
     db.dbQuery(query)
       .then((dbResult) => {
         if (!dbResult.rows[0]) {
-          return response.status(404).json({
-            status: 404,
-            success: false,
+          return response.status(200).json({
+            status: 200,
             error: validationErrors.accountNotFound,
           });
         }
@@ -127,8 +126,8 @@ class AccountsController {
     db.dbQuery(query)
       .then((dbResult) => {
         if (!dbResult.rowCount) {
-          return response.status(404).json({
-            status: 404,
+          return response.status(200).json({
+            status: 200,
             error: validationErrors.accountNotFound,
           });
         }
@@ -166,8 +165,8 @@ class AccountsController {
     db.dbQuery(query)
       .then((dbResult) => {
         if (!dbResult.rows[0]) {
-          return response.status(404).json({
-            status: 404,
+          return response.status(200).json({
+            status: 200,
             error: validationErrors.accountNotFound,
           });
         }
@@ -193,8 +192,8 @@ class AccountsController {
     db.dbQuery(query)
       .then((dbResult) => {
         if (!dbResult.rows[0]) {
-          return response.status(404).json({
-            status: 404,
+          return response.status(200).json({
+            status: 200,
             error: validationErrors.accountNotFound,
           });
         }
@@ -218,8 +217,8 @@ class AccountsController {
       db.dbQuery(query)
         .then((dbResult) => {
           if (!dbResult.rows[0]) {
-            return response.status(404).json({
-              status: 404,
+            return response.status(200).json({
+              status: 200,
               error: validationErrors.accountNotFound,
             });
           }
@@ -232,8 +231,8 @@ class AccountsController {
       db.dbQuery(query)
         .then((dbResult) => {
           if (!dbResult.rows[0]) {
-            return response.status(404).json({
-              status: 404,
+            return response.status(200).json({
+              status: 200,
               error: validationErrors.accountNotFound,
             });
           }

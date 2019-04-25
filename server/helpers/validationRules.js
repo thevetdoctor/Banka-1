@@ -9,6 +9,7 @@ const rules = {
   validPassword: /^[\S]+$/,
   passwordLength: /^.{5,}$/,
   accountType: /(savings|current)$/,
+  userType: /(staff)$/,
   accountStatus: /(active|dormant|draft)$/,
   validInt: /^\d+$/,
   validAmount: /^(\d{1,3})?(,?\d{3})*(\.\d{2})?$/,

@@ -1,8 +1,13 @@
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import config from '../config/config';
 import db from '../helpers/query';
 import rules from '../helpers/validationRules';
 import validationErrors from '../helpers/validationErrors';
 import ValidationHelper from '../helpers/validationHelper';
 
+dotenv.config();
+const { secretKey } = config;
 
 class ValidateUser {
   /**
@@ -19,11 +24,39 @@ class ValidateUser {
       firstName,
       lastName,
       password,
+      type
     } = request.body;
 
+     let errors = {};
     const userErrors = ValidationHelper.validateUser(email, firstName, lastName, true);
 
-    let errors = {};
+    try {
+      const userToken = request.headers['x-access'] || request.headers.token;
+    if(userToken) {
+      let verifiedToken = jwt.verify(userToken, secretKey);
+      request.token = verifiedToken;
+       if (verifiedToken.user.isadmin) {
+      if (!type || !rules.empty.test(type)) {
+      errors.userTypeRequired = validationErrors.userTypeRequired;
+      }
+      if (Object.keys(errors).length == 0) {
+        if (!rules.userType.test(type)) errors.validUserType = validationErrors.validUserType;
+      }
+    }
+    } else {
+      if (type) {
+           if (Object.keys(errors).length == 0) {
+        if (type !== "client") errors.validUserType = validationErrors.validUserType;
+        }
+      }
+    }
+  } catch(error) {
+     return response.status(401).json({
+        status: 401,
+        error: validationErrors.notAuthenticated,
+      });
+  }
+      
 
     if (!password || !rules.empty.test(password)) {
       errors.passwordEmpty = validationErrors.passwordEmpty;

@@ -11,7 +11,7 @@ const connection = () => {
   } else if (process.env.NODE_ENV === 'production') {
     config = setup.production.DATABASE_URL;
   } else {
-    config = setup.production.dbUrl;
+    config = setup.development.dbUrl;
   }
 
   //  if(process.env.NODE_ENV === '') {

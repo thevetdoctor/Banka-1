@@ -18,13 +18,18 @@ class UsersController {
       firstName,
       lastName,
       password,
+      type,
     } = request.body;
+      let userType = type;
+      if(!type) {
+        userType = "client";
+      }
 
     const hashedPassword = passwordHelper.hashPassword(password.trim());
 
     const query = {
-      text: 'INSERT INTO users(firstname, lastname, email, password) VALUES ($1, $2, $3, $4) RETURNING *',
-      values: [firstName.trim(), lastName.trim(), email.trim(), hashedPassword],
+      text: 'INSERT INTO users(firstname, lastname, email, password, type) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      values: [firstName.trim(), lastName.trim(), email.trim(), hashedPassword, userType],
     };
         	UsersController.signupQuery(request, response, query);
   }
@@ -40,7 +45,7 @@ class UsersController {
   static signupQuery(request, response, query) {
     db.dbQuery(query)
       .then((dbResult) => {
-        const currentToken = generateToken(dbResult.rows[0]);
+        const currentToken = generateToken({id:dbResult.rows[0].id, type:dbResult.rows[0].type, isadmin:dbResult.rows[0].isadmin});
         process.env.CURRENT_TOKEN = currentToken;
         return response.status(201).json({
           status: 201,
@@ -72,13 +77,13 @@ class UsersController {
           return UsersController.passwordFailureResponse(response);
         }
 
-        const token = generateToken(dbResult.rows[0]);
+        const token = generateToken({id:dbResult.rows[0].id, type:dbResult.rows[0].type, isadmin:dbResult.rows[0].isadmin});
         process.env.CURRENT_TOKEN = token;
 
         return UsersController.loginSuccessResponse(response, token, dbResult.rows[0]);
-      });
+      })
     // .catch(error => {
-    //   response.status(500).send(error);
+    //   return response.status(500).send(error);
     //    });
   }
 

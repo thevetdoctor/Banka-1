@@ -119,7 +119,7 @@ describe('TRANSACTION CONTROLLER ', () => {
         .send(testData.newTransactions[1])
         .set('token', currrentToken)
         .end((error, response) => {
-          expect(response).to.have.status(400);
+          expect(response).to.have.status(200);
           expect(response.body).to.be.an('object');
           expect(response.body.error).to.equal(validationErrors.accountNotActive);
           done();
@@ -231,7 +231,7 @@ describe('TRANSACTION CONTROLLER ', () => {
         })
         .set('token', currrentToken)
         .end((error, response) => {
-          expect(response).to.have.status(400);
+          expect(response).to.have.status(200);
           expect(response.body).to.be.an('object');
           expect(response.body.error).to.equal(validationErrors.insufficientFund);
           done();
@@ -264,12 +264,12 @@ describe('TRANSACTION CONTROLLER ', () => {
     });
 
 
-    it('it should return a 404 error if id is not found', (done) => {
+    it('it should return not found', (done) => {
       chai.request(app)
         .get(`${transactionsUrl}/35`)
         .set('token', currrentToken)
         .end((error, response) => {
-          expect(response).to.have.status(404);
+          expect(response).to.have.status(200);
           expect(response.body).to.be.an('object');
           expect(response.body.error).to.equal(validationErrors.historyNotFOund);
           done();
