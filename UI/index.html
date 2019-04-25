@@ -28,6 +28,26 @@
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
+													<label class="float__label  ">First Name</label>
+													<div class="relative">
+														<input type="text" name="fname" class="form-control float__input" placeholder="First Name" required>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="float__input form-group ">
+													<label class="float__label  ">Last Name</label>
+													<div class="relative">
+														<input type="text" name="lname" class="form-control float__input" placeholder="Last Name" required>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="float__input form-group ">
 													<label class="float__label  ">Email</label>
 													<div class="relative">
 														<input type="email" name="email" class="form-control float__input" placeholder="Email" required>
@@ -68,7 +88,7 @@
 									</div>
 											<div class="account__links">
 												<div class="account__links--item">
-													Already have an account? <a href="dashboard.html">Login</a>
+													Already have an account? <a href="#" id="loginLink">Login</a>
 												</div>
 											</div>
 										</form>
@@ -88,13 +108,13 @@
 								</div>
 								<div class="account__lg--width">
 									<h1 class="account__heading">Login</h1>
-									<form class="login-form form" id="accountLoginForm" action="#">
+									<form class="login-form form" id="accountLoginForm" action="dashboard.html">
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
 													<label class="float__label  ">Email</label>
 													<div class="relative">
-														<input type="email" name="email" data-validate-field="email" class="form-control float__input" placeholder="Email">
+														<input type="email" name="email" data-validate-field="email" class="form-control float__input" placeholder="Email" required>
 													</div>
 												</div>
 											</div>
@@ -104,7 +124,7 @@
 												<div class="float__input form-group ">
 													<label class="float__label  ">Password</label>
 													<div class="relative">
-														<input type="password" name="password" class="form-control float__input" data-validate-field="password" placeholder="Password">
+														<input type="password" name="password" class="form-control float__input" placeholder="Password" required>
 													</div>
 												</div>
 											</div>
@@ -118,7 +138,7 @@
 									</div>
 											<div class="account__links">
 												<div class="account__links--item">
-													Don't have an account? <a href="#">Register</a>
+													Don't have an account? <a href="#"  id="RegisterLink">Register</a>
 												</div>
 											</div>
 										</form>
@@ -147,46 +167,16 @@
 			</div>
 			<div id="headerAccount" class="header__account__buttons relative">
 						<div class="row no-margin">
-							<div class="no-padding col col-xs-6">
-								<a  href="admin/dashboard.html" class="btn admin__link">Admin</a>
-								<button class="btn btn__login" id="LoginOverlay">Login</button>
-								<button class="btn btn__register" id="RegisterOverlay">Register</button>
-								<div class="account__profile clearfix" id="ProfileDropDown">
-									<span class="navbar__icon"><i class="fa fa-user fa-2x"></i></span>
-									<span class="navbar__text">Osinachi Ugbanu</span>
-										<nav class="submenu show" id="ProfileNav">
-										  <ul class="submenu-ul">
-											<li><a href="profile.html">Profile</a></li>
-											<li><a href="#">Sign Out</a></li>
-										  </ul>
-										</nav>
-							</div>	
+							<div class="no-padding col col-xs-6 menu__link">
+								<a href="admin/dashboard.html" class="btn">Admin</a>
+								<a href="#" class="btn btn__login" id="LoginOverlay">Login</a>
+								<a href="#" class="btn btn__register" id="RegisterOverlay">Register</a>
 						</div>
 					</div>
 			</div>
 		</header>
 	</div>
 	<div>
-	<!-- Side Navigation Menu First Level -->
-	<!-- <div class="sidebar sidebar__fixed--vertical">
-		<nav class="sidebar__nav">
-
-			<ul>
-				<li class="sidebar__list">
-					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
-						<i class="fa fa-dashboard fa-3x"></i>
-						<span class="sidebar__label">Dashboard</span>
-					</a>
-				</li>
-				<li class="sidebar__list" id="account__btn">
-					<a class="sidebar__nav__link" id="sidebar__nav__link__account">
-						<i class="fa fa-user fa-3x"></i>
-						<span class="sidebar__label">Account</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
-	</div> -->
 	<!-- Side Navigation on mobile -->
 			<div id="st-container" class="st-container">
 				<nav class="st-menu st-effect-1" id="menu-1">
