@@ -136,7 +136,7 @@ describe('TRANSACTION CONTROLLER ', () => {
           expect(response).to.have.status(202);
           expect(response.body).to.be.an('object');
           expect(response.body).to.have.property('data');
-          expect(response.body.error).to.equal('active');
+          expect(response.body.data.status).to.equal('active');
           done();
         });
     });
