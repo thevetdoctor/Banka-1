@@ -112,8 +112,8 @@ describe('TRANSACTION CONTROLLER ', () => {
     });
   });
 
-  describe('POST /api/v1/transactions/:accountNumber/debit', () => 
-   it('it should not debit an account if not active', (done) => {
+  describe('POST /api/v1/transactions/:accountNumber/debit', () => {
+    it('it should not debit an account if not active', (done) => {
       chai.request(app)
         .post(`${transactionsUrl}/1000000001/debit`)
         .send(testData.newTransactions[1])
@@ -124,8 +124,7 @@ describe('TRANSACTION CONTROLLER ', () => {
           expect(response.body.error).to.equal(validationErrors.accountNotActive);
           done();
         });
-    })
-
+    });
     it('it should update the status of an account to active', (done) => {
       chai.request(app)
         .put(`${accountUrl}/1000000001`)
@@ -137,11 +136,10 @@ describe('TRANSACTION CONTROLLER ', () => {
           expect(response).to.have.status(202);
           expect(response.body).to.be.an('object');
           expect(response.body).to.have.property('data');
-          expect(response.body.data.status).to.equal('active');
+          expect(response.body.error).to.equal('active');
           done();
         });
-    })
-
+    });
     it('it should debit an account if active', (done) => {
       chai.request(app)
         .post(`${transactionsUrl}/1000000001/debit`)
@@ -154,7 +152,7 @@ describe('TRANSACTION CONTROLLER ', () => {
           expect(response.body.data.transactionType).to.equal('debit');
           done();
         });
-    })
+    });
 
 
     it('it should not debit a bank account with an empty amount', (done) => {
@@ -171,7 +169,7 @@ describe('TRANSACTION CONTROLLER ', () => {
           expect(response.body.error.amountRequired).to.equal(validationErrors.amountRequired);
           done();
         });
-    })
+    });
 
     it('it should not debit a bank account with amount not an integer of float', (done) => {
       chai.request(app)
@@ -187,7 +185,7 @@ describe('TRANSACTION CONTROLLER ', () => {
           expect(response.body.error.validAmount).to.equal(validationErrors.validAmount);
           done();
         });
-    })
+    });
 
 
     it('should not debit a bank account when type is empty', (done) => {
@@ -204,7 +202,7 @@ describe('TRANSACTION CONTROLLER ', () => {
           expect(response.body.error.debitTypeRequired).to.equal(validationErrors.debitTypeRequired);
           done();
         });
-    })
+    });
 
     it('should not debit a bank account when type is not debit', (done) => {
       chai.request(app)
