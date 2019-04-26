@@ -14,12 +14,6 @@ const connection = () => {
     config = setup.development.dbUrl;
   }
 
-  //  if(process.env.NODE_ENV === '') {
-  //   config = setup.production.DATABASE_URL;
-  // }
-  //  if(process.env.NODE_ENV === 'development') {
-  //   config = setup.production.dbUrl;
-  // }
   const client = new Client(config);
   return client;
 };

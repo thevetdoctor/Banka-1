@@ -22,8 +22,8 @@ describe('ACCOUNT CONTROLLER ', () => {
       chai.request(app)
         .post(`${loginURL}`)
         .send({
-        	email: 'jamesugbanu@gmail.com',
-        	password: 'scrip#9ju',
+          email: 'jamesugbanu@gmail.com',
+          password: 'scrip#9ju',
         })
         .end((error, response) => {
           currrentToken = response.body.data.token;
@@ -204,7 +204,7 @@ describe('ACCOUNT CONTROLLER ', () => {
           expect(response.body.error.validStatus).to.equal(validationErrors.validStatus);
           done();
         });
-    	});
+    });
 
 
     it('it should not update the status of an account with empty status', (done) => {
@@ -220,7 +220,7 @@ describe('ACCOUNT CONTROLLER ', () => {
           expect(response.body.error.statusRequired).to.equal(validationErrors.statusRequired);
           done();
         });
-    	});
+    });
   });
 
   describe('GET /api/v1/user/:email/accounts endpoint', () => {

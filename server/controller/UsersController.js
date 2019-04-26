@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import db from '../helpers/query';
 import passwordHelper from '../helpers/password';
 import generateToken from '../helpers/token';
@@ -31,7 +30,7 @@ class UsersController {
       text: 'INSERT INTO users(firstname, lastname, email, password, type) VALUES ($1, $2, $3, $4, $5) RETURNING *',
       values: [firstName.trim(), lastName.trim(), email.trim(), hashedPassword, userType],
     };
-        	UsersController.signupQuery(request, response, query);
+    UsersController.signupQuery(request, response, query);
   }
 
   /**

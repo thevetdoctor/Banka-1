@@ -39,12 +39,12 @@ class ValidateUser {
           if (!type || !rules.empty.test(type)) {
             errors.userTypeRequired = validationErrors.userTypeRequired;
           }
-          if (Object.keys(errors).length == 0) {
+          if (Object.keys(errors).length === 0) {
             if (!rules.userType.test(type)) errors.validUserType = validationErrors.validUserType;
           }
         }
       } else if (type) {
-        if (Object.keys(errors).length == 0) {
+        if (Object.keys(errors).length === 0) {
           if (type !== 'client') errors.validUserType = validationErrors.validUserType;
         }
       }
@@ -75,7 +75,7 @@ class ValidateUser {
    * @return {object}
    */
   static checkDuplicateEmail(request, response, next) {
-   		 const query = `SELECT email FROM users WHERE email ='${request.body.email}'`;
+    const query = `SELECT email FROM users WHERE email ='${request.body.email}'`;
     db.dbQuery(query)
       .then((dbResult) => {
         if (dbResult.rows[0]) {
@@ -89,8 +89,7 @@ class ValidateUser {
       }).catch();
   }
 
-
-	 /**
+  /**
    * validate user signin input length and content
    * @param {Object} request
    * @param {Object} response

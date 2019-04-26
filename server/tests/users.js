@@ -219,7 +219,7 @@ describe('USER CONTROLLER ', () => {
     });
   });
 
-	 describe('POST /api/v1/auth/signin', () => {
+  describe('POST /api/v1/auth/signin', () => {
     it('it should signin a user with correct and complete information', (done) => {
       chai.request(app)
         .post(`${loginURL}`)

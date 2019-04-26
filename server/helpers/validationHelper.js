@@ -9,11 +9,11 @@ import validationErrors from './validationErrors';
 
 class ValidateHelper {
   /**
-	 * validate user email and name
-	 * @param {String} name
-	 * @param {String} email
-	 * @return {Object} errors
-	 */
+   *  * validate user email and name
+   * * @param {String} name
+   *  * @param {String} email
+   *  * @return {Object} errors
+   *  */
   static validateUser(email, firstName, lastName, isSignup) {
     let errors = {};
 
@@ -43,11 +43,11 @@ class ValidateHelper {
   }
 
   /**
-	 * validate account
-	 * @param {String} owner
-	 * @param {String} type
-	 * @return {Object} errors
-	 */
+   *  * validate account
+   *  * @param {String} owner
+   *  * @param {String} type
+   *  * @return {Object} errors
+   *  */
 
   static validateAccount(type) {
     let errors = {};
@@ -63,10 +63,10 @@ class ValidateHelper {
   }
 
   /**
-	 * validate account status
-	 * @param {String} status
-	 * @return {Object} errors
-	 */
+   *  * validate account status
+   *  * @param {String} status
+   *  * @return {Object} errors
+   *  */
   static validateUpdateAccountStatus(status) {
     let errors = {};
     if (!status || !rules.empty.test(status.trim())) errors.statusRequired = validationErrors.statusRequired;
@@ -79,50 +79,50 @@ class ValidateHelper {
     return errors;
   }
 
-  /**
-	 * check if id is valid
-	 * @param {Object} request
-	 * @return {boolean} true
-	 */
+  /*
+   * check if id is valid
+    * @param {Object} request
+    *  * @return {boolean} true
+    *  */
   static checkValidAccountNumber(number) {
     if (rules.validInt.test(number)) {
       if (number.length === 10) {
-					 return true;
+        return true;
       }
     }
     return false;
   }
 
   /**
-	 * check if id is valid
-	 * @param {Object} request
-	 * @return {boolean} true
-	 */
+   *  * check if id is valid
+   *  * @param {Object} request
+   *  * @return {boolean} true
+   *  */
   static checkValidId(number) {
     if (rules.validInt.test(number)) {
-					 return true;
+      return true;
     }
     return false;
   }
 
   /**
-	 * check if email is valid
-	 * @param {Object} request
-	 * @return {boolean} true
-	 */
+   *  * check if email is valid
+   *  * @param {Object} request
+   *  * @return {boolean} true
+   * */
   static checkValidEmail(email) {
     if (rules.validEmail.test(email.trim())) {
-					 return true;
+      return true;
     }
     return false;
   }
 
   /**
-	 * validate cashier, amount, type
-	 * @param {String} name
-	 * @param {String} email
-	 * @return {Object} errors
-	 */
+   *  * validate cashier, amount, type
+   *  * @param {String} name
+   *  * @param {String} email
+   *  * @return {Object} errors
+   *  */
   static validateDebitAccount(amount, type) {
     let errors = {};
 
@@ -142,11 +142,11 @@ class ValidateHelper {
   }
 
   /**
-	 * validate cashier, amount, type
-	 * @param {String} name
-	 * @param {String} email
-	 * @return {Object} errors
-	 */
+   *  * validate cashier, amount, type
+   * * @param {String} name
+   *  * @param {String} email
+   *  * @return {Object} errors
+   *  */
   static validateCreditAccount(amount, type) {
     let errors = {};
 
@@ -165,10 +165,10 @@ class ValidateHelper {
   }
 
   /**
-	 * check if data validation produces any errors
-	 * @param {Object} request
-	 * @return {boolean} false
-	 */
+   *  * check if data validation produces any errors
+   *  * @param {Object} request
+   *  * @return {boolean} false
+   *  */
   static checkValidationErrors(response, errors, next) {
     if (Object.keys(errors).length > 0) {
       return response.status(400).json({
@@ -181,8 +181,7 @@ class ValidateHelper {
 
   static getFirstError(errors) {
     const firstKey = Object.keys(errors)[0];
-
-		 const error = Object.keys(errors)
+    const error = Object.keys(errors)
       .filter(key => key === firstKey)
       .reduce((obj, key) => {
         obj[key] = errors[key];
