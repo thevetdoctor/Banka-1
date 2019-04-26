@@ -34,7 +34,7 @@ class UserAuthentication {
     }
   }
 
-    /**
+  /**
      * check if its staff
 
      *
@@ -50,8 +50,8 @@ class UserAuthentication {
       const token = request.headers['x-access'] || request.headers.token || request.query.token;
       const verifiedToken = jwt.verify(token, secretKey);
       request.token = verifiedToken;
-      
-      if (verifiedToken.user.type != "staff") {
+
+      if (verifiedToken.user.type != 'staff') {
         return response.status(403).json({
           status: 403,
           error: validationErrors.notAllowed,
@@ -77,7 +77,7 @@ class UserAuthentication {
       const token = request.headers['x-access'] || request.headers.token || request.query.token;
       const verifiedToken = jwt.verify(token, secretKey);
       request.token = verifiedToken;
- 
+
       if (!verifiedToken.user.isadmin) {
         return response.status(403).json({
           status: 403,
@@ -91,7 +91,6 @@ class UserAuthentication {
       });
     }
   }
-
 }
 
 export default UserAuthentication;
