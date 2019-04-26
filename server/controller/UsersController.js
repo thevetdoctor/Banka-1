@@ -20,10 +20,10 @@ class UsersController {
       password,
       type,
     } = request.body;
-      let userType = type;
-      if(!type) {
-        userType = "client";
-      }
+    let userType = type;
+    if (!type) {
+      userType = 'client';
+    }
 
     const hashedPassword = passwordHelper.hashPassword(password.trim());
 
@@ -45,7 +45,7 @@ class UsersController {
   static signupQuery(request, response, query) {
     db.dbQuery(query)
       .then((dbResult) => {
-        const currentToken = generateToken({id:dbResult.rows[0].id, type:dbResult.rows[0].type, isadmin:dbResult.rows[0].isadmin});
+        const currentToken = generateToken({ id: dbResult.rows[0].id, type: dbResult.rows[0].type, isadmin: dbResult.rows[0].isadmin });
         process.env.CURRENT_TOKEN = currentToken;
         return response.status(201).json({
           status: 201,
@@ -77,11 +77,11 @@ class UsersController {
           return UsersController.passwordFailureResponse(response);
         }
 
-        const token = generateToken({id:dbResult.rows[0].id, type:dbResult.rows[0].type, isadmin:dbResult.rows[0].isadmin});
+        const token = generateToken({ id: dbResult.rows[0].id, type: dbResult.rows[0].type, isadmin: dbResult.rows[0].isadmin });
         process.env.CURRENT_TOKEN = token;
 
         return UsersController.loginSuccessResponse(response, token, dbResult.rows[0]);
-      })
+      });
     // .catch(error => {
     //   return response.status(500).send(error);
     //    });

@@ -8,7 +8,6 @@ import validationErrors from '../helpers/validationErrors';
 dotenv.config();
 const { secretKey } = config;
 
-
 class AccountsController {
   /**
    *  User create bank account

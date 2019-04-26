@@ -27,36 +27,34 @@ class ValidateUser {
       type
     } = request.body;
 
-     let errors = {};
+    let errors = {};
     const userErrors = ValidationHelper.validateUser(email, firstName, lastName, true);
 
     try {
       const userToken = request.headers['x-access'] || request.headers.token;
-    if(userToken) {
-      let verifiedToken = jwt.verify(userToken, secretKey);
-      request.token = verifiedToken;
-       if (verifiedToken.user.isadmin) {
-      if (!type || !rules.empty.test(type)) {
-      errors.userTypeRequired = validationErrors.userTypeRequired;
-      }
-      if (Object.keys(errors).length == 0) {
-        if (!rules.userType.test(type)) errors.validUserType = validationErrors.validUserType;
-      }
-    }
-    } else {
-      if (type) {
-           if (Object.keys(errors).length == 0) {
-        if (type !== "client") errors.validUserType = validationErrors.validUserType;
+      if (userToken) {
+        const verifiedToken = jwt.verify(userToken, secretKey);
+        request.token = verifiedToken;
+        if (verifiedToken.user.isadmin) {
+          if (!type || !rules.empty.test(type)) {
+            errors.userTypeRequired = validationErrors.userTypeRequired;
+          }
+          if (Object.keys(errors).length == 0) {
+            if (!rules.userType.test(type)) errors.validUserType = validationErrors.validUserType;
+          }
+        }
+      } else if (type) {
+        if (Object.keys(errors).length == 0) {
+          if (type !== 'client') errors.validUserType = validationErrors.validUserType;
         }
       }
-    }
-  } catch(error) {
-     return response.status(401).json({
+    } catch (error) {
+      return response.status(401).json({
         status: 401,
         error: validationErrors.notAuthenticated,
       });
-  }
-      
+    }
+
 
     if (!password || !rules.empty.test(password)) {
       errors.passwordEmpty = validationErrors.passwordEmpty;
