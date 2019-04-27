@@ -6,7 +6,7 @@
       var modalTrigger = document.getElementById('jsModalTrigger');
       var modal = document.getElementById('jsModal')
       var rows = modalTrigger.getElementsByTagName("tr");
-
+      
       /* Set onclick event handler for all trigger elements */
       for(var i = 1; i < rows.length; i++) {
           rows[i].onclick = function() {
