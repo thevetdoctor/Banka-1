@@ -19,7 +19,7 @@ class ValidateTransaction {
       type,
     } = request.body;
 
-    const debitAccountErrors = ValidationHelper.validateDebitAccount(amount, type);
+    const debitAccountErrors = ValidationHelper.validateDebitAccount({ Amount: amount, Type: type });
 
     let errors = {};
 
@@ -41,7 +41,7 @@ class ValidateTransaction {
       type,
     } = request.body;
 
-    const debitAccountErrors = ValidationHelper.validateCreditAccount(amount, type);
+    const debitAccountErrors = ValidationHelper.validateCreditAccount({ Amount: amount, Type: type });
 
     let errors = {};
 

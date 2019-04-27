@@ -48,7 +48,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.fnameRequired).to.equal(validationErrors.fnameRequired);
+          expect(response.body.error.Firstname[0]).to.equal(validationErrors.fnameRequired);
           done();
         });
     });
@@ -65,7 +65,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body.error).to.be.an('object');
-          expect(response.body.error.fnameLength).to.equal(validationErrors.fnameLength);
+          expect(response.body.error.Firstname[0]).to.equal(validationErrors.fnameLength);
           done();
         });
     });
@@ -82,7 +82,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.validFName).to.equal(validationErrors.validFName);
+          expect(response.body.error.Firstname[0]).to.equal(validationErrors.validFName);
           done();
         });
     });
@@ -99,7 +99,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.lnameRequired).to.equal(validationErrors.lnameRequired);
+          expect(response.body.error.Lastname[0]).to.equal(validationErrors.lnameRequired);
           done();
         });
     });
@@ -116,7 +116,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body.error).to.be.an('object');
-          expect(response.body.error.lnameLength).to.equal(validationErrors.lnameLength);
+          expect(response.body.error.Lastname[0]).to.equal(validationErrors.lnameLength);
           done();
         });
     });
@@ -133,7 +133,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.validLName).to.equal(validationErrors.validLName);
+          expect(response.body.error.Lastname[0]).to.equal(validationErrors.validLName);
           done();
         });
     });
@@ -162,7 +162,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.validEmail).to.equal(validationErrors.validEmail);
+          expect(response.body.error.Email[0]).to.equal(validationErrors.validEmail);
           done();
         });
     });
@@ -179,7 +179,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.emailRequired).to.equal(validationErrors.emailRequired);
+          expect(response.body.error.Email[0]).to.equal(validationErrors.emailRequired);
           done();
         });
     });
@@ -196,7 +196,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body.error).to.be.an('object');
-          expect(response.body.error.passwordLength).to.equal(validationErrors.passwordLength);
+          expect(response.body.error.Password[0]).to.equal(validationErrors.passwordLength);
           done();
         });
     });
@@ -213,7 +213,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.passwordRequired).to.equal(validationErrors.passwordRequired);
+          expect(response.body.error.Password[0]).to.equal(validationErrors.passwordEmpty);
           done();
         });
     });
@@ -244,7 +244,7 @@ describe('USER CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.validEmail).to.equal(validationErrors.validEmail);
+          expect(response.body.error.email[0]).to.equal(validationErrors.validEmail);
           done();
         });
     });

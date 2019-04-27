@@ -28,7 +28,9 @@ class ValidateUser {
     } = request.body;
 
     let errors = {};
-    const userErrors = ValidationHelper.validateUser(email, firstName, lastName, true);
+    const userErrors = ValidationHelper.validateUser({
+      Email: email, Firstname: firstName, Lastname: lastName, Password: password
+    });
 
     try {
       const userToken = request.headers['x-access'] || request.headers.token;
@@ -55,22 +57,13 @@ class ValidateUser {
       });
     }
 
-
-    if (!password || !rules.empty.test(password)) {
-      errors.passwordEmpty = validationErrors.passwordEmpty;
-    }
-    if (!rules.validPassword.test(password)) errors.validPassword = validationErrors.validPassword;
-    if (!rules.passwordLength.test(password)) {
-      errors.passwordLength = validationErrors.passwordLength;
-    }
-
     errors = Object.assign(errors, userErrors);
     ValidationHelper.checkValidationErrors(response, errors, next);
   }
 
 
   /**
-   * check if user email already exists
+   * check if user M already exists
    * @param {String} email
    * @return {object}
    */
@@ -107,8 +100,8 @@ class ValidateUser {
     if (email && password) {
       const errors = {};
 
-      if (!rules.validEmail.test(email.trim())) errors.validEmail = validationErrors.validEmail;
-
+      if (!rules.validEmail.test(email.trim())) errors.email = [validationErrors.validEmail];
+      Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
       if (Object.keys(errors).length > 0) {
         return response.status(400).json({
           status: 400,

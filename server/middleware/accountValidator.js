@@ -23,7 +23,7 @@ class ValidateAccount {
       type,
     } = request.body;
 
-    const accountErrors = ValidationHelper.validateAccount(type.trim());
+    const accountErrors = ValidationHelper.validateAccount({ Type: type });
 
     let errors = {};
 
@@ -41,7 +41,7 @@ class ValidateAccount {
   static validateAccountStatus(request, response, next) {
     let errors = {};
     const { status } = request.body;
-    const accountStatusError = ValidationHelper.validateUpdateAccountStatus(status.trim());
+    const accountStatusError = ValidationHelper.validateUpdateAccountStatus({ Status: status });
     errors = Object.assign(errors, accountStatusError);
     ValidationHelper.checkValidationErrors(response, errors, next);
   }
