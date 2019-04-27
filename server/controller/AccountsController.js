@@ -1,12 +1,7 @@
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 import db from '../helpers/query';
-import config from '../config/config';
 import serialNumber from '../helpers/serialNumber';
 import validationErrors from '../helpers/validationErrors';
 
-dotenv.config();
-const { secretKey } = config;
 
 class AccountsController {
   /**
@@ -30,14 +25,9 @@ class AccountsController {
           id = result.rows[0].id + 1;
         }
 
-
-        const token = request.headers['x-access'] || request.headers.token
-        || request.query.token;
-        const verifiedToken = jwt.verify(token, secretKey);
-
         const query = {
           text: 'INSERT INTO accounts(accountnumber, owner, type) VALUES ($1, $2, $3) RETURNING *',
-          values: [serialNumber.serialNumber(id), verifiedToken.user.id, type.trim()],
+          values: [serialNumber.serialNumber(id), request.token.user.id, type.trim()],
         };
 
         AccountsController.createAccountQuery(request, response, query);
@@ -156,11 +146,18 @@ class AccountsController {
    */
   static getUserAccounts(request, response) {
     const { email } = request.params;
-    const query = `SELECT accounts.createdOn, accounts.accountnumber, 
+    const { id, type } = request.token.user;
+    let query = `SELECT accounts.createdOn, accounts.accountnumber, 
+    accounts.type, accounts.status, accounts.balance FROM users
+     LEFT JOIN accounts ON accounts.owner = users.id
+     WHERE email ='${email}' AND users.id = '${id}'`;
+
+    if (type === 'staff') {
+      query = `SELECT accounts.createdOn, accounts.accountnumber, 
     accounts.type, accounts.status, accounts.balance FROM users
      LEFT JOIN accounts ON accounts.owner = users.id
      WHERE email ='${email}'`;
-
+    }
     db.dbQuery(query)
       .then((dbResult) => {
         if (!dbResult.rows[0]) {
@@ -183,10 +180,17 @@ class AccountsController {
    */
   static getUserAccount(request, response) {
     const { accountNumber } = request.params;
+    const { id, type } = request.token.user;
 
-    const query = `SELECT accounts.createdOn, accounts.accountnumber, users.email, accounts.type, 
+    let query = `SELECT accounts.createdOn, accounts.accountnumber, users.email, accounts.type, 
+    accounts.status, accounts.balance FROM accounts LEFT JOIN users ON users.id =
+     accounts.owner WHERE accountnumber ='${accountNumber}' AND accounts.owner ='${id}'`;
+
+    if (type === 'staff') {
+      query = `SELECT accounts.createdOn, accounts.accountnumber, users.email, accounts.type, 
     accounts.status, accounts.balance FROM accounts LEFT JOIN users ON users.id =
      accounts.owner WHERE accountnumber ='${accountNumber}'`;
+    }
 
     db.dbQuery(query)
       .then((dbResult) => {
@@ -209,40 +213,20 @@ class AccountsController {
    *
    */
   static getAllAccounts(request, response) {
-    let query;
-    if (request.query.status === 'dormant') {
-      query = `SELECT * FROM accounts WHERE status = '${request.query.status}'`;
+    let query = 'SELECT * FROM accounts';
 
-      db.dbQuery(query)
-        .then((dbResult) => {
-          if (!dbResult.rows[0]) {
-            return response.status(200).json({
-              status: 200,
-              error: validationErrors.accountNotFound,
-            });
-          }
-          AccountsController.getAccountsSuccess(response, dbResult);
-        });
-      // .catch((error) => { response.status(500).send(error); });
-    } else if (request.query.status === 'active') {
+    if (request.query.status) {
       query = `SELECT * FROM accounts WHERE status = '${request.query.status}'`;
-
-      db.dbQuery(query)
-        .then((dbResult) => {
-          if (!dbResult.rows[0]) {
-            return response.status(200).json({
-              status: 200,
-              error: validationErrors.accountNotFound,
-            });
-          }
-          AccountsController.getAccountsSuccess(response, dbResult);
-        });
-      // .catch((error) => { response.status(500).send(error); });
     }
-    query = 'SELECT * FROM accounts';
 
     db.dbQuery(query)
       .then((dbResult) => {
+        if (!dbResult.rows[0]) {
+          return response.status(200).json({
+            status: 200,
+            error: validationErrors.accountNotFound,
+          });
+        }
         AccountsController.getAccountsSuccess(response, dbResult);
       });
     // .catch((error) => { response.status(500).send(error); });

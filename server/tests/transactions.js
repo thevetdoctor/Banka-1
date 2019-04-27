@@ -327,4 +327,4 @@ describe('TRANSACTION CONTROLLER ', () => {
         });
     });
   });
-})
+});

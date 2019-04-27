@@ -1,11 +1,6 @@
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 import db from '../helpers/query';
-import config from '../config/config';
 import validationErrors from '../helpers/validationErrors';
 
-dotenv.config();
-const { secretKey } = config;
 
 class TransactionsController {
   /**
@@ -20,9 +15,6 @@ class TransactionsController {
       type,
     } = request.body;
     const { accountNumber } = request.params;
-
-    const token = request.headers['x-access'] || request.headers.token || request.query.token;
-    const verifiedToken = jwt.verify(token, secretKey);
     const balance = `SELECT * FROM accounts WHERE accountnumber ='${accountNumber}'`;
 
     const rows = db.dbQuery(balance);
@@ -35,7 +27,7 @@ class TransactionsController {
             const newQuery = {
               text: `INSERT INTO transactions(cashier, amount, type, accountnumber, oldbalance, newbalance) 
               VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-              values: [verifiedToken.user.id, amount, type.trim(), accountNumber, oldBalance, newbalance],
+              values: [request.token.user.id, amount, type.trim(), accountNumber, oldBalance, newbalance],
             };
             TransactionsController.runAccountQuery(response, newQuery);
           } else {
@@ -67,8 +59,6 @@ class TransactionsController {
     } = request.body;
     const { accountNumber } = request.params;
 
-    const token = request.headers['x-access'] || request.headers.token || request.query.token;
-    const verifiedToken = jwt.verify(token, secretKey);
     const balance = `SELECT balance FROM accounts WHERE accountnumber ='${accountNumber}'`;
     const rows = db.dbQuery(balance);
     rows.then((dbResult) => {
@@ -78,7 +68,7 @@ class TransactionsController {
         const newQuery = {
           text: `INSERT INTO transactions(cashier, amount, type, accountnumber, oldbalance, newbalance) 
           VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-          values: [verifiedToken.user.id, amount, type.trim(), accountNumber, oldBalance, newbalance],
+          values: [request.token.user.id, amount, type.trim(), accountNumber, oldBalance, newbalance],
         };
         TransactionsController.runAccountQuery(response, newQuery);
       }
@@ -122,11 +112,24 @@ class TransactionsController {
    */
   static getUserAccountHistory(request, response) {
     const { accountNumber } = request.params;
+    const { id, type } = request.token.user;
+    let query = `SELECT transactions.id, transactions.accountnumber, transactions.cashier, transactions.amount, 
+    transactions.type, transactions.oldbalance, transactions.newbalance, transactions.createdon 
+    FROM transactions INNER JOIN accounts ON accounts.accountnumber =
+     transactions.accountnumber WHERE accounts.owner ='${id}' AND transactions.accountnumber ='${accountNumber}'`;
 
-    const history = `SELECT * FROM transactions WHERE accountnumber ='${accountNumber}'`;
+    if (type === 'staff') {
+      query = `SELECT * FROM transactions WHERE accountnumber ='${accountNumber}'`;
+    }
 
-    db.dbQuery(history)
+    db.dbQuery(query)
       .then((dbResult) => {
+        if (dbResult.rowCount === 0) {
+          return response.status(200).json({
+            status: 200,
+            error: validationErrors.historyNotFOund,
+          });
+        }
         TransactionsController.getTransactionSuccess(response, dbResult);
       });
     // .catch((error) => { response.status(500).send(error); });
@@ -139,9 +142,15 @@ class TransactionsController {
    */
   static getUserTransaction(request, response) {
     const { id } = request.params;
+    const { type } = request.token.user;
+    let query = `SELECT transactions.id, transactions.accountnumber, transactions.cashier, transactions.amount, 
+    transactions.type, transactions.oldbalance, transactions.newbalance, transactions.createdon 
+    FROM transactions INNER JOIN accounts ON accounts.accountnumber =
+     transactions.accountnumber WHERE accounts.owner ='${request.token.user.id}' AND transactions.id ='${id}'`;
 
-    const query = `SELECT * FROM transactions WHERE id ='${id}'`;
-
+    if (type === 'staff') {
+      query = `SELECT * FROM transactions WHERE id ='${id}'`;
+    }
     db.dbQuery(query)
       .then((dbResult) => {
         if (!dbResult.rows[0]) {
@@ -165,7 +174,7 @@ class TransactionsController {
   static getTransactionSuccess(response, dbResult) {
     return response.status(200).json({
       status: 200,
-      data: dbResult.rows[0],
+      data: dbResult.rows,
     });
   }
 }
