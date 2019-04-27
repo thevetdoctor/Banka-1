@@ -22,7 +22,7 @@ input[type=text], input[type=email], input[type=number], input[type=password], i
 }
 
 textarea {
-    width: 95%;
+    width: 95% !important;
 }
 select {
     width: 114%;
@@ -63,6 +63,7 @@ select {
     border-bottom: 1px solid #EEE;
     padding: 1em 4em;
     background-color: #FFF;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.12);
     webkit-backface-visibility: hidden;
 }
 
@@ -154,11 +155,12 @@ z-index: 99;
 .navbar__text {
     display: inline-block;
     font-weight: 600;
-    max-width: 100px;
+    max-width: 120px;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    font-size: 16px;
 }
 .account .submenu {
     width: 100px;
@@ -634,7 +636,8 @@ z-index: 99;
 .btn-account {
     color: #FFF;
     background-color: #03567C;
-    border-color: transparent;
+    /* border-color: transparent; */
+    border: 1px solid orange;
     width: 100%;
     margin-top: 1.2rem;
     margin-left: 0;
@@ -732,13 +735,31 @@ z-index: 99;
     -o-transition: width .4s ease;
     transition: width .4s ease;
 }
+.col_four {
+    float: left;
+    width: 32%;
+    padding: 0px 5px;
+    -webkit-transition: width .4s ease;
+    -moz-transition: width .4s ease;
+    -o-transition: width .4s ease;
+    transition: width .4s ease;
+}
 @media only screen and (max-width: 700px) {
 .col_six {
+    width: 100%;
+    }
+.col_four {
     width: 100%;
     }
 }
 .bb__con .Card {
     margin-top: 20px;
+}
+.bordered {
+    border-bottom: 1px solid #EFF2F7 !important;
+}
+.admin__dashboard {
+    text-align-last: center;
 }
 .Card {
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.12);
@@ -860,7 +881,7 @@ z-index: 99;
 
 .table tr:nth-child(even){background: #f2f2f2;}
 
-.table tr:hover {background: #dcdcdc;}
+.table tr:hover {background: #d1d1d1;}
 
 .table th {
   padding-top: 12px;
@@ -869,10 +890,13 @@ z-index: 99;
   background: #03567C;
   color: white;
 }
+.table td {
+    cursor:pointer;
+}
 
 
 /** Action Buttons **/
-.action__button a {
+.action__button div {
     border: none;
     padding: 8px 20px;
     margin: 2px 5px;
@@ -882,15 +906,19 @@ z-index: 99;
     text-decoration: none;
     text-align: center;
 }
-.action__button a:first-child {
+.action__button a {
+    text-decoration: none;
+    color: #fff;
+}
+.action__button div:first-child {
     background: green;
 }
-.action__button a:nth-child(2) {
+.action__button div:nth-child(2) {
     background: red;
 }
-.action__button a:nth-child(3) {
+/* .action__button div:nth-child(3) {
     background: #03567C;
-}
+} */
 
 .tooltip {
     display: inline;
@@ -1015,6 +1043,7 @@ visibility: hidden;
   font-size: 24px;
   color: #747474;
   font-weight: bold;
+  cursor: pointer;
 }
 .modal__close:hover {
   color: #000;
@@ -1050,7 +1079,10 @@ visibility: hidden;
     grid-template-columns: 25% 25% 50%;
 }
  
-
+.transaction__popup__details  .head {
+    font-weight: 500;
+    margin-bottom: 10px;
+}
 
 /* Create a custom checkbox */
 .checkmark {
@@ -1078,7 +1110,7 @@ visibility: hidden;
 
 /* When the checkbox is checked, add a blue background */
  .checkmark__container input:checked ~ .checkmark {
-  background-color: #03567C;
+  background-color:orange;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -1117,4 +1149,5 @@ visibility: hidden;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  width: 80px;
 }

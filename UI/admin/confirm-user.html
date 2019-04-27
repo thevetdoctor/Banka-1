@@ -12,26 +12,22 @@
 	<!-- Navigation Menu-->
 <div class="body">
 	<div class="header__account" id="topBarHeaderAccount">
-				<div class="account" id="account">
-					<!-- Register Form -->
-					<div class="register__account_modal account_modal show" id="accountModal">
+				<div class="account">
+					<!-- Confirm Password Form -->
+					<div class="login__account_modal account_modal">
 						<div class="rodal rodal-fade-enter">
 							<div class="rodal-dialog rodal-zoom-enter">
 								<div class="account__alert"></div>
-								<div class="account__close--wrapper">
-									<a class="register__modal account__close fa fa-close fa-3x">
-									</a>
-								</div>
+
 								<div class="account__lg--width">
-									<h1 class="account__heading">Register</h1>
+									<h1 class="account__heading">Confirm Password</h1>
 									<form class="">
-										
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
-													<label class="float__label  ">Email</label>
+													<label class="float__label  ">New Password</label>
 													<div class="relative">
-														<input type="email" name="email" class="form-control float__input" placeholder="Email">
+														<input type="password" name="password" class="form-control float__input" placeholder="New Password">
 													</div>
 												</div>
 											</div>
@@ -39,19 +35,9 @@
 										<div class="clearfix">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<div class="float__input form-group ">
-													<label class="float__label  ">Password</label>
+													<label class="float__label  ">Confirm Password</label>
 													<div class="relative">
-														<input type="password" name="password" class="form-control float__input" placeholder="Password">
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="float__input form-group ">
-													<label class="float__label  ">Retype Password</label>
-													<div class="relative">
-														<input type="password" name="confirmPassword" class="form-control float__input" placeholder="Confirm Password">
+														<input type="password" name="repassword" class="form-control float__input" placeholder="Confirm Password">
 													</div>
 												</div>
 											</div>
@@ -59,65 +45,10 @@
 									<div class="clearfix">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="form-group">
-												<input type="submit" class="btn btn-account" name="Register" value="Register">
+												<input type="submit" class="btn btn-account" value="Submit">
 											</div>
 										</div>
 									</div>
-											<div class="account__links">
-												<div class="account__links--item">
-													Already have an account? <a href="#">Login</a>
-												</div>
-											</div>
-										</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--End Register Form -->
-					<!-- Login Form -->
-					<div class="login__account_modal account_modal show" id="accountModal">
-						<div class="rodal rodal-fade-enter">
-							<div class="rodal-dialog rodal-zoom-enter">
-								<div class="account__alert"></div>
-								<div class="account__close--wrapper">
-									<a class="login__modal account__close fa fa-close fa-3x">
-									</a>
-								</div>
-								<div class="account__lg--width">
-									<h1 class="account__heading">Login</h1>
-									<form class="">
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="float__input form-group ">
-													<label class="float__label  ">Email</label>
-													<div class="relative">
-														<input type="email" name="email" class="form-control float__input" placeholder="Email">
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="float__input form-group ">
-													<label class="float__label  ">Password</label>
-													<div class="relative">
-														<input type="password" name="password" class="form-control float__input" placeholder="Password">
-													</div>
-												</div>
-											</div>
-										</div>
-									<div class="clearfix">
-										<div class="col-md-12 col-sm-12 col-xs-12">
-											<div class="form-group">
-												<input type="submit" class="btn btn-account" name="login" value="Login">
-											</div>
-										</div>
-									</div>
-											<div class="account__links">
-												<div class="account__links--item">
-													Don't have an account? <a href="#">Register</a>
-												</div>
-											</div>
 										</form>
 								</div>
 							</div>
@@ -136,134 +67,11 @@
 			<div>
 				<a href="../index.html" class="header__logo"></a>
 			</div>
-			<div>
-				<button class="btn btn__login" id="RegisterOverlayOnMobile">Register/Login</button>
-			</div>
-			</div>
-			<div>
-				<a href="../index.html" class="header__logo"></a>
-			</div>
-			<div id="headerAccount" class="header__account__buttons relative">
-						<div class="row no-margin">
-							<div class="no-padding col col-xs-6 menu__link">
-								<a href="dashboard.html" class="btn">Admin</a>
-								<a href="#" class="btn btn__login" id="LoginOverlay">Login</a>
-								<a href="#" class="btn btn__register" id="RegisterOverlay">Register</a>
-						</div>
-					</div>
-			</div>
+		
 		</header>
 	</div>
 
 	<div class="main">
-
-	<!-- Side Navigation Menu First Level -->
-	<!-- <div class="false sidebar sidebar__fixed--vertical">
-			<nav class="sidebar__nav">
-				<ul>
-				<li class="sidebar__list">
-					<a href="dashboard.html" class="sidebar__nav__link active" id="sidebar__nav__link__mobile">
-						<i class="fa fa-dashboard fa-3x"></i>
-						<span class="sidebar__label">Dashboard</span>
-					</a>
-				</li>
-				<li class="sidebar__list" id="account__btn">
-					<a class="sidebar__nav__link" id="sidebar__nav__link__account">
-						<i class="fa fa-book fa-3x"></i>
-						<span class="sidebar__label">Transaction</span>
-					</a>
-				</li>
-			</ul>
-			</nav>
-		</div> -->
-	<!-- Side Navigation on mobile -->
-			<!-- <div id="st-container" class="st-container">
-				<nav class="st-menu st-effect-1" id="menu-1">
-				<div class="profile__image__mobile">
-			    	<div class="mobile-profile-image">
-			    		<img src="#"></img>
-			    	</div>
-					<div class="mobile-logout">
-							<button>Log Out</button>
-					</div>
-				</div>
-			    <ul>
-			      <li><a class="fa fa-dashboard" href="dashboard.html"> Dashboard</a></li>
-			      <li><a class="fa fa-user" href="create-account.html"> Create Account</a></li>
-			      <li><a class="fa fa-user" href="add-user.html"> Add User</a></li>
-			      <li><a class="fa fa-book" href="credit.html"> Credit</a></li>
-			      <li><a class="fa fa-book" href="debit.html"> Debit</a></li>
-			      <li><a class="fa fa-book" href="account-history.html"> Account History</a></li>
-			      <li><a class="fa fa-user" href="user.html"> User</a></li>
-			      <li><a class="fa fa-book" href="users-account.html"> All Account</a></li>
-			    </ul>
-			  </nav>
-			</div> -->
-	<!-- Second Level Menu -->
-	<!-- <div class="account__side__wrapper show">
-			<div class="account__categories__list">
-				<a href="users-account.html" class="ps-container">
-					<span>View All Accounts</span>
-				</a>
-				<a href="debit.html" class="ps-container">
-					<span>Debit User</span>
-				</a>
-				<a href="credit.html" class="ps-container">
-					<span>Credit User</span>
-				</a>
-				<a href="add-user.html" class="ps-container">
-					<span>Add User</span>
-				</a>
-				<a href="confirm-user.html" class="ps-container">
-					<span>Confirm User</span>
-				</a>
-			</div>
-	</div> -->
-		<div class="bb__container">	
-				<div class="bb__con">
-					<div class="col_ten">
-						<div class="Card">
-							<div class="prof_head ">
-								<h3>Credit Account</h3>
-							</div>
-								<div class="form__width">
-									<form class="js-form form" action="#">
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="form-group ">
-													<div class="relative">
-														<input type="password" class="form-control"  placeholder="Enter Password" required>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="clearfix">
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<div class="form-group ">
-													<div class="relative">
-														<input type="password" class="form-control" placeholder="Confirm Password" required>
-													</div>
-												</div>
-											</div>
-										</div>
-				
-									<div class="clearfix">
-										<div class="col-md-12 col-sm-12 col-xs-12">
-											<div class="form-group">
-												<input type="submit" class="btn btn-account" value="Confirm Password">
-											</div>
-										</div>
-									</div>				
-										</form>
-								</div>
-
-					</div>
-					
-					</div>
-					
-				</div>
-				
-		</div>
 
 	<!-- Footer -->
 	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
