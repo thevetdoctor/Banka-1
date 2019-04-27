@@ -1,9 +1,14 @@
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import config from '../config/config';
 import db from '../helpers/query';
 import passwordHelper from '../helpers/password';
 import generateToken from '../helpers/token';
 import validationErrors from '../helpers/validationErrors';
 
 
+dotenv.config();
+const { secretKey } = config;
 class UsersController {
   /**
    *  Signup a user
@@ -17,19 +22,28 @@ class UsersController {
       firstName,
       lastName,
       password,
-      type,
     } = request.body;
-    let userType = type;
-    if (!type) {
-      userType = 'client';
-    }
-
     const hashedPassword = passwordHelper.hashPassword(password.trim());
 
-    const query = {
-      text: 'INSERT INTO users(firstname, lastname, email, password, type) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      values: [firstName.trim(), lastName.trim(), email.trim(), hashedPassword, userType],
+    const userToken = request.headers['x-access'] || request.headers.token;
+
+    let query = {
+      text: 'INSERT INTO users(firstname, lastname, email, password) VALUES ($1, $2, $3, $4) RETURNING *',
+      values: [firstName.trim(), lastName.trim(), email.trim(), hashedPassword],
     };
+
+    if (userToken) {
+      const verifiedToken = jwt.verify(userToken, secretKey);
+      request.token = verifiedToken;
+      if (verifiedToken.user.isadmin) {
+        query = {
+          text: 'INSERT INTO users(firstname, lastname, email, password, type) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+          values: [firstName.trim(), lastName.trim(), email.trim(), hashedPassword, 'staff'],
+        };
+      }
+    }
+
+
     UsersController.signupQuery(request, response, query);
   }
 
