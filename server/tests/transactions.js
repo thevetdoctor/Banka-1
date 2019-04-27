@@ -17,18 +17,18 @@ let currrentToken;
 
 describe('TRANSACTION CONTROLLER ', () => {
   describe('POST /api/v1/transactions/:accountNumber/credit', () => {
-		 before((done) => {
-		      chai.request(app)
-		        .post(`${loginURL}`)
-		        .send({
-		        	email: 'jamesugbanu@gmail.com',
-		        	password: 'scrip#9ju',
-		        })
-		        .end((error, response) => {
-		          currrentToken = response.body.data.token;
-		          done();
-		        });
-		    });
+    before((done) => {
+      chai.request(app)
+        .post(`${loginURL}`)
+        .send({
+          email: 'jamesugbanu@gmail.com',
+          password: 'scrip#9ju',
+        })
+        .end((error, response) => {
+          currrentToken = response.body.data.token;
+          done();
+        });
+    });
 
 
     it('it should credit an account', (done) => {
@@ -56,7 +56,7 @@ describe('TRANSACTION CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.amountRequired).to.equal(validationErrors.amountRequired);
+          expect(response.body.error.Amount[0]).to.equal(validationErrors.amountRequired);
           done();
         });
     });
@@ -72,7 +72,7 @@ describe('TRANSACTION CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body.error).to.be.an('object');
-          expect(response.body.error.validAmount).to.equal(validationErrors.validAmount);
+          expect(response.body.error.Amount[0]).to.equal(validationErrors.validAmount);
           done();
         });
     });
@@ -89,7 +89,7 @@ describe('TRANSACTION CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.creditTypeRequired).to.equal(validationErrors.creditTypeRequired);
+          expect(response.body.error.Type[0]).to.equal(validationErrors.creditTypeRequired);
           done();
         });
     });
@@ -106,14 +106,14 @@ describe('TRANSACTION CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.creditTypeRequired).to.equal(validationErrors.creditTypeRequired);
+          expect(response.body.error.Type[0]).to.equal(validationErrors.validCreditType);
           done();
         });
     });
   });
 
   describe('POST /api/v1/transactions/:accountNumber/debit', () => {
-		 it('it should not debit an account if not active', (done) => {
+    it('it should not debit an account if not active', (done) => {
       chai.request(app)
         .post(`${transactionsUrl}/1000000001/debit`)
         .send(testData.newTransactions[1])
@@ -125,7 +125,6 @@ describe('TRANSACTION CONTROLLER ', () => {
           done();
         });
     });
-
     it('it should update the status of an account to active', (done) => {
       chai.request(app)
         .put(`${accountUrl}/1000000001`)
@@ -141,7 +140,6 @@ describe('TRANSACTION CONTROLLER ', () => {
           done();
         });
     });
-
     it('it should debit an account if active', (done) => {
       chai.request(app)
         .post(`${transactionsUrl}/1000000001/debit`)
@@ -168,7 +166,7 @@ describe('TRANSACTION CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.amountRequired).to.equal(validationErrors.amountRequired);
+          expect(response.body.error.Amount[0]).to.equal(validationErrors.amountRequired);
           done();
         });
     });
@@ -184,7 +182,7 @@ describe('TRANSACTION CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body.error).to.be.an('object');
-          expect(response.body.error.validAmount).to.equal(validationErrors.validAmount);
+          expect(response.body.error.Amount[0]).to.equal(validationErrors.validAmount);
           done();
         });
     });
@@ -194,14 +192,14 @@ describe('TRANSACTION CONTROLLER ', () => {
       chai.request(app)
         .post(`${transactionsUrl}/1000000001/debit`)
         .send({
-          amount: 50.0,
+          amount: 50,
           type: '',
         })
         .set('token', currrentToken)
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.debitTypeRequired).to.equal(validationErrors.debitTypeRequired);
+          expect(response.body.error.Type[0]).to.equal(validationErrors.debitTypeRequired);
           done();
         });
     });
@@ -217,7 +215,7 @@ describe('TRANSACTION CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.debitTypeRequired).to.equal(validationErrors.debitTypeRequired);
+          expect(response.body.error.Type[0]).to.equal(validationErrors.validDebitType);
           done();
         });
     });
@@ -329,4 +327,4 @@ describe('TRANSACTION CONTROLLER ', () => {
         });
     });
   });
-});
+})

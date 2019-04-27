@@ -22,8 +22,8 @@ describe('ACCOUNT CONTROLLER ', () => {
       chai.request(app)
         .post(`${loginURL}`)
         .send({
-        	email: 'jamesugbanu@gmail.com',
-        	password: 'scrip#9ju',
+          email: 'jamesugbanu@gmail.com',
+          password: 'scrip#9ju',
         })
         .end((error, response) => {
           currrentToken = response.body.data.token;
@@ -92,7 +92,7 @@ describe('ACCOUNT CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.accountTypeRequired).to.equal(validationErrors.accountTypeRequired);
+          expect(response.body.error.Type[0]).to.equal(validationErrors.accountTypeRequired);
           done();
         });
     });
@@ -107,7 +107,7 @@ describe('ACCOUNT CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body.error).to.be.an('object');
-          expect(response.body.error.validType).to.equal(validationErrors.validType);
+          expect(response.body.error.Type[0]).to.equal(validationErrors.validType);
           done();
         });
     });
@@ -201,10 +201,10 @@ describe('ACCOUNT CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.validStatus).to.equal(validationErrors.validStatus);
+          expect(response.body.error.Status[0]).to.equal(validationErrors.validStatus);
           done();
         });
-    	});
+    });
 
 
     it('it should not update the status of an account with empty status', (done) => {
@@ -217,10 +217,10 @@ describe('ACCOUNT CONTROLLER ', () => {
         .end((error, response) => {
           expect(response).to.have.status(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.error.statusRequired).to.equal(validationErrors.statusRequired);
+          expect(response.body.error.Status[0]).to.equal(validationErrors.statusRequired);
           done();
         });
-    	});
+    });
   });
 
   describe('GET /api/v1/user/:email/accounts endpoint', () => {

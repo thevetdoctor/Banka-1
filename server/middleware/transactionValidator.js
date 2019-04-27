@@ -1,6 +1,4 @@
 import connection from '../helpers/conn';
-import rules from '../helpers/validationRules';
-import validationErrors from '../helpers/validationErrors';
 import ValidationHelper from '../helpers/validationHelper';
 
 const client = connection();
@@ -21,7 +19,7 @@ class ValidateTransaction {
       type,
     } = request.body;
 
-    const debitAccountErrors = ValidationHelper.validateDebitAccount(amount, type);
+    const debitAccountErrors = ValidationHelper.validateDebitAccount({ Amount: amount, Type: type });
 
     let errors = {};
 
@@ -43,7 +41,7 @@ class ValidateTransaction {
       type,
     } = request.body;
 
-    const debitAccountErrors = ValidationHelper.validateCreditAccount(amount, type);
+    const debitAccountErrors = ValidationHelper.validateCreditAccount({ Amount: amount, Type: type });
 
     let errors = {};
 

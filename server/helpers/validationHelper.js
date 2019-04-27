@@ -9,166 +9,170 @@ import validationErrors from './validationErrors';
 
 class ValidateHelper {
   /**
-	 * validate user email and name
-	 * @param {String} name
-	 * @param {String} email
-	 * @return {Object} errors
-	 */
-  static validateUser(email, firstName, lastName, isSignup) {
-    let errors = {};
+   *  * validate user email and name
+   * * @param {String} name
+   *  * @param {String} email
+   *  * @return {Object} errors
+   *  */
+  static validateUser(obj) {
+    const errors = {
+    };
 
-    if (!firstName || !rules.empty.test(firstName.trim())) {
-      errors.fnameRequired = validationErrors.fnameRequired;
+    Object.keys(obj).forEach((key) => {
+      errors[`${key}`] = [];
+    });
+
+    if (!obj.Firstname || !rules.empty.test(obj.Firstname.trim())) {
+      errors.Firstname.push(validationErrors.fnameRequired);
     }
 
 
-    if (!lastName || !rules.empty.test(lastName.trim())) {
-      errors.lnameRequired = validationErrors.lnameRequired;
+    if (!obj.Lastname || !rules.empty.test(obj.Lastname.trim())) {
+      errors.Lastname.push(validationErrors.lnameRequired);
+    }
+    if (!obj.Password || !rules.empty.test(obj.Password.trim())) {
+      errors.Password.push(validationErrors.passwordEmpty);
     }
 
+    if (!obj.Email || !rules.empty.test(obj.Email.trim())) errors.Email.push(validationErrors.emailRequired);
 
-    if ((!email || !rules.empty.test(email.trim())) && isSignup) errors.emailRequired = validationErrors.emailRequired;
+    if (!rules.validName.test(obj.Firstname)) errors.Firstname.push(validationErrors.validFName);
+    if (!rules.validName.test(obj.Lastname)) errors.Lastname.push(validationErrors.validLName);
+    if (!rules.nameLength.test(obj.Firstname)) errors.Firstname.push(validationErrors.fnameLength);
+    if (!rules.nameLength.test(obj.Lastname)) errors.Lastname.push(validationErrors.lnameLength);
+    if (!rules.validEmail.test(obj.Email)) errors.Email.push(validationErrors.validEmail);
+    if (!rules.validPassword.test(obj.Password)) errors.Password.push(validationErrors.validPassword);
+    if (!rules.passwordLength.test(obj.Password)) errors.Password.push(validationErrors.passwordLength);
 
-    if (Object.keys(errors).length === 0) {
-      if (!rules.validName.test(firstName)) errors.validFName = validationErrors.validFName;
-      if (!rules.validName.test(lastName)) errors.validLName = validationErrors.validLName;
-      if (!rules.nameLength.test(firstName)) errors.fnameLength = validationErrors.fnameLength;
-      if (!rules.nameLength.test(lastName)) errors.lnameLength = validationErrors.lnameLength;
-      if (!rules.validEmail.test(email)) errors.validEmail = validationErrors.validEmail;
-
-      errors = ValidateHelper.getFirstError(errors);
-    }
-
+    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
     return errors;
   }
 
   /**
-	 * validate account
-	 * @param {String} owner
-	 * @param {String} type
-	 * @return {Object} errors
-	 */
+   *  * validate account
+   *  * @param {String} owner
+   *  * @param {String} type
+   *  * @return {Object} errors
+   *  */
 
-  static validateAccount(type) {
-    let errors = {};
+  static validateAccount(obj) {
+    const errors = {
+    };
+    Object.keys(obj).forEach((key) => {
+      errors[`${key}`] = [];
+    });
 
-    if (!type || !rules.empty.test(type.trim())) errors.accountTypeRequired = validationErrors.accountTypeRequired;
-    if (Object.keys(errors).length === 0) {
-      if (!rules.accountType.test(type.trim())) errors.validType = validationErrors.validType;
-      errors = ValidateHelper.getFirstError(errors);
-    }
+    if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.accountTypeRequired);
+    if (!rules.accountType.test(obj.Type)) errors.Type.push(validationErrors.validType);
 
-
+    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
     return errors;
   }
 
   /**
-	 * validate account status
-	 * @param {String} status
-	 * @return {Object} errors
-	 */
-  static validateUpdateAccountStatus(status) {
-    let errors = {};
-    if (!status || !rules.empty.test(status.trim())) errors.statusRequired = validationErrors.statusRequired;
+   *  * validate account status
+   *  * @param {String} status
+   *  * @return {Object} errors
+   *  */
+  static validateUpdateAccountStatus(obj) {
+    const errors = {
+    };
+    Object.keys(obj).forEach((key) => {
+      errors[`${key}`] = [];
+    });
 
-    if (Object.keys(errors).length === 0) {
-      if (!rules.accountStatus.test(status.trim())) errors.validStatus = validationErrors.validStatus;
-      errors = ValidateHelper.getFirstError(errors);
-    }
+    if (!obj.Status || !rules.empty.test(obj.Status)) errors.Status.push(validationErrors.statusRequired);
+    if (!rules.accountStatus.test(obj.Status)) errors.Status.push(validationErrors.validStatus);
 
+    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
     return errors;
   }
 
-  /**
-	 * check if id is valid
-	 * @param {Object} request
-	 * @return {boolean} true
-	 */
+  /*
+   * check if id is valid
+    * @param {Object} request
+    *  * @return {boolean} true
+    *  */
   static checkValidAccountNumber(number) {
     if (rules.validInt.test(number)) {
       if (number.length === 10) {
-					 return true;
+        return true;
       }
     }
     return false;
   }
 
   /**
-	 * check if id is valid
-	 * @param {Object} request
-	 * @return {boolean} true
-	 */
+   *  * check if id is valid
+   *  * @param {Object} request
+   *  * @return {boolean} true
+   *  */
   static checkValidId(number) {
     if (rules.validInt.test(number)) {
-					 return true;
+      return true;
     }
     return false;
   }
 
   /**
-	 * check if email is valid
-	 * @param {Object} request
-	 * @return {boolean} true
-	 */
+   *  * check if email is valid
+   *  * @param {Object} request
+   *  * @return {boolean} true
+   * */
   static checkValidEmail(email) {
     if (rules.validEmail.test(email.trim())) {
-					 return true;
+      return true;
     }
     return false;
   }
 
   /**
-	 * validate cashier, amount, type
-	 * @param {String} name
-	 * @param {String} email
-	 * @return {Object} errors
-	 */
-  static validateDebitAccount(amount, type) {
-    let errors = {};
+   *  * validate cashier, amount, type
+   *  * @param {String} name
+   *  * @param {String} email
+   *  * @return {Object} errors
+   *  */
+  static validateDebitAccount(obj) {
+    const errors = {
+    };
+    Object.keys(obj).forEach((key) => {
+      errors[`${key}`] = [];
+    });
 
-    if (!amount || !rules.empty.test(amount)) {
-      errors.amountRequired = validationErrors.amountRequired;
-    }
-
-
-    if (!type || !rules.empty.test(type.trim())) errors.debitTypeRequired = validationErrors.debitTypeRequired;
-
-    if (Object.keys(errors).length === 0) {
-      if (!rules.validAmount.test(amount)) errors.validAmount = validationErrors.validAmount;
-      if (type !== 'debit') errors.debitTypeRequired = validationErrors.debitTypeRequired;
-      errors = ValidateHelper.getFirstError(errors);
-    }
+    if (!obj.Amount || !rules.empty.test(obj.Amount)) errors.Amount.push(validationErrors.amountRequired);
+    if (!rules.validAmount.test(obj.Amount)) errors.Amount.push(validationErrors.validAmount);
+    if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.debitTypeRequired);
+    if (obj.Type !== 'debit') errors.Type.push(validationErrors.validDebitType);
+    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
     return errors;
   }
 
   /**
-	 * validate cashier, amount, type
-	 * @param {String} name
-	 * @param {String} email
-	 * @return {Object} errors
-	 */
-  static validateCreditAccount(amount, type) {
-    let errors = {};
+   *  * validate cashier, amount, type
+   * * @param {String} name
+   *  * @param {String} email
+   *  * @return {Object} errors
+   *  */
+  static validateCreditAccount(obj) {
+    const errors = {
+    };
+    Object.keys(obj).forEach((key) => {
+      errors[`${key}`] = [];
+    });
 
-    if (!amount || !rules.empty.test(amount)) {
-      errors.amountRequired = validationErrors.amountRequired;
-    }
-
-    if (Object.keys(errors).length === 0) {
-      if (!rules.validAmount.test(amount)) errors.validAmount = validationErrors.validAmount;
-      if (!type || !rules.empty.test(type.trim())) errors.creditTypeRequired = validationErrors.creditTypeRequired;
-
-      if (type !== 'credit') errors.creditTypeRequired = validationErrors.creditTypeRequired;
-      errors = ValidateHelper.getFirstError(errors);
-    }
+    if (!obj.Amount || !rules.empty.test(obj.Amount)) errors.Amount.push(validationErrors.amountRequired);
+    if (!rules.validAmount.test(obj.Amount)) errors.Amount.push(validationErrors.validAmount);
+    if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.creditTypeRequired);
+    if (obj.Type !== 'credit') errors.Type.push(validationErrors.validCreditType);
+    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
     return errors;
   }
 
   /**
-	 * check if data validation produces any errors
-	 * @param {Object} request
-	 * @return {boolean} false
-	 */
+   *  * check if data validation produces any errors
+   *  * @param {Object} request
+   *  * @return {boolean} false
+   *  */
   static checkValidationErrors(response, errors, next) {
     if (Object.keys(errors).length > 0) {
       return response.status(400).json({
@@ -181,8 +185,7 @@ class ValidateHelper {
 
   static getFirstError(errors) {
     const firstKey = Object.keys(errors)[0];
-
-		 const error = Object.keys(errors)
+    const error = Object.keys(errors)
       .filter(key => key === firstKey)
       .reduce((obj, key) => {
         obj[key] = errors[key];
