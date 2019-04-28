@@ -140,7 +140,7 @@ class TransactionsController {
    *  @param {Object} response
    *  @return {Object} json
    */
-  static getUserTransaction(request, response) {
+  static getTransactionById(request, response) {
     const { id } = request.params;
     const { type } = request.token.user;
     let query = `SELECT transactions.id, transactions.accountnumber, transactions.cashier, transactions.amount, 
