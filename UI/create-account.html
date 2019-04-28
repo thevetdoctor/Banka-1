@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Account</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link type="text/css" href="css/style.css" rel="stylesheet">
+</head>
+<body>
+	<!-- Navigation Menu-->
+<div class="body">
+	<div class="header__account" id="topBarHeaderAccount">
+				<div class="account" id="account">
+					<!-- Register Form -->
+					<div class="register__account_modal account_modal show" id="accountModal">
+						<div class="rodal rodal-fade-enter">
+							<div class="rodal-dialog rodal-zoom-enter">
+								<div class="account__alert"></div>
+								<div class="account__close--wrapper">
+									<a class="register__modal account__close fa fa-close fa-3x">
+									</a>
+								</div>
+								<div class="account__lg--width">
+									<h1 class="account__heading">Register</h1>
+									<form class="">
+										
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="float__input form-group ">
+													<label class="float__label  ">Email</label>
+													<div class="relative">
+														<input type="email" name="email" class="form-control float__input" placeholder="Email">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="float__input form-group ">
+													<label class="float__label  ">Password</label>
+													<div class="relative">
+														<input type="password" name="password" class="form-control float__input" placeholder="Password">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="float__input form-group ">
+													<label class="float__label  ">Retype Password</label>
+													<div class="relative">
+														<input type="password" name="confirmPassword" class="form-control float__input" placeholder="Confirm Password">
+													</div>
+												</div>
+											</div>
+										</div>
+									<div class="clearfix">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="form-group">
+												<input type="submit" class="btn btn-account" name="Register" value="Register">
+											</div>
+										</div>
+									</div>
+											<div class="account__links">
+												<div class="account__links--item">
+													Already have an account? <a href="#">Login</a>
+												</div>
+											</div>
+										</form>
+								</div>
+							</div>
+						</div>
+
+					<!--End Register Form -->
+					<!-- Login Form -->
+					<div class="login__account_modal account_modal show" id="accountModal">
+						<div class="rodal rodal-fade-enter">
+							<div class="rodal-dialog rodal-zoom-enter">
+								<div class="account__alert"></div>
+								<div class="account__close--wrapper">
+									<a class="login__modal account__close fa fa-close fa-3x">
+									</a>
+								</div>
+								<div class="account__lg--width">
+									<h1 class="account__heading">Login</h1>
+									<form class="">
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="float__input form-group ">
+													<label class="float__label  ">Email</label>
+													<div class="relative">
+														<input type="email" name="email" class="form-control float__input" placeholder="Email">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="float__input form-group ">
+													<label class="float__label  ">Password</label>
+													<div class="relative">
+														<input type="password" name="password" class="form-control float__input" placeholder="Password">
+													</div>
+												</div>
+											</div>
+										</div>
+									<div class="clearfix">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="form-group">
+												<input type="submit" class="btn btn-account" name="login" value="Login">
+											</div>
+										</div>
+									</div>
+											<div class="account__links">
+												<div class="account__links--item">
+													Don't have an account? <a href="#">Register</a>
+												</div>
+											</div>
+										</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End Login Form -->					
+				</div>
+				</div>
+	</div>			
+	<div>
+		<header class="header container-fluid  clearfix">
+			<div class="header__hamburger">
+			<div>
+            <button id="topBarHeaderResponsiveBar" class="fa fa-bars fa-2x"></button>
+			</div>
+			<div>
+				<a href="index.html" class="header__logo"></a>
+			</div>
+			<div>
+				<button class="btn btn__login" id="RegisterOverlayOnMobile">Register/Login</button>
+			</div>
+			</div>
+			<div>
+				<a href="index.html" class="header__logo"></a>
+			</div>
+			<div id="headerAccount" class="header__account__buttons relative">
+						<div class="row no-margin">
+							<div class="no-padding col col-xs-6">
+								<button class="btn btn__login" id="LoginOverlay">Login</button>
+								<button class="btn btn__register" id="RegisterOverlay">Register</button>
+								<div class="account__profile clearfix" id="ProfileDropDown">
+									<span class="navbar__icon"><i class="fa fa-user fa-2x"></i></span>
+									<span class="navbar__text">Osinachi Ugbanu</span>
+										<nav class="submenu show" id="ProfileNav">
+										  <ul class="submenu-ul">
+											<li><a href="profile.html">Profile</a></li>
+											<li><a href="#">Sign Out</a></li>
+										  </ul>
+										</nav>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+		</header>
+	</div>
+
+	<div class="main">
+	<!-- Side Navigation Menu First Level -->
+	<div class="false sidebar sidebar__fixed--vertical">
+		<nav class="sidebar__nav">
+			<ul>
+				<li class="sidebar__list">
+					<a href="dashboard.html" class="sidebar__nav__link" id="sidebar__nav__link__mobile">
+						<i class="fa fa-dashboard fa-3x"></i>
+						<span class="sidebar__label">Dashboard</span>
+					</a>
+				</li>
+				<li class="sidebar__list" id="account__btn">
+					<a class="sidebar__nav__link active" id="sidebar__nav__link__account">
+						<i class="fa fa-user fa-3x"></i>
+						<span class="sidebar__label">Account</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+
+	<!-- Side Navigation on mobile -->
+			<div id="st-container" class="st-container">
+				<nav class="st-menu st-effect-1" id="menu-1">
+			    	<div class="profile__image__mobile">
+			    	<div class="mobile-profile-image">
+			    		<img src="#"></img>
+			    	</div>
+					<div class="mobile-logout">
+							<button>Log Out</button>
+					</div>
+				</div>
+			    <ul>
+			      <li><a class="fa fa-dashboard" href="dashboard.html"> Dashboard</a></li>
+			      <li><a class="fa fa-user" href="create-account.html"> Create Account</a></li>
+			      <li><a class="fa fa-user" href="add-user.html"> Add User</a></li>
+			      <li><a class="fa fa-book" href="credit.html"> Credit</a></li>
+			      <li><a class="fa fa-book" href="debit.html"> Debit</a></li>
+			      <li><a class="fa fa-book" href="account-history.html"> Account History</a></li>
+			      <li><a class="fa fa-user" href="user.html"> User</a></li>
+			      <li><a class="fa fa-book" href="users-account.html"> All Account</a></li>
+			    </ul>
+			  </nav>
+			</div>
+
+	<!-- Second Level Menu -->
+	<div class="account__side__wrapper show">
+			<div class="account__categories__list">
+				<a href="create-account.html" class="ps-container">
+					<span>Create an Account</span>
+				</a>
+				<a href="account-history.html" class="ps-container">
+					<span>Account Transaction History</span>
+				</a>
+				<a href="users-account.html" class="ps-container">
+					<span>View All Accounts</span>
+				</a>
+				<a href="debit.html" class="ps-container">
+					<span>Debit User</span>
+				</a>
+				<a href="credit.html" class="ps-container">
+					<span>Credit User</span>
+				</a>
+				<a href="add-user.html" class="ps-container">
+					<span>Add User</span>
+				</a>
+				<a href="confirm-user.html" class="ps-container">
+					<span>Confirm User</span>
+				</a>
+			</div>
+	</div>
+	
+		<div class="bb__container">	
+				<div class="bb__con">
+					<div class="col_ten">
+						<div class="Card">
+							<div class="prof_head ">
+								<h3>Fill the form</h3>
+							</div>
+								<div class="form__width">
+									<form class="create-account" action="#">
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
+												<div class="form-group ">
+													<div class="relative">
+														<input type="text" name="fname" class="form-control" placeholder="First Name" data-validate-field="fname" >
+													</div>
+												</div>
+												<div class="form-group ">
+													<div class="relative">
+														<input type="text" name="mname" class="form-control" placeholder="Other Name">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group ">
+													<div class="relative">
+														<input type="text" name="lname" class="form-control" placeholder="Last Name" data-validate-field="lname" >
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="form-group ">
+													<div class="relative">
+														<input type="email" name="email" class="form-control" placeholder="Email" data-validate-field="email" >
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
+												<div class="form-group ">
+													<label>Phone Number</label>
+													<div class="relative">
+														<input type="phone" name="phone" class="form-control" placeholder="Ex: 8066428001" data-validate-field="phone" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Choose Date of Birth</label>
+													<div class="relative">
+														<input class="form-control" id="datepicker" type="text" placeholder="Ex: 29/01/1995" data-validate-field="dob" >
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
+												<div class="form-group ">
+													<label>Marital Status:</label>
+													<div class="relative">
+														<select data-validate-field="maritalstatus" class="form-control" required>
+														<option disabled selected></option>
+														  <option value="m">Male</option>
+														  <option value="f">Female</option>
+														  <option value="bi">Bi-Sexual</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group ">
+													<label>Account Type:</label>
+													<div class="relative">
+														<select data-validate-field="accounttype" class="form-control">
+														<option disabled selected></option>
+														  <option>Savings</option>
+														  <option>Current</option>
+														</select>
+													</div>
+												</div>
+												
+											</div>
+											</div>
+										<div class="clearfix">
+											<div class="col-md-6 col-sm-6 col-xs-12 double__field">
+												<div class="form-group ">
+													<label>Select State</label>
+													<div class="relative">
+														<select data-validate-field="state" id="stateSel" class="form-control">
+														  <option disabled selected></option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group BB__lga">
+													<label>Select LGA</label>
+													<div class="relative">
+														<select data-validate-field="lga" id="lgaSel" class="form-control">
+														  <option disabled selected></option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="clearfix">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="form-group">
+												<textarea data-validate-field="address"  placeholder="Street Address" class="form-control" rows="4" cols="87"></textarea>
+											</div>
+										</div>
+										</div>
+									<div class="clearfix">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="form-group">
+												<input type="submit" class="btn btn-account" name="Submit" value="Submit">
+											</div>
+										</div>
+									</div>				
+										</form>
+								</div>
+
+					</div>
+					
+					</div>
+					
+				</div>
+				
+		</div>
+
+	<!-- Footer -->
+	<footer class="footer"><span class="text-center">2019 Broad Bank</span></footer>
+</div>
+</div>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script src="js/just-validate.js"></script>
+	<script type="text/javascript" src="js/state.js"></script>
+	<script>
+	new window.JustValidate('.create-account', {
+						    rules: {
+						      fname: {
+						          required: true,
+						          minLength: 3,
+          						  maxLength: 15
+						      },
+						      lname: {
+						          required: true,
+						          minLength: 3,
+          						  maxLength: 15
+						      },
+						      email: {
+						      	required: true,
+						      	  email: true
+						      },
+						      phone: {
+						      	required: true,
+						      	phone: true
+						      },
+						      dob: {
+						      	required: true
+						      },
+						      address: {
+						      	required: true
+						      },
+						      maritalstatus: {
+						      	required: true
+						      },
+						      accounttype: {
+						      	required: true
+						      },
+						      state: {
+						      	required: true
+						      },
+						      lga: {
+						      	required: true
+						      }
+						  },
+						  messages: {
+						  	minLength: 'The field must contain a minimum of :value characters',
+						  	maxLength: 'The field must contain a maximum of :value characters'
+						  }
+						});
+		  $( function() {
+		    $( "#datepicker" ).datepicker();
+		  } );
+  </script>
+</body>
+</html>
