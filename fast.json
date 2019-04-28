@@ -1,0 +1,828 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Banka is a light-weight core banking application that powers banking operations.",
+      "version": "1.0.0",
+      "title": "banka",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+        "email": "jamesugbanu@gmail.com"
+      },
+      "license": {
+        "name": "GNU General Public License",
+        "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+      }
+    },
+    "host": "https://broad-bank.herokuapp.com",
+    "basePath": "/api/v1",
+    "tags": [
+      {
+        "name": "auth",
+        "description": "User authentication",
+        "externalDocs": {
+          "description": "User signin and signup",
+          "url": "https://broad-bank.herokuapp.com"
+        }
+      },
+      {
+        "name": "transactions",
+        "description": "Everything about user transactions",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://broad-bank.herokuapp.com"
+        }
+      },
+      {
+        "name": "account",
+        "externalDocs": {
+          "description": "All about bank account",
+          "url": "https://broad-bank.herokuapp.com"
+        }
+      },
+      {
+        "name": "user",
+        "description": "User operations",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "https://broad-bank.herokuapp.com"
+        }
+      }
+    ],
+    "schemes": [
+      "https",
+      "http"
+    ],
+    "paths": {
+      "/accounts": {
+        "post": {
+          "tags": [
+            "accounts"
+          ],
+          "summary": "Create a bank account",
+          "description": "user can create a bank account",
+          "operationId": "createAccount",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "account",
+              "description": "create a bank account",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Account"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Account created Sucessfully"
+            }
+          },
+          "security": [
+            {
+              "banka_auth": [
+                "write:accounts"
+              ]
+            }
+          ]
+        },
+        "get": {
+          "tags": [
+            "Accounts"
+          ],
+          "summary": "Get all accounts",
+          "description": "Return all accounts from the database",
+          "operationId": "getAllAccounts",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Get all bank accounts",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Account3"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successfully got accounts"
+            },
+            "404": {
+              "description": "accounts not found"
+            }
+          },
+          "security": [
+            {
+              "banka_auth": [
+                "read:accounts"
+              ]
+            }
+          ]
+        }
+      },
+      "/accounts/{accountNumber}": {
+        "get": {
+          "tags": [
+            "accounts"
+          ],
+          "summary": "Find accounts by accountNumber",
+          "description": "Returns a single account",
+          "operationId": "getUserAccount",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "accountNumber",
+              "in": "path",
+              "description": "accountNumber of bank account to return",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful got bank account",
+              "schema": {
+                "$ref": "#/definitions/account3"
+              }
+            },
+            "404": {
+              "description": "Account not found"
+            }
+          },
+          "security": [
+            {
+              "banka_auth": [
+                "read:accounts"
+              ]
+            }
+          ]
+        },
+        "put": {
+          "tags": [
+            "accounts"
+          ],
+          "summary": "Updates bank account status",
+          "description": "The bank account status can either be Active or Dormant",
+          "operationId": "updateAccountStatus",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "accountNumber",
+              "in": "path",
+              "description": "accountNumber of bank account that needs to be updated",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "description": "Updated status of the bank account",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "202": {
+              "description": "Bank account updated successfully",
+              "schema": {
+                "$ref": "#/definitions/account3"
+              }
+            },
+            "404": {
+              "description": "Bank account not found"
+            }
+          },
+          "security": [
+            {
+              "banka_auth": [
+                "read:accounts"
+              ]
+            }
+          ]
+        }
+      },
+      "/api/v1/user/{email}/accounts": {
+        "get": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Find bank account by email",
+          "description": "Returns all bank account",
+          "operationId": "getUserAccounts",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "email",
+              "in": "path",
+              "description": "email of of the user who's bank account(s) is to be returned",
+              "required": true,
+              "type": "string",
+              "format": "email"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful got bank account(s)",
+              "schema": {
+                "$ref": "#/definitions/accounts"
+              }
+            },
+            "404": {
+              "description": "Bank account not found"
+            }
+          },
+          "security": [
+            {
+              "banka_auth": [
+                "read:accounts"
+              ]
+            }
+          ]
+        }
+      },
+      "/auth/signup": {
+        "post": {
+          "tags": [
+            "auth"
+          ],
+          "summary": "Enables a user to signup",
+          "description": "Registers a new user",
+          "operationId": "signup",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Created user object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Account created successfully",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "/auth/signin": {
+        "post": {
+          "tags": [
+            "auth"
+          ],
+          "summary": "Enables a user to signin",
+          "description": "Authenticate a user",
+          "operationId": "signin",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Created user object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Signin"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "You have been logged in successfully!"
+            },
+            "401": {
+              "description": "Could not login. The email and password do not match",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/transactions/{accountNumber}/credit": {
+        "post": {
+          "tags": [
+            "transactions"
+          ],
+          "summary": "Credit a bank account",
+          "description": "",
+          "operationId": "creditAccount",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "accountNumber",
+              "description": "account number of the bank account",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Transactions"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Bank account credited successfully",
+              "schema": {
+                "$ref": "#/definitions/Transactions3"
+              }
+            },
+            "404": {
+                "description": "Transactions not found"
+              }
+          },
+          "security": [
+            {
+              "banka_auth": [
+                "write:transactions"
+              ]
+            }
+          ]
+        }
+      },
+      "/api/v1/transactions/{accountNumber}/debit": {
+        "post": {
+          "tags": [
+            "transactions"
+          ],
+          "summary": "Debit a bank account",
+          "description": "",
+          "operationId": "debitAccount",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "accountNumber",
+              "description": "account number of the bank account",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Transactions"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Bank account debit successfully",
+              "schema": {
+                "$ref": "#/definitions/Transactions3"
+              }
+            },
+            "404": {
+                "description": "Transactions not found"
+              }
+          },
+          "security": [
+            {
+              "banka_auth": [
+                "write:transactions"
+              ]
+            }
+          ]
+        }
+      },
+      "/transactions/{transactionId}": {
+        "get": {
+          "tags": [
+            "transaction"
+          ],
+          "summary": "Find transaction by ID",
+          "description": "Returns a single transaction",
+          "operationId": "getTransactionById",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "transactionId",
+              "in": "path",
+              "description": "ID of transaction to return",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful got transaction",
+              "schema": {
+                "$ref": "#/definitions/Transaction2"
+              }
+            },
+            "404": {
+              "description": "Transaction not found"
+            }
+          },
+          "security": [
+            {
+              "banka_auth": [
+                "read:transactions"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "securityDefinitions": {
+      "banka_auth": {
+        "type": "oauth2",
+        "authorizationUrl": "https://broad-bank.herokuapp.com/api/v1/auth/signin",
+        "flow": "implicit",
+        "scopes": {
+          "write:accounts": "create bank account",
+          "read:accounts": "get bank account",
+          "write:transactions": "add a transaction",
+          "read:transactions": "get transactions"
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    },
+    "definitions": {
+      "accounts": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "accountnumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "owner": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string",
+            "description": "bank account type",
+            "enum": [
+                "savings",
+                "current"
+              ]
+          },
+          "status": {
+            "type": "string",
+            "description": "bank account Status",
+            "enum": [
+              "draft",
+              "active",
+              "dormant"
+            ]
+          },
+          "balance": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdon": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "xml": {
+          "name": "accounts"
+        }
+      },
+      "accounts2": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "accountnumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "owner": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string",
+            "description": "bank account type",
+            "enum": [
+                "savings",
+                "current"
+              ]
+          },
+          "status": {
+            "type": "string",
+            "description": "bank account Status",
+            "enum": [
+              "draft",
+              "active",
+              "dormant"
+            ]
+          },
+          "balance": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdon": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "xml": {
+          "name": "accounts"
+        }
+      },
+      "accounts3": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "accountnumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "owner": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string",
+            "description": "bank account type",
+            "enum": [
+                "savings",
+                "current"
+              ]
+          },
+          "status": {
+            "type": "string",
+            "description": "bank account Status",
+            "enum": [
+              "draft",
+              "active",
+              "dormant"
+            ]
+          },
+          "balance": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdon": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "xml": {
+          "name": "accounts"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "description": "User type",
+            "enum": [
+                "client",
+                "staff"
+              ]
+          },
+          "isadmin": {
+            "type": "boolean"
+          },
+          "createdon": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "User2": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "description": "User type",
+            "enum": [
+                "client",
+                "staff"
+              ]
+          },
+          "isadmin": {
+            "type": "boolean"
+          },
+          "createdon": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Signin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "transactions": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "cashier": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "float"
+          },
+          "type": {
+            "type": "string",
+            "description": "Transaction type",
+            "enum": [
+                "credit",
+                "debit"
+              ]
+          },
+          "oldbalance": {
+            "type": "integer",
+            "format": "float"
+          },
+          "newbalance": {
+            "type": "integer",
+            "format": "float"
+          },
+          "createdon": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "xml": {
+          "name": "Transaction"
+        }
+      },
+      "transactions2": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "cashier": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "float"
+          },
+          "type": {
+            "type": "string",
+            "description": "Transaction type",
+            "enum": [
+                "credit",
+                "debit"
+              ]
+          },
+          "oldbalance": {
+            "type": "integer",
+            "format": "float"
+          },
+          "newbalance": {
+            "type": "integer",
+            "format": "float"
+          },
+          "createdon": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "xml": {
+          "name": "Transaction"
+        }
+      },
+      "transactions3": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "cashier": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "float"
+          },
+          "type": {
+            "type": "string",
+            "description": "Transaction type",
+            "enum": [
+                "credit",
+                "debit"
+              ]
+          },
+          "oldbalance": {
+            "type": "integer",
+            "format": "float"
+          },
+          "newbalance": {
+            "type": "integer",
+            "format": "float"
+          },
+          "createdon": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "xml": {
+          "name": "Transaction"
+        }
+      }
+    },
+    "externalDocs": {
+      "description": "Find out more about Swagger",
+      "url": "http://swagger.io"
+    }
+  }
