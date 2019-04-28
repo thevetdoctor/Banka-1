@@ -13,7 +13,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       }
     },
-    "host": "https://broad-bank.herokuapp.com",
+    "host": "broad-bank.herokuapp.com",
     "basePath": "/api/v1",
     "tags": [
       {
@@ -21,7 +21,7 @@
         "description": "User authentication",
         "externalDocs": {
           "description": "User signin and signup",
-          "url": "https://broad-bank.herokuapp.com"
+          "url": "broad-bank.herokuapp.com"
         }
       },
       {
@@ -29,22 +29,23 @@
         "description": "Everything about user transactions",
         "externalDocs": {
           "description": "Find out more",
-          "url": "https://broad-bank.herokuapp.com"
+          "url": "broad-bank.herokuapp.com"
         }
       },
       {
-        "name": "account",
+        "name": "accounts",
+        "description": "All about bank account",
         "externalDocs": {
-          "description": "All about bank account",
-          "url": "https://broad-bank.herokuapp.com"
+          "description": "user bank account",
+          "url": "broad-bank.herokuapp.com"
         }
       },
       {
-        "name": "user",
+        "name": "users",
         "description": "User operations",
         "externalDocs": {
           "description": "Find out more",
-          "url": "https://broad-bank.herokuapp.com"
+          "url": "broad-bank.herokuapp.com"
         }
       }
     ],
@@ -74,26 +75,30 @@
               "description": "create a bank account",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/Account"
+                "$ref": "#/definitions/Accounts"
               }
             }
           ],
           "responses": {
             "200": {
-              "description": "Account created Sucessfully"
+              "description": "Account created Sucessfully",
+              "schema": {
+                "$ref": "#/definitions/Accounts3"
+              }
             }
           },
           "security": [
             {
               "banka_auth": [
                 "write:accounts"
-              ]
+              ],
+              "api_key": []
             }
           ]
         },
         "get": {
           "tags": [
-            "Accounts"
+            "accounts"
           ],
           "summary": "Get all accounts",
           "description": "Return all accounts from the database",
@@ -103,18 +108,19 @@
           ],
           "parameters": [
             {
-              "in": "body",
-              "name": "body",
-              "description": "Get all bank accounts",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Account3"
+                "name": "status",
+                "in": "query",
+                "description": "Return all bank accounts with this status",
+                "required": false,
+                "type": "string"
               }
-            }
           ],
           "responses": {
             "200": {
-              "description": "Successfully got accounts"
+              "description": "Successfully got accounts",
+              "schema": {
+                "$ref": "#/definitions/Accounts4"
+              }
             },
             "404": {
               "description": "accounts not found"
@@ -124,7 +130,8 @@
             {
               "banka_auth": [
                 "read:accounts"
-              ]
+              ],
+              "api_key": []
             }
           ]
         }
@@ -154,7 +161,7 @@
             "200": {
               "description": "Successful got bank account",
               "schema": {
-                "$ref": "#/definitions/account3"
+                "$ref": "#/definitions/Accounts5"
               }
             },
             "404": {
@@ -165,7 +172,8 @@
             {
               "banka_auth": [
                 "read:accounts"
-              ]
+              ],
+              "api_key": []
             }
           ]
         },
@@ -192,18 +200,21 @@
               "format": "int64"
             },
             {
+              "in": "body",
               "name": "status",
-              "in": "query",
-              "description": "Updated status of the bank account",
-              "required": false,
-              "type": "string"
+              "description": "add bank account status",
+              "required": true,
+              "type": "string",
+              "schema": {
+                "$ref": "#/definitions/Accounts2"
+              }
             }
           ],
           "responses": {
             "202": {
               "description": "Bank account updated successfully",
               "schema": {
-                "$ref": "#/definitions/account3"
+                "$ref": "#/definitions/Accounts6"
               }
             },
             "404": {
@@ -214,7 +225,8 @@
             {
               "banka_auth": [
                 "read:accounts"
-              ]
+              ],
+              "api_key": []
             }
           ]
         }
@@ -222,7 +234,7 @@
       "/api/v1/user/{email}/accounts": {
         "get": {
           "tags": [
-            "user"
+            "accounts"
           ],
           "summary": "Find bank account by email",
           "description": "Returns all bank account",
@@ -244,7 +256,7 @@
             "200": {
               "description": "Successful got bank account(s)",
               "schema": {
-                "$ref": "#/definitions/accounts"
+                "$ref": "#/definitions/Accounts7"
               }
             },
             "404": {
@@ -255,7 +267,46 @@
             {
               "banka_auth": [
                 "read:accounts"
-              ]
+              ],
+              "api_key": []
+            }
+          ]
+        }
+      },
+      "/api/v1/accounts/{accountNumber}": {
+        "delete": {
+          "tags": [
+            "accounts"
+          ],
+          "summary": "Delete bank account by account number",
+          "description": "Bank account Sucessfully deleted",
+          "operationId": "deleteBankAccount",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "accoutNumber",
+              "in": "path",
+              "description": "Bank account Sucessfully deleted",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "202": {
+              "description": "Bank account Sucessfully deleted"
+            },
+            "404": {
+              "description": "Bank account not found"
+            }
+          },
+          "security": [
+            {
+              "banka_auth": [
+                "write:accounts"
+              ],
+              "api_key": []
             }
           ]
         }
@@ -289,7 +340,7 @@
             "201": {
               "description": "Account created successfully",
               "schema": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/User2"
               }
             }
           }
@@ -322,13 +373,13 @@
           ],
           "responses": {
             "200": {
-              "description": "You have been logged in successfully!"
+              "description": "You have been logged in successfully!",
+              "schema": {
+                "$ref": "#/definitions/User2"
+              }
             },
             "401": {
-              "description": "Could not login. The email and password do not match",
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
+              "description": "Could not login. The email and password do not match"
             }
           }
         }
@@ -362,7 +413,7 @@
             "200": {
               "description": "Bank account credited successfully",
               "schema": {
-                "$ref": "#/definitions/Transactions3"
+                "$ref": "#/definitions/Transactions2"
               }
             },
             "404": {
@@ -373,7 +424,8 @@
             {
               "banka_auth": [
                 "write:transactions"
-              ]
+              ],
+              "api_key": []
             }
           ]
         }
@@ -407,7 +459,7 @@
             "200": {
               "description": "Bank account debit successfully",
               "schema": {
-                "$ref": "#/definitions/Transactions3"
+                "$ref": "#/definitions/Transactions2"
               }
             },
             "404": {
@@ -418,7 +470,8 @@
             {
               "banka_auth": [
                 "write:transactions"
-              ]
+              ],
+              "api_key": []
             }
           ]
         }
@@ -426,7 +479,7 @@
       "/transactions/{transactionId}": {
         "get": {
           "tags": [
-            "transaction"
+            "transactions"
           ],
           "summary": "Find transaction by ID",
           "description": "Returns a single transaction",
@@ -448,7 +501,7 @@
             "200": {
               "description": "Successful got transaction",
               "schema": {
-                "$ref": "#/definitions/Transaction2"
+                "$ref": "#/definitions/Transactions3"
               }
             },
             "404": {
@@ -459,7 +512,8 @@
             {
               "banka_auth": [
                 "read:transactions"
-              ]
+              ],
+              "api_key": []
             }
           ]
         }
@@ -468,7 +522,7 @@
     "securityDefinitions": {
       "banka_auth": {
         "type": "oauth2",
-        "authorizationUrl": "https://broad-bank.herokuapp.com/api/v1/auth/signin",
+        "authorizationUrl": "broad-bank.herokuapp.com/api/v1/auth/signin",
         "flow": "implicit",
         "scopes": {
           "write:accounts": "create bank account",
@@ -479,26 +533,78 @@
       },
       "api_key": {
         "type": "apiKey",
-        "name": "api_key",
+        "name": "token",
         "in": "header"
       }
     },
     "definitions": {
-      "accounts": {
+      "Accounts": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
+          "type": {
+            "type": "string",
+            "description": "bank account type",
+            "enum": [
+                "savings",
+                "current"
+              ]
+          }
+        },
+        "xml": {
+          "name": "accounts"
+        }
+      },
+      "Accounts2": {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string",
+                "description": "bank account status",
+                "enum": [
+                    "active",
+                    "dormant"
+                  ]
+              }
+        },
+        "xml": {
+          "name": "accounts"
+        }
+      },
+      "Accounts3": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "integer"
           },
-          "accountnumber": {
+          "type": {
+            "type": "string",
+            "description": "bank account type",
+            "enum": [
+                "savings",
+                "current"
+              ]
+          },
+          "openingBalance": {
             "type": "integer",
-            "format": "int64"
+            "format": "float"
+          }
+        },
+        "xml": {
+          "name": "accounts"
+        }
+      },
+      "Accounts4": {
+        "type": "object",
+        "properties": {
+            "id": {
+            "type": "integer"
+            },
+          "accountNumber": {
+            "type": "integer"
           },
           "owner": {
-            "type": "integer",
-            "format": "int64"
-          },
+            "type": "integer"
+            },
           "type": {
             "type": "string",
             "description": "bank account type",
@@ -509,18 +615,18 @@
           },
           "status": {
             "type": "string",
-            "description": "bank account Status",
+            "description": "bank account status",
             "enum": [
-              "draft",
-              "active",
-              "dormant"
-            ]
+                "draft",
+                "savings",
+                "current"
+              ]
           },
           "balance": {
             "type": "integer",
-            "format": "int64"
+            "format": "float"
           },
-          "createdon": {
+          "createdOn": {
             "type": "string",
             "format": "date-time"
           }
@@ -529,21 +635,18 @@
           "name": "accounts"
         }
       },
-      "accounts2": {
+      "Accounts5": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
+          "accountNumber": {
+            "type": "integer"
           },
-          "accountnumber": {
-            "type": "integer",
-            "format": "int64"
-          },
+          "email": {
+            "type": "string"
+            },
           "owner": {
-            "type": "integer",
-            "format": "int64"
-          },
+            "type": "integer"
+            },
           "type": {
             "type": "string",
             "description": "bank account type",
@@ -554,18 +657,18 @@
           },
           "status": {
             "type": "string",
-            "description": "bank account Status",
+            "description": "bank account status",
             "enum": [
-              "draft",
-              "active",
-              "dormant"
-            ]
+                "draft",
+                "savings",
+                "current"
+              ]
           },
           "balance": {
             "type": "integer",
-            "format": "int64"
+            "format": "float"
           },
-          "createdon": {
+          "createdOn": {
             "type": "string",
             "format": "date-time"
           }
@@ -574,21 +677,34 @@
           "name": "accounts"
         }
       },
-      "accounts3": {
+      "Accounts6": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
+          "accountNumber": {
+            "type": "integer"
           },
-          "accountnumber": {
-            "type": "integer",
-            "format": "int64"
+          "type": {
+            "type": "string",
+            "description": "bank account status",
+            "enum": [
+                "active",
+                "dormant"
+              ]
+          }
+        },
+        "xml": {
+          "name": "accounts"
+        }
+      },
+      "Accounts7": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "integer"
           },
           "owner": {
-            "type": "integer",
-            "format": "int64"
-          },
+            "type": "integer"
+            },
           "type": {
             "type": "string",
             "description": "bank account type",
@@ -599,18 +715,18 @@
           },
           "status": {
             "type": "string",
-            "description": "bank account Status",
+            "description": "bank account status",
             "enum": [
-              "draft",
-              "active",
-              "dormant"
-            ]
+                "draft",
+                "savings",
+                "current"
+              ]
           },
           "balance": {
             "type": "integer",
-            "format": "int64"
+            "format": "float"
           },
-          "createdon": {
+          "createdOn": {
             "type": "string",
             "format": "date-time"
           }
@@ -622,10 +738,10 @@
       "User": {
         "type": "object",
         "properties": {
-          "firstname": {
+          "firstName": {
             "type": "string"
           },
-          "lastname": {
+          "lastName": {
             "type": "string"
           },
           "email": {
@@ -633,21 +749,6 @@
           },
           "password": {
             "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "description": "User type",
-            "enum": [
-                "client",
-                "staff"
-              ]
-          },
-          "isadmin": {
-            "type": "boolean"
-          },
-          "createdon": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "xml": {
@@ -657,36 +758,21 @@
       "User2": {
         "type": "object",
         "properties": {
-          "firstname": {
-            "type": "string"
-          },
-          "lastname": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "description": "User type",
-            "enum": [
-                "client",
-                "staff"
-              ]
-          },
-          "isadmin": {
-            "type": "boolean"
-          },
-          "createdon": {
-            "type": "string",
-            "format": "date-time"
-          }
+                "token": {
+                   "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
         },
         "xml": {
-          "name": "User"
+          "name": "User2"
         }
       },
       "Signin": {
@@ -700,17 +786,9 @@
           }
         }
       },
-      "transactions": {
+      "Transactions": {
         "type": "object",
         "properties": {
-          "accountNumber": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "cashier": {
-            "type": "integer",
-            "format": "int64"
-          },
           "amount": {
             "type": "integer",
             "format": "float"
@@ -722,25 +800,13 @@
                 "credit",
                 "debit"
               ]
-          },
-          "oldbalance": {
-            "type": "integer",
-            "format": "float"
-          },
-          "newbalance": {
-            "type": "integer",
-            "format": "float"
-          },
-          "createdon": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "xml": {
           "name": "Transaction"
         }
       },
-      "transactions2": {
+      "Transactions2": {
         "type": "object",
         "properties": {
           "accountNumber": {
@@ -767,20 +833,16 @@
             "type": "integer",
             "format": "float"
           },
-          "newbalance": {
+          "accountbalance": {
             "type": "integer",
             "format": "float"
-          },
-          "createdon": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "xml": {
           "name": "Transaction"
         }
       },
-      "transactions3": {
+      "Transactions3": {
         "type": "object",
         "properties": {
           "accountNumber": {
@@ -803,15 +865,15 @@
                 "debit"
               ]
           },
-          "oldbalance": {
+          "oldBalance": {
             "type": "integer",
             "format": "float"
           },
-          "newbalance": {
+          "newBalance": {
             "type": "integer",
             "format": "float"
           },
-          "createdon": {
+          "createdOn": {
             "type": "string",
             "format": "date-time"
           }
