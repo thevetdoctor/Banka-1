@@ -20,8 +20,6 @@ class ValidateHelper {
     if (!obj.Firstname || !rules.empty.test(obj.Firstname.trim())) {
       errors.Firstname.push(validationErrors.fnameRequired);
     }
-
-
     if (!obj.Lastname || !rules.empty.test(obj.Lastname.trim())) {
       errors.Lastname.push(validationErrors.lnameRequired);
     }
@@ -39,8 +37,7 @@ class ValidateHelper {
     if (!rules.validPassword.test(obj.Password)) errors.Password.push(validationErrors.validPassword);
     if (!rules.passwordLength.test(obj.Password)) errors.Password.push(validationErrors.passwordLength);
 
-    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
-    return errors;
+    return ValidateHelper.emptyArr(errors);
   }
 
   /**
@@ -51,6 +48,14 @@ class ValidateHelper {
     Object.keys(obj).forEach((key) => {
       errors[`${key}`] = [];
     });
+    return errors;
+  }
+
+  /**
+   * Check for empty error array
+   */
+  static emptyArr(errors) {
+    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
     return errors;
   }
 
@@ -67,8 +72,7 @@ class ValidateHelper {
     if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.accountTypeRequired);
     if (!rules.accountType.test(obj.Type)) errors.Type.push(validationErrors.validType);
 
-    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
-    return errors;
+    return ValidateHelper.emptyArr(errors);
   }
 
   /**
@@ -82,8 +86,7 @@ class ValidateHelper {
     if (!obj.Status || !rules.empty.test(obj.Status)) errors.Status.push(validationErrors.statusRequired);
     if (!rules.accountStatus.test(obj.Status)) errors.Status.push(validationErrors.validStatus);
 
-    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
-    return errors;
+    return ValidateHelper.emptyArr(errors);
   }
 
   /*
@@ -137,8 +140,7 @@ class ValidateHelper {
     if (!rules.validAmount.test(obj.Amount)) errors.Amount.push(validationErrors.validAmount);
     if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.debitTypeRequired);
     if (obj.Type !== 'debit') errors.Type.push(validationErrors.validDebitType);
-    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
-    return errors;
+    return ValidateHelper.emptyArr(errors);
   }
 
   /**
@@ -154,8 +156,7 @@ class ValidateHelper {
     if (!rules.validAmount.test(obj.Amount)) errors.Amount.push(validationErrors.validAmount);
     if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.creditTypeRequired);
     if (obj.Type !== 'credit') errors.Type.push(validationErrors.validCreditType);
-    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
-    return errors;
+    return ValidateHelper.emptyArr(errors);
   }
 
   /**
