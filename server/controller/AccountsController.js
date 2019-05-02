@@ -144,7 +144,7 @@ class AccountsController {
    *  @return {Object} json
    *
    */
-  static getUserAccounts(request, response) {
+  static getAccounts(request, response) {
     const { email } = request.params;
     const { id, type } = request.token.user;
     let query = `SELECT accounts.createdOn, accounts.accountnumber, 
@@ -166,7 +166,7 @@ class AccountsController {
             error: validationErrors.accountNotFound,
           });
         }
-        AccountsController.getUserAccountsSuccess(response, dbResult);
+        AccountsController.getAccountsSuccess(response, dbResult);
       });
     // .catch((error) => { response.status(500).send(error); });
   }
@@ -230,21 +230,6 @@ class AccountsController {
         AccountsController.getAccountsSuccess(response, dbResult);
       });
     // .catch((error) => { response.status(500).send(error); });
-  }
-
-
-  /**
-   *  Return user account response
-   *  @param {Object} response
-   *  @param {Object} dbResult
-   *  @return {Object} json
-   *
-   */
-  static getUserAccountsSuccess(response, dbResult) {
-    return response.status(200).json({
-      status: 200,
-      accounts: dbResult.rows,
-    });
   }
 
   /**

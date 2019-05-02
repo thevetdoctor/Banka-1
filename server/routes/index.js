@@ -30,7 +30,7 @@ const routes = (app) => {
     ValidateAccount.validateAccountNumber, TransactionsController.getUserAccountHistory);
   app.get('/api/v1/transactions/:id', userAuthenticate.authenticateUser, ValidateAccount.validateId, TransactionsController.getTransactionById);
   app.get('/api/v1/user/:email/accounts', userAuthenticate.authenticateUser, ValidateAccount.validateEmail,
-    AccountsController.getUserAccounts);
+    AccountsController.getAccounts);
   app.get('/api/v1/accounts/:accountNumber', userAuthenticate.authenticateUser, ValidateAccount.validateAccountNumber,
     AccountsController.getUserAccount);
   app.get('/api/v1/accounts', userAuthenticate.authenticateAdmin, AccountsController.getAllAccounts);
