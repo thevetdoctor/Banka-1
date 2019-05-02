@@ -15,12 +15,7 @@ class ValidateHelper {
    *  * @return {Object} errors
    *  */
   static validateUser(obj) {
-    const errors = {
-    };
-
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Firstname || !rules.empty.test(obj.Firstname.trim())) {
       errors.Firstname.push(validationErrors.fnameRequired);
@@ -49,6 +44,17 @@ class ValidateHelper {
   }
 
   /**
+   * Initialise all errors as an array
+   */
+  static errorsArr(obj) {
+    const errors = {};
+    Object.keys(obj).forEach((key) => {
+      errors[`${key}`] = [];
+    });
+    return errors;
+  }
+
+  /**
    *  * validate account
    *  * @param {String} owner
    *  * @param {String} type
@@ -56,11 +62,7 @@ class ValidateHelper {
    *  */
 
   static validateAccount(obj) {
-    const errors = {
-    };
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.accountTypeRequired);
     if (!rules.accountType.test(obj.Type)) errors.Type.push(validationErrors.validType);
@@ -75,11 +77,7 @@ class ValidateHelper {
    *  * @return {Object} errors
    *  */
   static validateUpdateAccountStatus(obj) {
-    const errors = {
-    };
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Status || !rules.empty.test(obj.Status)) errors.Status.push(validationErrors.statusRequired);
     if (!rules.accountStatus.test(obj.Status)) errors.Status.push(validationErrors.validStatus);
@@ -133,11 +131,7 @@ class ValidateHelper {
    *  * @return {Object} errors
    *  */
   static validateDebitAccount(obj) {
-    const errors = {
-    };
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Amount || !rules.empty.test(obj.Amount)) errors.Amount.push(validationErrors.amountRequired);
     if (!rules.validAmount.test(obj.Amount)) errors.Amount.push(validationErrors.validAmount);
@@ -154,11 +148,7 @@ class ValidateHelper {
    *  * @return {Object} errors
    *  */
   static validateCreditAccount(obj) {
-    const errors = {
-    };
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Amount || !rules.empty.test(obj.Amount)) errors.Amount.push(validationErrors.amountRequired);
     if (!rules.validAmount.test(obj.Amount)) errors.Amount.push(validationErrors.validAmount);
@@ -183,16 +173,5 @@ class ValidateHelper {
     return next();
   }
 
-  static getFirstError(errors) {
-    const firstKey = Object.keys(errors)[0];
-    const error = Object.keys(errors)
-      .filter(key => key === firstKey)
-      .reduce((obj, key) => {
-        obj[key] = errors[key];
-        return obj;
-      }, {});
-
-    return error;
-  }
 }
 export default ValidateHelper;
