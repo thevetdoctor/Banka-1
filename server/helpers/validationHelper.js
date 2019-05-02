@@ -15,18 +15,11 @@ class ValidateHelper {
    *  * @return {Object} errors
    *  */
   static validateUser(obj) {
-    const errors = {
-    };
-
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Firstname || !rules.empty.test(obj.Firstname.trim())) {
       errors.Firstname.push(validationErrors.fnameRequired);
     }
-
-
     if (!obj.Lastname || !rules.empty.test(obj.Lastname.trim())) {
       errors.Lastname.push(validationErrors.lnameRequired);
     }
@@ -44,6 +37,24 @@ class ValidateHelper {
     if (!rules.validPassword.test(obj.Password)) errors.Password.push(validationErrors.validPassword);
     if (!rules.passwordLength.test(obj.Password)) errors.Password.push(validationErrors.passwordLength);
 
+    return ValidateHelper.emptyArr(errors);
+  }
+
+  /**
+   * Initialise all errors as an array
+   */
+  static errorsArr(obj) {
+    const errors = {};
+    Object.keys(obj).forEach((key) => {
+      errors[`${key}`] = [];
+    });
+    return errors;
+  }
+
+  /**
+   * Check for empty error array
+   */
+  static emptyArr(errors) {
     Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
     return errors;
   }
@@ -56,17 +67,12 @@ class ValidateHelper {
    *  */
 
   static validateAccount(obj) {
-    const errors = {
-    };
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.accountTypeRequired);
     if (!rules.accountType.test(obj.Type)) errors.Type.push(validationErrors.validType);
 
-    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
-    return errors;
+    return ValidateHelper.emptyArr(errors);
   }
 
   /**
@@ -75,17 +81,12 @@ class ValidateHelper {
    *  * @return {Object} errors
    *  */
   static validateUpdateAccountStatus(obj) {
-    const errors = {
-    };
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Status || !rules.empty.test(obj.Status)) errors.Status.push(validationErrors.statusRequired);
     if (!rules.accountStatus.test(obj.Status)) errors.Status.push(validationErrors.validStatus);
 
-    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
-    return errors;
+    return ValidateHelper.emptyArr(errors);
   }
 
   /*
@@ -133,18 +134,13 @@ class ValidateHelper {
    *  * @return {Object} errors
    *  */
   static validateDebitAccount(obj) {
-    const errors = {
-    };
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Amount || !rules.empty.test(obj.Amount)) errors.Amount.push(validationErrors.amountRequired);
     if (!rules.validAmount.test(obj.Amount)) errors.Amount.push(validationErrors.validAmount);
     if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.debitTypeRequired);
     if (obj.Type !== 'debit') errors.Type.push(validationErrors.validDebitType);
-    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
-    return errors;
+    return ValidateHelper.emptyArr(errors);
   }
 
   /**
@@ -154,18 +150,13 @@ class ValidateHelper {
    *  * @return {Object} errors
    *  */
   static validateCreditAccount(obj) {
-    const errors = {
-    };
-    Object.keys(obj).forEach((key) => {
-      errors[`${key}`] = [];
-    });
+    const errors = ValidateHelper.errorsArr(obj);
 
     if (!obj.Amount || !rules.empty.test(obj.Amount)) errors.Amount.push(validationErrors.amountRequired);
     if (!rules.validAmount.test(obj.Amount)) errors.Amount.push(validationErrors.validAmount);
     if (!obj.Type || !rules.empty.test(obj.Type)) errors.Type.push(validationErrors.creditTypeRequired);
     if (obj.Type !== 'credit') errors.Type.push(validationErrors.validCreditType);
-    Object.keys(errors).forEach(key => (errors[key].length === 0 ? delete errors[key] : ''));
-    return errors;
+    return ValidateHelper.emptyArr(errors);
   }
 
   /**
@@ -183,16 +174,5 @@ class ValidateHelper {
     return next();
   }
 
-  static getFirstError(errors) {
-    const firstKey = Object.keys(errors)[0];
-    const error = Object.keys(errors)
-      .filter(key => key === firstKey)
-      .reduce((obj, key) => {
-        obj[key] = errors[key];
-        return obj;
-      }, {});
-
-    return error;
-  }
 }
 export default ValidateHelper;
