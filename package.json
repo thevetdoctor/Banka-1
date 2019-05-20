@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Banka is a light-weight core banking application that powers banking operations",
   "main": "app.js",
-  "scripts": {
+  "scripts": {  
     "dev-start": "set NODE_ENV=development && nodemon --exec  babel-node app.js",
     "dev:migrate": "set NODE_ENV=development&&babel-node server/models/index.js",
     "lint": "eslint ./server",

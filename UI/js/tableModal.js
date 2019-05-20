@@ -2,38 +2,37 @@
 (function() {
   /* Opening modal window function */
   function openModal() {
-      /* Get trigger element */
-      var modalTrigger = document.getElementById('jsModalTrigger');
-      var modal = document.getElementById('jsModal')
-      var rows = modalTrigger.getElementsByTagName("tr");
-      
-      /* Set onclick event handler for all trigger elements */
-      for(var i = 1; i < rows.length; i++) {
-          rows[i].onclick = function() {
-            modal.classList.toggle('open');
-            modal.classList.remove('close'); 
-          }
-      }   
+    /* Get trigger element */
+    const modalTrigger = document.getElementById('jsModalTrigger');
+    const modal = document.getElementById('jsModal');
+    const rows = modalTrigger.getElementsByTagName('tr');
+
+    /* Set onclick event handler for all trigger elements */
+    for (let i = 1; i < rows.length; i++) {
+      rows[i].onclick = function() {
+        modal.classList.toggle('open');
+        modal.classList.remove('close');
+      };
+    }
   }
 
-  function closeModal(){
+  function closeModal() {
     /* Get close button */
-    var closeButton = document.getElementsByClassName('jsModalClose');
-    var modal = document.getElementById('jsModal')
+    const closeButton = document.getElementsByClassName('jsModalClose');
+    const modal = document.getElementById('jsModal');
 
     /* Set onclick event handler for close buttons */
-      for(var i = 0; i < closeButton.length; i++) {
-        closeButton[i].onclick = function() {
-            modal.classList.toggle('open');
-          modal.classList.add('close');
-        }
-      }  
-
+    for (let i = 0; i < closeButton.length; i++) {
+      closeButton[i].onclick = function() {
+        modal.classList.toggle('open');
+        modal.classList.add('close');
+      };
+    }
   }
 
   /* Handling domready event IE9+ */
   function ready(fn) {
-    if (document.readyState != 'loading'){
+    if (document.readyState != 'loading') {
       fn();
     } else {
       document.addEventListener('DOMContentLoaded', fn);
